@@ -1,18 +1,19 @@
-package com.hexaware.roadready.entities;
+package com.hexaware.roadready.dto;
 
-public class Admin {
+
+public class AdminDTO {
 
 	private String username;
 	private String password;
 	
 	
-	public Admin() {
+	public AdminDTO() {
 		super();
 	}
 
 	// parameterized constructor
 	
-	public Admin(String username, String password) {
+	public AdminDTO(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
