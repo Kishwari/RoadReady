@@ -1,10 +1,18 @@
 package com.hexaware.roadready.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.Entity;
+
+
+@Entity
 public class Admin {
 
 	private String username;
 	private String password;
 	
+
 	
 	public Admin() {
 		super();

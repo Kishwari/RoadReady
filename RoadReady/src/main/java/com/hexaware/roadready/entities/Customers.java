@@ -21,7 +21,7 @@ public class Customers {
 	
 	//for customers to payment (1-M)
 	@OneToMany(mappedBy="customers")
-	private Set<Payments> paymentSet;
+	private Set<Payments> paymentSet = new HashSet<Payments>();
 	
 	// for reservations to customers (1-M)
 	@OneToMany(mappedBy="customers")
