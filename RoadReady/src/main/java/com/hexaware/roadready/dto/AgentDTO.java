@@ -1,27 +1,25 @@
 package com.hexaware.roadready.dto;
 
-
-public class AdminDTO {
-    
-	private String adminId;
+public class AgentDTO {
+         
+	private int agentId;
 	private String username;
 	private String password;
-	
-	public AdminDTO() {
+	public AgentDTO() {
 		super();
-		
+		// TODO Auto-generated constructor stub
 	}
-	public AdminDTO(String adminId, String username, String password) {
+	public AgentDTO(int agentId, String username, String password) {
 		super();
-		this.adminId = adminId;
+		this.agentId = agentId;
 		this.username = username;
 		this.password = password;
 	}
-	public String getAdminId() {
-		return adminId;
+	public int getAgentId() {
+		return agentId;
 	}
-	public void setAdminId(String adminId) {
-		this.adminId = adminId;
+	public void setAgentId(int agentId) {
+		this.agentId = agentId;
 	}
 	public String getUsername() {
 		return username;
@@ -37,8 +35,6 @@ public class AdminDTO {
 	}
 	@Override
 	public String toString() {
-		return "AdminDTO [adminId=" + adminId + ", username=" + username + ", password=" + password + "]";
+		return "AgentDTO [agentId=" + agentId + ", username=" + username + ", password=" + password + "]";
 	}
-	
-	
 }

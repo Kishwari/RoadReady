@@ -3,23 +3,35 @@ package com.hexaware.roadready.service;
 import java.util.Date;
 import java.util.List;
 
+import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
+import com.hexaware.roadready.entities.Feedback;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
 
 
 
 public interface ICustomerService {
-	List<Cars> searchCars(String location, Date date, String make,String model);
+	
+	public List<Cars> getAvailableCars(); 
+	
+	List<Cars> searchCars(String location,String make,String model);
     
-    Reservations makeReservation(Customers customer, Cars car, Date dateOfPickup, Date dateOfDropoff);
+	
+    Reservations makeReservation(Reservations reservation);
     
-    List<Reservations> manageReservations(Customers customer);
+    String cancelReservation(int reservationId);
     
-    boolean checkCarAvailability(String location, Date dateOfPickup , String make , String model);
+    Reservations modifyReservation(int reservationId);
     
-    void provideFeedback(Customers customer, String feedback, int rating);
+  
     
-    List<Payments> viewPaymentHistory(Customers customer);
+    void provideFeedback(Feedback feedback);
+    
+    List<Payments> viewPaymentHistory(int customerId);
+    
+    List<Reservations> viewReservations(int customerId);
+ 
+    public CustomerDTO	updateCustomer(CustomerDTO customer);
 }

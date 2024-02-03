@@ -1,11 +1,21 @@
 package com.hexaware.roadready.service;
 
-import com.hexaware.roadready.entities.Cars;
-import com.hexaware.roadready.entities.Customers;
+
 
 public interface IAgentService {
 	
-	void checkInAndCheckOut(Customers customer, Cars car);
-    
-    void provideMaintenanceAlert(Cars car, String alertMessage);
+	
+	 public String completeCheckIn(int reservationId);
+	 
+	 public String completeCheckOut(int reservationId);
+	        
+     public String updateCarAvailability(int carId);
+	 
+     public String verifyIdentity(int customerId);
+     
+     public String agentReport();
+     
+     public String provideCarMaintenanceAlerts(int carId);    
+     
+     
 }

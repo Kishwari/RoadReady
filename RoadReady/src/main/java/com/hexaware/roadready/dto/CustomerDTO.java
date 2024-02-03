@@ -5,6 +5,7 @@ public class CustomerDTO {
 	private  int customerId;
 	private String firstName;
 	private String lastName;
+	private String username;
 	private String emailAddress;
 	private String password;
 	private String phoneNumber;
@@ -14,22 +15,19 @@ public class CustomerDTO {
 	public CustomerDTO() {
 		super();
 	}
-	
-	// parameterized constructor
-	
-	public CustomerDTO(int customerId, String firstName, String lastName, String emailAddress, String password,
-			String phoneNumber) {
+
+	public CustomerDTO(int customerId, String firstName, String lastName, String username, String emailAddress,
+			String password, String phoneNumber) {
 		super();
 		this.customerId = customerId;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.username = username;
 		this.emailAddress = emailAddress;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
 	}
 
-	// getters and setters
-	
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -52,6 +50,14 @@ public class CustomerDTO {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getEmailAddress() {
@@ -81,8 +87,8 @@ public class CustomerDTO {
 	@Override
 	public String toString() {
 		return "CustomerDTO [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", emailAddress=" + emailAddress + ", password=" + password + ", phoneNumber=" + phoneNumber + "]";
+				+ ", username=" + username + ", emailAddress=" + emailAddress + ", password=" + password
+				+ ", phoneNumber=" + phoneNumber + "]";
 	}
 	
-	
-}
+}	
