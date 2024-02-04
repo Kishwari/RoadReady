@@ -1,14 +1,12 @@
 package com.hexaware.roadready.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
-
-
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -19,7 +17,7 @@ public class Payments {
 	@NotBlank
 	private double amountPaid;              
 	@NotBlank
-	private Date dateOfPayment ;
+	private LocalDate dateOfPayment ;
 	@NotBlank
 	private String modeOfPayment ;
 	
@@ -36,7 +34,7 @@ public class Payments {
 		
 	}
 	
-	public Payments(int paymentId, int reservationId, double amountPaid, Date dateOfPayment, String modeOfPayment) {
+	public Payments(int paymentId, int reservationId, double amountPaid, LocalDate dateOfPayment, String modeOfPayment) {
 		super();
 		this.paymentId = paymentId;
 		//this.reservationId = reservationId;
@@ -64,10 +62,10 @@ public class Payments {
 	public void setAmountPaid(double amountPaid) {
 		this.amountPaid = amountPaid;
 	}
-	public Date getDateOfPayment() {
+	public LocalDate getDateOfPayment() {
 		return dateOfPayment;
 	}
-	public void setDateOfPayment(Date dateOfPayment) {
+	public void setDateOfPayment(LocalDate dateOfPayment) {
 		this.dateOfPayment = dateOfPayment;
 	}
 	public String getModeOfPayment() {

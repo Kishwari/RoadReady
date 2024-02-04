@@ -20,6 +20,11 @@ import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
+import com.hexaware.roadready.exceptions.AgentNotFoundException;
+import com.hexaware.roadready.exceptions.CarNotFoundException;
+import com.hexaware.roadready.exceptions.CustomerNotFoundException;
+import com.hexaware.roadready.exceptions.PaymentNotFoundException;
+import com.hexaware.roadready.exceptions.ReservationNotFoundException;
 import com.hexaware.roadready.service.IAdminService;
 
 @RestController
@@ -36,8 +41,12 @@ public class AdminRestController {
 		return service.addCustomer(customer);
 	}
 	@GetMapping("/getCustomerById/{customerId}")
-	public CustomerDTO	getCustomerById(@PathVariable int customerId) {
-		return service.getCustomerById(customerId);
+	public CustomerDTO	getCustomerById(@PathVariable int customerId) throws CustomerNotFoundException {
+		CustomerDTO customer = service.getCustomerById(customerId);
+		if(customer==null) {
+			throw new CustomerNotFoundException();
+		}
+		return customer;
 	}
 	
 	@GetMapping("/getAllCustomers")
@@ -59,8 +68,12 @@ public class AdminRestController {
 	}
     
 	@GetMapping("/getCarById/{carId}")
-	public CarDTO	getCarById(@PathVariable int carId) {
-		return service.getCarById(carId);
+	public CarDTO	getCarById(@PathVariable int carId) throws CarNotFoundException {
+		CarDTO car= service.getCarById(carId);
+		if(car==null) {
+			throw new CarNotFoundException();
+		}
+		return car;
 	}
 	
 	@GetMapping("/getAllCars")
@@ -74,28 +87,49 @@ public class AdminRestController {
 	}
 	
 	@PutMapping("/updateCarDetails")
-	public CustomerDTO	updateCar(@RequestBody CarDTO car) {
-		return service.updateCar(car);
+	public CarDTO	updateCar(@RequestBody CarDTO car) throws CarNotFoundException {
+		CarDTO checkCar = service.updateCar(car);
+		if(checkCar == null) {
+			throw new CarNotFoundException();
+		}
+		return checkCar;
 	}
     
 	@GetMapping("/getPaymentsOfCustomer/{customerId}")
-    public List<Payments> getPaymentDetailsForCustomer(@PathVariable int customerId){
-		return service.getPaymentDetailsForCustomer(customerId);
+    public List<Payments> getPaymentDetailsForCustomer(@PathVariable int customerId) throws PaymentNotFoundException{
+		List<Payments>  payments = service.getPaymentDetailsForCustomer(customerId);
+		if(payments == null) {
+			throw new PaymentNotFoundException();
+			
+		}
+		return payments;
 	}
     
 	@GetMapping("/getReservationsOfCustomer/{customerId}")
-    public List<Reservations> getReservationDetailsForCustomer(@PathVariable int customerId){
-		return service.getReservationDetailsForCustomer(customerId);
+    public List<Reservations> getReservationDetailsForCustomer(@PathVariable int customerId) throws ReservationNotFoundException{
+		List<Reservations> reservations = service.getReservationDetailsForCustomer(customerId);
+		if(reservations==null) {
+			throw new ReservationNotFoundException();
+	    }
+		return reservations;
 	}
     
     @PutMapping("/discountOnCar/{carId}/{discountPrice}")
-    public CarDTO discountOnCarPrice(@PathVariable int carId ,@PathVariable double discountPrice) {
-    	return service.discountOnCarPrice(carId, discountPrice);
+    public CarDTO discountOnCarPrice(@PathVariable int carId ,@PathVariable double discountPrice) throws CarNotFoundException {
+    	CarDTO car = service.discountOnCarPrice(carId, discountPrice);
+    	if(car ==null) {
+    		throw new CarNotFoundException();
+    	}
+    	return car;
     }
     
     @PutMapping("/updateCarPrice/{carId}/{newprice}")
-    public CarDTO updateCarPrice(@PathVariable int carId , @PathVariable double newPrice) {
-    	return service.updateCarPrice(carId, newPrice);
+    public CarDTO updateCarPrice(@PathVariable int carId , @PathVariable double newPrice) throws CarNotFoundException {
+    	CarDTO car = service.updateCarPrice(carId, newPrice);
+    	if(car == null) {
+    		throw new CarNotFoundException();
+    	}
+    	return car;
     }
     
     
@@ -106,8 +140,12 @@ public class AdminRestController {
     }
 	
     @GetMapping("/getAgentById/{agentId}")
-    public AgentDTO getAgentById(@PathVariable int agentId) {
-    	return service.getAgentById(agentId);
+    public AgentDTO getAgentById(@PathVariable int agentId) throws AgentNotFoundException {
+    	AgentDTO agent = service.getAgentById(agentId);
+    	if(agent==null) {
+    		throw new AgentNotFoundException();
+    	}
+    	return agent;
     }
     
     @GetMapping("/getAllAgents")

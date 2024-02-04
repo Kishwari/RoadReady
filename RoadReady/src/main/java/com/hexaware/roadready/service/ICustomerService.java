@@ -24,11 +24,11 @@ public interface ICustomerService {
     
     String cancelReservation(int reservationId);
     
-    ReservationDTO modifyReservation(int reservationId);
+    ReservationDTO modifyReservation(ReservationDTO reservation);
     
   
     
-    void provideFeedback(Feedback feedback);
+    Feedback provideFeedback(Feedback feedback);
     
     List<Payments> viewPaymentHistory(int customerId);
     

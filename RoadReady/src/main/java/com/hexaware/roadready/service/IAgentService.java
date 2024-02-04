@@ -1,6 +1,7 @@
 package com.hexaware.roadready.service;
 
-
+import com.hexaware.roadready.dto.CarDTO;
+import com.hexaware.roadready.dto.CustomerDTO;
 
 public interface IAgentService {
 	
@@ -9,9 +10,9 @@ public interface IAgentService {
 	 
 	 public String completeCheckOut(int reservationId);
 	        
-     public String updateCarAvailability(int carId);
+     public CarDTO updateCarAvailability(int carId);
 	 
-     public String verifyIdentity(int customerId);
+     public CustomerDTO verifyIdentity(int customerId);
      
      public String agentReport();
      

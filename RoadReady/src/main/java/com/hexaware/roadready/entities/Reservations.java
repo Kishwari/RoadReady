@@ -1,17 +1,13 @@
 package com.hexaware.roadready.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 
@@ -23,11 +19,11 @@ public class Reservations {
 	@NotBlank
 	private String Reservationstatus ; 
 	@NotBlank
-	private Date dateOfReservation;
+	private LocalDate dateOfReservation;
 	@NotBlank
-	private Date dateOfPickup;
+	private LocalDate dateOfPickup;
 	@NotBlank
-	private Date dateOfDropoff;
+	private LocalDate dateOfDropoff;
 	
 	@ManyToOne
 	@JoinColumn(name = "customerId")
@@ -49,8 +45,8 @@ public class Reservations {
 		super();
 	
 	}
-	public Reservations(int resevationId, int carId, int customerId, String reservationstatus, Date dateOfReservation,
-			Date dateOfPickup, Date dateOfDropoff) {
+	public Reservations(int resevationId, int carId, int customerId, String reservationstatus, LocalDate dateOfReservation,
+			LocalDate dateOfPickup, LocalDate dateOfDropoff) {
 		super();
 		this.resevationId = resevationId;
 		//this.carId = carId;
@@ -84,22 +80,22 @@ public class Reservations {
 	public void setReservationstatus(String reservationstatus) {
 		Reservationstatus = reservationstatus;
 	}
-	public Date getDateOfReservation() {
+	public LocalDate getDateOfReservation() {
 		return dateOfReservation;
 	}
-	public void setDateOfReservation(Date dateOfReservation) {
+	public void setDateOfReservation(LocalDate dateOfReservation) {
 		this.dateOfReservation = dateOfReservation;
 	}
-	public Date getDateOfPickup() {
+	public LocalDate getDateOfPickup() {
 		return dateOfPickup;
 	}
-	public void setDateOfPickup(Date dateOfPickup) {
+	public void setDateOfPickup(LocalDate dateOfPickup) {
 		this.dateOfPickup = dateOfPickup;
 	}
-	public Date getDateOfDropoff() {
+	public LocalDate getDateOfDropoff() {
 		return dateOfDropoff;
 	}
-	public void setDateOfDropoff(Date dateOfDropoff) {
+	public void setDateOfDropoff(LocalDate dateOfDropoff) {
 		this.dateOfDropoff = dateOfDropoff;
 	}
 	

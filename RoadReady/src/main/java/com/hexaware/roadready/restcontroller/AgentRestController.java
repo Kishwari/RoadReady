@@ -2,13 +2,17 @@ package com.hexaware.roadready.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hexaware.roadready.dto.CarDTO;
+import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.exceptions.CarNotFoundException;
+import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.service.IAgentService;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/roadready/agents")
@@ -17,36 +21,44 @@ public class AgentRestController {
 	@Autowired
 	IAgentService service;
 	
-
-	 public String completeCheckIn(@RequestBody int reservationId) {		// no idea about mapping
+     
+	 @GetMapping("/checkin/{reservationId}")
+	 public String completeCheckIn(@PathVariable int reservationId) {		// no idea about mapping
 		 return service.completeCheckIn(reservationId);
 
 	 }
-	 
-	 public String completeCheckOut(@RequestBody int reservationId) { 		// no idea about mapping
+	 @GetMapping("/checkout/{reservationId}")
+	 public String completeCheckOut(@PathVariable int reservationId) { 		// no idea about mapping
 		 return service.completeCheckOut(reservationId);
 
 	 }
 	
-	 @PutMapping("/updateCarAvailability")
-    public String updateCarAvailability(@RequestBody int carId) {
-		 return service.updateCarAvailability(carId);
+	 @PutMapping("/updateCarAvailability/{carId}")
+    public CarDTO updateCarAvailability(@PathVariable int carId) throws CarNotFoundException {
+		 CarDTO car = service.updateCarAvailability(carId);
+		 if(car==null) {
+			 throw new CarNotFoundException();
+		 }
+		 return car;
 	 }
-	 @GetMapping("/getVerifyIdentity")	
-    public String verifyIdentity(@RequestBody int customerId) {
-		 return service.verifyIdentity(customerId);
-
+	 @GetMapping("/getCustomerIdentity/{customerId}")	
+    public CustomerDTO  verifyIdentity(@PathVariable int customerId) throws CustomerNotFoundException {
+		 CustomerDTO customer = service.verifyIdentity(customerId);
+		 if(customer== null) {
+			 throw new CustomerNotFoundException();
+		 }
+         return customer;
 	 }
     
-    @GetMapping("/getAgentReport")			// I think we need agentId here to get that particular agent's report
-    public String agentReport() {
+    @PostMapping("/generateAgentReport")			// I think we need agentId here to get that particular agent's report
+    public String agentReport() {                   //J : i think we need seperate report entity
 		 return service.agentReport();
 
     }
     
-    @GetMapping("/getCarMaintenanceAlerts")
-    public String provideCarMaintenanceAlerts(@RequestBody int carId) {
-		 return service.provideCarMaintenanceAlerts(carId);
+    @GetMapping("/getCarMaintenanceAlerts/{carId}")
+    public String provideCarMaintenanceAlerts(@PathVariable int carId) {
+		 return service.provideCarMaintenanceAlerts(carId);         //J :i think we need carId from report entity so that we can get under maintenance
 
     }
 }
