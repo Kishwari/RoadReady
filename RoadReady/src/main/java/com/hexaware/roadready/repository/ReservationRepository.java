@@ -7,5 +7,6 @@ import com.hexaware.roadready.entities.Reservations;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservations,Integer>{
-
+      
+   //
 }

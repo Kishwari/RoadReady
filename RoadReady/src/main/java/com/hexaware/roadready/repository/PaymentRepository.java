@@ -7,5 +7,11 @@ import com.hexaware.roadready.entities.Payments;
 
 @Repository
 public interface PaymentRepository extends JpaRepository<Payments,Integer> {
-
+	// Custom queries for specific report needs
+	//report for total revenue between dates
+    //  List<Payments> findByDateBetween(LocalDateTime startDate, LocalDateTime endDate);
+	//report for total revenue by specific customer
+    //  List<Payments> findByUserId(Long userId);
+	//report for total revenue
+    // List<Payments> findByTotalRevenue();
 }

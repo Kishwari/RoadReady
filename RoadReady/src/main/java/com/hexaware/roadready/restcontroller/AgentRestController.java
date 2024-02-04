@@ -50,7 +50,7 @@ public class AgentRestController {
          return customer;
 	 }
     
-    @PostMapping("/generateAgentReport")			// I think we need agentId here to get that particular agent's report
+    /*@PostMapping("/generateAgentReport")			// I think we need agentId here to get that particular agent's report
     public String agentReport() {                   //J : i think we need seperate report entity
 		 return service.agentReport();
 
@@ -60,5 +60,11 @@ public class AgentRestController {
     public String provideCarMaintenanceAlerts(@PathVariable int carId) {
 		 return service.provideCarMaintenanceAlerts(carId);         //J :i think we need carId from report entity so that we can get under maintenance
 
-    }
+    } */
+	 
+
+     @GetMapping("/carMaintenanceReport/{maintenance}")
+	 public String carMaintenanceReport(@PathVariable String maintenance)   {
+		 return service.carMaintenanceReport(maintenance);
+	 }
 }
