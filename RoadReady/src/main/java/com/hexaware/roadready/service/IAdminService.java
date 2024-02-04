@@ -1,5 +1,6 @@
 package com.hexaware.roadready.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -61,13 +62,21 @@ public interface IAdminService {
     
     //general
     
-   // public String  generateReports(Date startDate, Date endDate, ReportType reportType);
+  
     
     public String  giveFeedback(String adminFeedback);
     
     public List <Reservations> viewAllReservations();
  
     public List<Payments> viewAllPayments();
+    
+    //generate Reports
+    
+    public String revenueReportBetweenDates(LocalDate startDate, LocalDate endDate);
+    
+    public String revenueReportGeneratedByCustomer(int customerId);
+    
+    public String totalRevenueReport();
     
 
 }

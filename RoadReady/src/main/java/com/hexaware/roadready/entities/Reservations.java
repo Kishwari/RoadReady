@@ -24,6 +24,8 @@ public class Reservations {
 	private LocalDate dateOfPickup;
 	@NotBlank
 	private LocalDate dateOfDropoff;
+	//private String checkIn;   //completed , not completed
+	//private String checkOut;  //completed , not completed
 	
 	@ManyToOne
 	@JoinColumn(name = "customerId")

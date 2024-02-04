@@ -1,5 +1,6 @@
 package com.hexaware.roadready.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -132,6 +133,24 @@ public class AdminServiceImpl implements IAdminService {
 
 	@Override
 	public List<Reservations> getReservationDetailsForCustomer(int customerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String revenueReportBetweenDates(LocalDate startDtae , LocalDate endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String revenueReportGeneratedByCustomer(int customerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String totalRevenueReport() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -14,9 +14,7 @@ public interface IAgentService {
 	 
      public CustomerDTO verifyIdentity(int customerId);
      
-     public String agentReport();
-     
-     public String provideCarMaintenanceAlerts(int carId);    
+     public String carMaintenanceReport(String maintenance);    
      
      
 }

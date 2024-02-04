@@ -1,5 +1,6 @@
 package com.hexaware.roadready.restcontroller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -175,5 +176,23 @@ public class AdminRestController {
     public List<Payments> viewAllPayments(){
     	return service.viewAllPayments();
     }
+    
+    //reports
+    
+    @GetMapping("/revenueReportBetweenDates/{startDate}/{endDate}")
+    public String revenueReportBetweenDates(@PathVariable LocalDate startDate , @PathVariable LocalDate endDate ) {
+    	return service.revenueReportBetweenDates(startDate , endDate);
+    }
+    
+    @GetMapping("/revenueGeneratedByCustomer/{customerId}")
+    public String revenueReportGeneratedByCustomer(@PathVariable int customerId) {
+    	return service.revenueReportGeneratedByCustomer(customerId);
+    }
+    
+    @GetMapping("/totalRevenueReport")
+    public String totalRevenueReport() {
+    	return service.totalRevenueReport();
+    }
+    
     
 }
