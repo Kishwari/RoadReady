@@ -2,6 +2,9 @@ package com.hexaware.roadready.service;
 
 import org.springframework.stereotype.Service;
 
+import com.hexaware.roadready.dto.CarDTO;
+import com.hexaware.roadready.dto.CustomerDTO;
+
 @Service
 public class AgentServiceImpl implements IAgentService{
 
@@ -33,13 +36,13 @@ public class AgentServiceImpl implements IAgentService{
 	
 
 	@Override
-	public String updateCarAvailability(int carId) {
+	public CarDTO updateCarAvailability(int carId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String verifyIdentity(int customerId) {
+	public CustomerDTO verifyIdentity(int customerId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

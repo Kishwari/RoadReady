@@ -1,14 +1,15 @@
 package com.hexaware.roadready.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ReservationDTO {
 
 	private int reservationId;
 	private String reservationStatus;
-	private Date dateOfReservation;
-	private Date dateOfPickup;
-	private  Date dateOfDropoff;
+	private LocalDate dateOfReservation;
+	private LocalDate dateOfPickup;
+	private  LocalDate dateOfDropoff;
 	
 	// constructor
 	
@@ -18,8 +19,8 @@ public class ReservationDTO {
 	
 	// parameterized constructor 
 	
-	public ReservationDTO(int reservationId, String reservationStatus, Date dateOfReservation, Date dateOfPickup,
-			Date dateOfDropoff) {
+	public ReservationDTO(int reservationId, String reservationStatus, LocalDate dateOfReservation, LocalDate dateOfPickup,
+			LocalDate dateOfDropoff) {
 		super();
 		this.reservationId = reservationId;
 		this.reservationStatus = reservationStatus;
@@ -42,22 +43,22 @@ public class ReservationDTO {
 	public void setReservationStatus(String reservationStatus) {
 		this.reservationStatus = reservationStatus;
 	}
-	public Date getDateOfReservation() {
+	public LocalDate getDateOfReservation() {
 		return dateOfReservation;
 	}
-	public void setDateOfReservation(Date dateOfReservation) {
+	public void setDateOfReservation(LocalDate dateOfReservation) {
 		this.dateOfReservation = dateOfReservation;
 	}
-	public Date getDateOfPickup() {
+	public LocalDate getDateOfPickup() {
 		return dateOfPickup;
 	}
-	public void setDateOfPickup(Date dateOfPickup) {
+	public void setDateOfPickup(LocalDate dateOfPickup) {
 		this.dateOfPickup = dateOfPickup;
 	}
-	public Date getDateOfDropoff() {
+	public LocalDate getDateOfDropoff() {
 		return dateOfDropoff;
 	}
-	public void setDateOfDropoff(Date dateOfDropoff) {
+	public void setDateOfDropoff(LocalDate dateOfDropoff) {
 		this.dateOfDropoff = dateOfDropoff;
 	}
 	@Override

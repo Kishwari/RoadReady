@@ -37,7 +37,7 @@ public interface IAdminService {
 	
 	public String deleteCar(int carId);
 	
-	public CustomerDTO	updateCar(CarDTO car);
+	public CarDTO	updateCar(CarDTO car);
     
     public List<Payments> getPaymentDetailsForCustomer(int customerId);
     

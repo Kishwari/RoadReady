@@ -1,12 +1,13 @@
 package com.hexaware.roadready.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class PaymentDTO {
 
 	private int paymentId;
 	private double amountPaid;
-	private Date dateOfPayment;
+	private LocalDate dateOfPayment;
 	private String modeOfPayment;
 	
 	// constructor
@@ -16,7 +17,7 @@ public class PaymentDTO {
 	}
 	
 	// parameterized constructor
-	public PaymentDTO(int paymentId, double amountPaid, Date dateOfPayment, String modeOfPayment) {
+	public PaymentDTO(int paymentId, double amountPaid, LocalDate dateOfPayment, String modeOfPayment) {
 		super();
 		this.paymentId = paymentId;
 		this.amountPaid = amountPaid;
@@ -38,10 +39,10 @@ public class PaymentDTO {
 	public void setAmountPaid(double amountPaid) {
 		this.amountPaid = amountPaid;
 	}
-	public Date getDateOfPayment() {
+	public LocalDate getDateOfPayment() {
 		return dateOfPayment;
 	}
-	public void setDateOfPayment(Date dateOfPayment) {
+	public void setDateOfPayment(LocalDate dateOfPayment) {
 		this.dateOfPayment = dateOfPayment;
 	}
 	public String getModeOfPayment() {

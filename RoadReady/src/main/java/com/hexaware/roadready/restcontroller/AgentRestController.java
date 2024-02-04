@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hexaware.roadready.dto.CarDTO;
+import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.exceptions.CarNotFoundException;
+import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.service.IAgentService;
 
 @RestController
@@ -17,7 +21,8 @@ public class AgentRestController {
 	@Autowired
 	IAgentService service;
 	
-     @GetMapping("/checkin/{reservationId)")
+     
+	 @GetMapping("/checkin/{reservationId}")
 	 public String completeCheckIn(@PathVariable int reservationId) {		// no idea about mapping
 		 return service.completeCheckIn(reservationId);
 
@@ -29,25 +34,31 @@ public class AgentRestController {
 	 }
 	
 	 @PutMapping("/updateCarAvailability/{carId}")
-    public String updateCarAvailability(@PathVariable int carId) {
-		 return service.updateCarAvailability(carId);
+    public CarDTO updateCarAvailability(@PathVariable int carId) throws CarNotFoundException {
+		 CarDTO car = service.updateCarAvailability(carId);
+		 if(car==null) {
+			 throw new CarNotFoundException();
+		 }
+		 return car;
 	 }
-	 
 	 @GetMapping("/getCustomerIdentity/{customerId}")	
-    public String verifyIdentity(@PathVariable int customerId) {   
-		 return service.verifyIdentity(customerId);
-
+    public CustomerDTO  verifyIdentity(@PathVariable int customerId) throws CustomerNotFoundException {
+		 CustomerDTO customer = service.verifyIdentity(customerId);
+		 if(customer== null) {
+			 throw new CustomerNotFoundException();
+		 }
+         return customer;
 	 }
     
-    @PostMapping("/AgentReport")			//I: I think we need agentId here to get that particular agent's report
-    public String agentReport() {          //J : i think we need a seperate entity report to store 
+    @PostMapping("/generateAgentReport")			// I think we need agentId here to get that particular agent's report
+    public String agentReport() {                   //J : i think we need seperate report entity
 		 return service.agentReport();
 
     }
     
     @GetMapping("/getCarMaintenanceAlerts/{carId}")
-    public String provideCarMaintenanceAlerts(@PathVariable int carId) {  //J:if we have entity for report we can get cars which are under maintanace
-		 return service.provideCarMaintenanceAlerts(carId);
+    public String provideCarMaintenanceAlerts(@PathVariable int carId) {
+		 return service.provideCarMaintenanceAlerts(carId);         //J :i think we need carId from report entity so that we can get under maintenance
 
     }
 }

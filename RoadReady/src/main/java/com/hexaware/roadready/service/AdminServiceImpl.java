@@ -65,7 +65,7 @@ public class AdminServiceImpl implements IAdminService {
 	}
 
 	@Override
-	public CustomerDTO updateCar(CarDTO car) {
+	public CarDTO updateCar(CarDTO car) {
 		// TODO Auto-generated method stub
 		return null;
 	}

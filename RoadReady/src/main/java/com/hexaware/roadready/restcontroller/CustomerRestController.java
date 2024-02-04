@@ -1,5 +1,6 @@
 package com.hexaware.roadready.restcontroller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Feedback;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
+import com.hexaware.roadready.exceptions.CarNotFoundException;
+import com.hexaware.roadready.exceptions.CustomerNotFoundException;
+import com.hexaware.roadready.exceptions.InvalidDateException;
+import com.hexaware.roadready.exceptions.PaymentNotFoundException;
+import com.hexaware.roadready.exceptions.ReservationNotFoundException;
 import com.hexaware.roadready.service.ICustomerService;
 
 @RestController
@@ -33,14 +39,23 @@ public class CustomerRestController {
 	}
    
    @GetMapping("/searchCars/{location}/{make}/{model}")
-   public List<Cars> searchCars(@PathVariable String location , @PathVariable String make,@PathVariable String model){
-	   return service.searchCars(location , make , model);
-  
+   public List<Cars> searchCars(@PathVariable String location , @PathVariable String make,@PathVariable String model) throws CarNotFoundException{
+	   List<Cars> cars= service.searchCars(location , make , model);
+	   if(cars==null) {
+		   throw new CarNotFoundException();
+	   }
+       return cars;
    }
    @PostMapping("/makeReservation")									//	check  mapping for all methods below this
-   ReservationDTO makeReservation(ReservationDTO reservation) {
-	   return service.makeReservation(reservation);
+   ReservationDTO makeReservation(@RequestBody ReservationDTO reservation) throws InvalidDateException {
+	   ReservationDTO checkReservation = service.makeReservation(reservation);
+	   LocalDate today = LocalDate.now();
+	   if(checkReservation.getDateOfPickup().isBefore(today)) {
+	       throw new InvalidDateException();
+	   }
+	   return checkReservation;
    }
+  
    
    @DeleteMapping("/cancelReservation/{reservationId}")
    String cancelReservation(@PathVariable int reservationId) {
@@ -48,29 +63,45 @@ public class CustomerRestController {
    }
    
    @PutMapping("/modifyReservation")
-   public ReservationDTO modifyReservation(@RequestBody ReservationDTO reservation) {
-	   return service.modifyReservation(reservation);
+   ReservationDTO modifyReservation(@RequestBody ReservationDTO reservation) throws ReservationNotFoundException {
+	   ReservationDTO checkReservation = service.modifyReservation(reservation);
+	   if(checkReservation==null) {
+		   throw new ReservationNotFoundException();
+	   }
+	   return checkReservation;
    }
    
  
-   @PutMapping("/provideCustomerFeedback")
-   public Feedback provideFeedback(@RequestBody Feedback feedback) { 		// return type I think feedback ?
-	    return service.provideFeedback(feedback);
+   @PostMapping("/CustomerFeedback")
+   Feedback provideFeedback(@RequestBody Feedback feedback) { 		// return type I think feedback ?
+	  return service.provideFeedback(feedback);
    }
    
    @GetMapping("/viewPaymentHistory/{customerId}")
-   public List<Payments> viewPaymentHistory(@PathVariable int customerId){
-	   return service.viewPaymentHistory(customerId);
+   List<Payments> viewPaymentHistory(@PathVariable int customerId) throws PaymentNotFoundException{
+	   List<Payments> payments= service.viewPaymentHistory(customerId);
+	   if(payments==null){
+		   throw new PaymentNotFoundException();
    }
+	   return payments;
+}
    
    @GetMapping("/viewReservations/{customerId}")
-   List<Reservations> viewReservations(@PathVariable int customerId){
-	   return service.viewReservations(customerId);
+   List<Reservations> viewReservations(@PathVariable int customerId) throws ReservationNotFoundException{
+	   List<Reservations> reservations =service.viewReservations(customerId);
+	   if(reservations==null) {
+		   throw new ReservationNotFoundException();
+	   }
+	   return reservations;
    }
 
-   @PutMapping("/updateCustomer")									// using any id ? 
-   public CustomerDTO	updateCustomer(CustomerDTO customer) {
-	   return service.updateCustomer(customer);
+   @PutMapping("/updateCustomer")									// using any id ?
+   public CustomerDTO	updateCustomer(@RequestBody CustomerDTO customer) throws CustomerNotFoundException {
+	   CustomerDTO checkCustomer = service.updateCustomer(customer);
+	   if(checkCustomer==null) {
+		   throw new CustomerNotFoundException();
+	   }
+	   return checkCustomer;
    }
    
 }
