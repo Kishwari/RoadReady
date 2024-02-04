@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,19 +47,19 @@ public class CustomerRestController {
 	   return service.cancelReservation(reservationId);
    }
    
-   @PutMapping("/modifyReservation/{reservationId}")
-   ReservationDTO modifyReservation(@PathVariable int reservationId) {
-	   return service.modifyReservation(reservationId);
+   @PutMapping("/modifyReservation")
+   public ReservationDTO modifyReservation(@RequestBody ReservationDTO reservation) {
+	   return service.modifyReservation(reservation);
    }
    
  
-   
-   void provideFeedback(Feedback feedback) { 		// return type I think feedback ?
-	  //  return service.provideFeedback(feedback);
+   @PutMapping("/provideCustomerFeedback")
+   public Feedback provideFeedback(@RequestBody Feedback feedback) { 		// return type I think feedback ?
+	    return service.provideFeedback(feedback);
    }
    
    @GetMapping("/viewPaymentHistory/{customerId}")
-   List<Payments> viewPaymentHistory(@PathVariable int customerId){
+   public List<Payments> viewPaymentHistory(@PathVariable int customerId){
 	   return service.viewPaymentHistory(customerId);
    }
    
@@ -67,7 +68,7 @@ public class CustomerRestController {
 	   return service.viewReservations(customerId);
    }
 
-   @PutMapping("/updateCustomer")									// using any id ?
+   @PutMapping("/updateCustomer")									// using any id ? 
    public CustomerDTO	updateCustomer(CustomerDTO customer) {
 	   return service.updateCustomer(customer);
    }

@@ -51,14 +51,14 @@ public class CustomerServiceImpl implements ICustomerService {
 		return null;
 	}
 	@Override
-	public ReservationDTO modifyReservation(int reservationId) {
+	public ReservationDTO modifyReservation(ReservationDTO reservation) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public void provideFeedback(Feedback feedback) {
+	public Feedback provideFeedback(Feedback feedback) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 	@Override
 	public List<Payments> viewPaymentHistory(int customerId) {
