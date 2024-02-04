@@ -29,6 +29,8 @@ public class AdminRestController {
 	@Autowired
 	IAdminService service;
 	
+	//manage customers
+	
 	@PostMapping("/addCustomer")
     public CustomerDTO	addCustomer(@RequestBody CustomerDTO customer) {
 		return service.addCustomer(customer);
@@ -50,6 +52,7 @@ public class AdminRestController {
 	
 	
 	//manage cars 
+	
 	@PostMapping("/addCar")
     public CarDTO	addCar(@RequestBody CarDTO car) {
 		return service.addCar(car);

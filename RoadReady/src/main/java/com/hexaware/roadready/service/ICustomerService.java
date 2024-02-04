@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.dto.ReservationDTO;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Feedback;
@@ -19,11 +20,11 @@ public interface ICustomerService {
 	List<Cars> searchCars(String location,String make,String model);
     
 	
-    Reservations makeReservation(Reservations reservation);
+    ReservationDTO makeReservation(ReservationDTO reservation);
     
     String cancelReservation(int reservationId);
     
-    Reservations modifyReservation(int reservationId);
+    ReservationDTO modifyReservation(int reservationId);
     
   
     

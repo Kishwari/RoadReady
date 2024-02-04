@@ -32,7 +32,6 @@ public class Agent {
 	
 	public Agent() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Agent(int agentId ,String username, String password) {

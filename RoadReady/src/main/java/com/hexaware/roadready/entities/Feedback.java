@@ -11,7 +11,7 @@ public class Feedback {
 	@NotBlank
 	private String customerReview;
 	@NotBlank
-	@Pattern(regexp="[1-5")
+	@Pattern(regexp="[1-5]")
 	private int rating;
 	private String AdminFeedback;
 	

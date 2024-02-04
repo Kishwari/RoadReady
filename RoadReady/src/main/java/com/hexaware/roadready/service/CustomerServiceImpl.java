@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.dto.ReservationDTO;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Feedback;
@@ -40,7 +41,7 @@ public class CustomerServiceImpl implements ICustomerService {
 		return null;
 	}
 	@Override
-	public Reservations makeReservation(Reservations reservation) {
+	public ReservationDTO makeReservation(ReservationDTO reservation) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -50,7 +51,7 @@ public class CustomerServiceImpl implements ICustomerService {
 		return null;
 	}
 	@Override
-	public Reservations modifyReservation(int reservationId) {
+	public ReservationDTO modifyReservation(int reservationId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
