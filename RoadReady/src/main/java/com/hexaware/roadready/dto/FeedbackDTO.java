@@ -1,38 +1,33 @@
-package com.hexaware.roadready.entities;
+package com.hexaware.roadready.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
-@Entity
-public class Feedback {
-	
-	@Id
+public class FeedbackDTO {
+
 	private int FeedbackId;
-	@NotBlank
 	private int customerId;
-	@NotBlank
 	private String customerName;
-	@NotBlank
 	private String customerReview;
-	@NotBlank
-	@Pattern(regexp="[1-5]")
 	private int rating;
 	private String AdminFeedback;
-	
-	public Feedback() {
+	public FeedbackDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Feedback(int customerId, String customerName, String customerReview, int rating, String adminFeedback) {
+	public FeedbackDTO(int feedbackId, int customerId, String customerName, String customerReview, int rating,
+			String adminFeedback) {
 		super();
+		FeedbackId = feedbackId;
 		this.customerId = customerId;
 		this.customerName = customerName;
 		this.customerReview = customerReview;
 		this.rating = rating;
 		AdminFeedback = adminFeedback;
+	}
+	public int getFeedbackId() {
+		return FeedbackId;
+	}
+	public void setFeedbackId(int feedbackId) {
+		FeedbackId = feedbackId;
 	}
 	public int getCustomerId() {
 		return customerId;
@@ -63,5 +58,11 @@ public class Feedback {
 	}
 	public void setAdminFeedback(String adminFeedback) {
 		AdminFeedback = adminFeedback;
+	}
+	@Override
+	public String toString() {
+		return "FeedbackDTO [FeedbackId=" + FeedbackId + ", customerId=" + customerId + ", customerName=" + customerName
+				+ ", customerReview=" + customerReview + ", rating=" + rating + ", AdminFeedback=" + AdminFeedback
+				+ "]";
 	}
 }
