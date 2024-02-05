@@ -134,7 +134,7 @@ public class AdminRestController {
     	return car;
     }
     
-    @PutMapping("/updateCarPrice/{carId}/{newprice}")
+    @PutMapping("/updateCarPrice/{carId}/{newPrice}")
     public Cars updateCarPrice(@PathVariable int carId , @PathVariable double newPrice) throws CarNotFoundException {
     	Cars car = service.updateCarPrice(carId, newPrice);
     	if(car == null) {

@@ -18,7 +18,7 @@ public interface CarRepository extends JpaRepository<Cars,Integer> {
 	
 	
 	@Modifying
-	@Query("UPDATE Cars c SET c.price = ?1 WHERE c.id = ?2")
+	@Query("UPDATE Cars c SET c.dailyRate = ?2 WHERE c.id = ?1")
 	CarDTO discountOnCarPrice(int CarId , double discountPrice);
 	
 	

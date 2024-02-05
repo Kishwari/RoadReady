@@ -105,8 +105,8 @@ public class AdminServiceImpl implements IAdminService {
 		Cars car = new Cars();
 		car.setCarId(cardto.getCarId());
 		car.setMake(cardto.getMake());
-		car.setModel(car.getModel());
-		car.setLocation(car.getLocation());
+		car.setModel(cardto.getModel());
+		car.setLocation(cardto.getLocation());
 		car.setCarStatus(cardto.getCarStatus());
 		car.setSpecification(cardto.getSpecifications());
 		car.setPassengerCapacity(cardto.getPassengerCapacity());
@@ -173,16 +173,14 @@ public class AdminServiceImpl implements IAdminService {
 
 	@Override
 	public Cars discountOnCarPrice(int carId, double discountPrice) throws CarNotFoundException {
-        Cars car = new Cars();
-		Cars existingCar = carRepo.findById(carId).orElse(null);
-        if (existingCar != null) {      
-           existingCar.setDailyRate(discountPrice);
-            car = carRepo.save(existingCar);
-        } 
-        else {
-              throw new CarNotFoundException();
-	}
-         return car;
+       
+        carRepo.discountOnCarPrice(carId, discountPrice);
+
+  
+        Cars updatedCar = carRepo.findById(carId).orElse(null);
+        
+        return updatedCar;
+
 	}
 
 	@Override
