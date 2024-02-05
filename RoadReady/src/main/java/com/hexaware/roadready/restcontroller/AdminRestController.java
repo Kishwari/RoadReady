@@ -146,7 +146,7 @@ public class AdminRestController {
     
    //manage agents
     @PostMapping("/addAgent")
-    public AgentDTO addAgent(@RequestBody AgentDTO agent) {
+    public Agent addAgent(@RequestBody AgentDTO agent) {
     	return service.addAgent(agent);
     }
 	
