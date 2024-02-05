@@ -22,6 +22,13 @@ public class AdminServiceImpl implements IAdminService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public CustomerDTO updateCustomer(CustomerDTO customer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	@Override
 	public CustomerDTO getCustomerById(int customerId) {
@@ -155,6 +162,7 @@ public class AdminServiceImpl implements IAdminService {
 		return null;
 	}
 
+	
 	
 
 }

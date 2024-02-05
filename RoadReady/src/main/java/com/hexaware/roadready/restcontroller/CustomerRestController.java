@@ -95,14 +95,7 @@ public class CustomerRestController {
 	   return reservations;
    }
 
-   @PutMapping("/updateCustomer")									// using any id ?
-   public CustomerDTO	updateCustomer(@RequestBody CustomerDTO customer) throws CustomerNotFoundException {
-	   CustomerDTO checkCustomer = service.updateCustomer(customer);
-	   if(checkCustomer==null) {
-		   throw new CustomerNotFoundException();
-	   }
-	   return checkCustomer;
-   }
+   
    
 }
 

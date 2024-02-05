@@ -34,5 +34,5 @@ public interface ICustomerService {
     
     List<Reservations> viewReservations(int customerId);
  
-    public CustomerDTO	updateCustomer(CustomerDTO customer);
+    
 }

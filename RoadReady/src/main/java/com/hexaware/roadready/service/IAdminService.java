@@ -27,7 +27,7 @@ public interface IAdminService {
 	
 	public String deleteCustomer(int customerId);
 	
-	//public CustomerDTO	updateCustomer(CustomerDTO customer);
+	public CustomerDTO	updateCustomer(CustomerDTO customer);
 	
 	//manage cars 
     public CarDTO	addCar(CarDTO car);

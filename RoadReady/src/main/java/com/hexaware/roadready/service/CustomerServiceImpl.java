@@ -27,6 +27,7 @@ public class CustomerServiceImpl implements ICustomerService {
 		
 		return repo.getAvailableCars();
 	}
+	
 	@Override
 	public List<Cars> searchCars(String location, String make, String model) {
         List<Cars> availableCars = repo.getAvailableCars();
@@ -35,11 +36,7 @@ public class CustomerServiceImpl implements ICustomerService {
                 && car.getLocation().equals(location) ) .collect(Collectors.toList());
 	}
 
-	@Override
-	public CustomerDTO updateCustomer(CustomerDTO customer) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	@Override
 	public ReservationDTO makeReservation(ReservationDTO reservation) {
 		// TODO Auto-generated method stub
