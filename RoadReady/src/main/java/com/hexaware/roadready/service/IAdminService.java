@@ -50,7 +50,7 @@ public interface IAdminService {
     public List<Reservations> getReservationDetailsForCustomer(int customerId);
     
     
-    public Cars discountOnCarPrice(int CarId , double discountPrice) throws CarNotFoundException;
+    public Cars discountOnCarPrice(int carId , double discountPrice) throws CarNotFoundException;
     
     public Cars updateCarPrice(int carId , double newPrice) throws CarNotFoundException;
     
