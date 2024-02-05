@@ -57,7 +57,7 @@ public interface IAdminService {
     
    //manage agents
     
-    public AgentDTO addAgent(AgentDTO agent);
+    public Agent addAgent(AgentDTO agent);
 	
     public AgentDTO getAgentById(int agentId);
     	

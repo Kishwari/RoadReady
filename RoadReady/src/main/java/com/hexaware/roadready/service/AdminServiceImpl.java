@@ -15,6 +15,7 @@ import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
+import com.hexaware.roadready.repository.AgentRepository;
 import com.hexaware.roadready.repository.CarRepository;
 import com.hexaware.roadready.repository.CustomerRepository;
 import com.hexaware.roadready.repository.PaymentRepository;
@@ -38,6 +39,9 @@ public class AdminServiceImpl implements IAdminService {
 	
 	@Autowired
 	PaymentRepository paymentRepo;
+	
+	@Autowired
+	AgentRepository agentRepo;
 	
 	@Override
 	public Customers addCustomer(CustomerDTO customerdto) {
@@ -86,7 +90,7 @@ public class AdminServiceImpl implements IAdminService {
 		if(deletedCustomer != null) {
 			return "customer deletion unsuccesfull";
 		}
-		return "customer " + customerId +"deleted successfully";
+		return "customer " + customerId +" deleted successfully";
 	}
 	
 	@Override
@@ -145,7 +149,7 @@ public class AdminServiceImpl implements IAdminService {
 		if(deletedCar != null) {
 			return "car deletion unsuccesfull";
 		}
-		return "car " + carId +"deleted successfully";
+		return "car " + carId +" deleted successfully";
 	}
 	
 
@@ -210,27 +214,37 @@ public class AdminServiceImpl implements IAdminService {
 	}
 
 	@Override
-	public AgentDTO addAgent(AgentDTO agent) {
-		// TODO Auto-generated method stub
-		return null;
+	public Agent addAgent(AgentDTO agentdto) {
+		Agent agent = new Agent();
+		agent.setAgentId(agentdto.getAgentId());
+		agent.setUsername(agentdto.getUsername());
+		agent.setPassword(agentdto.getPassword());
+		return agentRepo.save(agent);
 	}
 
 	@Override
 	public AgentDTO getAgentById(int agentId) {
-		// TODO Auto-generated method stub
-		return null;
+		Agent agent = agentRepo.findById(agentId).orElse(null);
+		AgentDTO  agentdto=new AgentDTO();
+		agentdto.setAgentId(agent.getAgentId());
+		agentdto.setUsername(agent.getUsername());
+		agentdto.setPassword(agent.getPassword());
+		return agentdto;
 	}
 
 	@Override
 	public List<Agent> getAllAgents() {
-		// TODO Auto-generated method stub
-		return null;
+		return agentRepo.findAll();
 	}
 
 	@Override
 	public String deleteAgent(int agentId) {
-		// TODO Auto-generated method stub
-		return null;
+		agentRepo.deleteById(agentId);
+		Agent deletedAgent  = agentRepo.findById(agentId).orElse(null);
+		if(deletedAgent != null) {
+			return "Agent deletion unsuccesfull";
+		}
+		return "Agent " + agentId +" deleted successfully";
 	}
 
 	@Override
