@@ -29,7 +29,7 @@ public class Cars {
 	private String specification;
 	@NotBlank
 	private int passengerCapacity;
-	//private String maintenance;
+	
 	
 	@OneToMany(mappedBy = "car" , cascade=CascadeType.ALL)
 	private Set<Reservations> reservations = new HashSet<Reservations>();
@@ -55,6 +55,7 @@ public class Cars {
 		this.carStatus = carStatus;
 		this.specification = specification;
 		this.passengerCapacity = passengerCapacity;
+		
 	}
 	public int getCarId() {
 		return carId;

@@ -12,6 +12,7 @@ import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
+import com.hexaware.roadready.exceptions.CarNotFoundException;
 
 
 
@@ -19,7 +20,7 @@ public interface IAdminService {
 	
 	
 	//manage customer
-    public CustomerDTO	addCustomer(CustomerDTO customer);
+    public Customers	addCustomer(CustomerDTO customer);
 	
 	public CustomerDTO	getCustomerById(int customerId);
 	
@@ -27,10 +28,14 @@ public interface IAdminService {
 	
 	public String deleteCustomer(int customerId);
 	
+<<<<<<< HEAD
 	public CustomerDTO	updateCustomer(CustomerDTO customer);
+=======
+	public Customers	updateCustomer(CustomerDTO customer);
+>>>>>>> joshitha
 	
 	//manage cars 
-    public CarDTO	addCar(CarDTO car);
+    public Cars	addCar(CarDTO car);
 	
 	public CarDTO	getCarById(int carId);
 	
@@ -38,16 +43,16 @@ public interface IAdminService {
 	
 	public String deleteCar(int carId);
 	
-	public CarDTO	updateCar(CarDTO car);
+	public Cars	updateCar(CarDTO car);
     
     public List<Payments> getPaymentDetailsForCustomer(int customerId);
     
     public List<Reservations> getReservationDetailsForCustomer(int customerId);
     
     
-    public CarDTO discountOnCarPrice(int CarId , double discountPrice);
+    public Cars discountOnCarPrice(int CarId , double discountPrice) throws CarNotFoundException;
     
-    public CarDTO updateCarPrice(int carId , double newPrice);
+    public Cars updateCarPrice(int carId , double newPrice) throws CarNotFoundException;
     
     
    //manage agents

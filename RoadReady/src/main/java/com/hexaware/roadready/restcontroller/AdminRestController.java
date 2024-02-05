@@ -38,10 +38,11 @@ public class AdminRestController {
 	//manage customers
 	
 	@PostMapping("/addCustomer")
-    public CustomerDTO	addCustomer(@RequestBody CustomerDTO customer) {
+    public Customers	addCustomer(@RequestBody CustomerDTO customer) {
 		return service.addCustomer(customer);
 	}
 	
+<<<<<<< HEAD
 	@PutMapping("/updateCustomer")									// using any id ?
 	   public CustomerDTO	updateCustomer(@RequestBody CustomerDTO customer) throws CustomerNotFoundException {
 		   CustomerDTO checkCustomer = service.updateCustomer(customer);
@@ -51,6 +52,8 @@ public class AdminRestController {
 		   return checkCustomer;
 	   }
 	
+=======
+>>>>>>> joshitha
 	@GetMapping("/getCustomerById/{customerId}")
 	public CustomerDTO	getCustomerById(@PathVariable int customerId) throws CustomerNotFoundException {
 		CustomerDTO customer = service.getCustomerById(customerId);
@@ -69,12 +72,21 @@ public class AdminRestController {
 		return service.deleteCustomer(customerId);
 	}
 	
+	@PutMapping("/updateCustomerDetails")
+	public Customers	updateCustomer(@RequestBody CustomerDTO customer) throws CustomerNotFoundException {
+		Customers checkCustomer = service.updateCustomer(customer);
+		if(checkCustomer == null) {
+			throw new CustomerNotFoundException();
+		}
+		return checkCustomer;
+	}
+	
 	
 	
 	//manage cars 
 	
 	@PostMapping("/addCar")
-    public CarDTO	addCar(@RequestBody CarDTO car) {
+    public Cars	addCar(@RequestBody CarDTO car) {
 		return service.addCar(car);
 	}
     
@@ -98,8 +110,8 @@ public class AdminRestController {
 	}
 	
 	@PutMapping("/updateCarDetails")
-	public CarDTO	updateCar(@RequestBody CarDTO car) throws CarNotFoundException {
-		CarDTO checkCar = service.updateCar(car);
+	public Cars	updateCar(@RequestBody CarDTO car) throws CarNotFoundException {
+		Cars checkCar = service.updateCar(car);
 		if(checkCar == null) {
 			throw new CarNotFoundException();
 		}
@@ -126,8 +138,8 @@ public class AdminRestController {
 	}
     
     @PutMapping("/discountOnCar/{carId}/{discountPrice}")
-    public CarDTO discountOnCarPrice(@PathVariable int carId ,@PathVariable double discountPrice) throws CarNotFoundException {
-    	CarDTO car = service.discountOnCarPrice(carId, discountPrice);
+    public Cars discountOnCarPrice(@PathVariable int carId ,@PathVariable double discountPrice) throws CarNotFoundException {
+    	Cars car = service.discountOnCarPrice(carId, discountPrice);
     	if(car ==null) {
     		throw new CarNotFoundException();
     	}
@@ -135,8 +147,8 @@ public class AdminRestController {
     }
     
     @PutMapping("/updateCarPrice/{carId}/{newprice}")
-    public CarDTO updateCarPrice(@PathVariable int carId , @PathVariable double newPrice) throws CarNotFoundException {
-    	CarDTO car = service.updateCarPrice(carId, newPrice);
+    public Cars updateCarPrice(@PathVariable int carId , @PathVariable double newPrice) throws CarNotFoundException {
+    	Cars car = service.updateCarPrice(carId, newPrice);
     	if(car == null) {
     		throw new CarNotFoundException();
     	}
