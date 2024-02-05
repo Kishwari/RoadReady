@@ -12,6 +12,5 @@ import com.hexaware.roadready.entities.Customers;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customers,Integer>{
 	
-	@Query("select c from Cars c where c.carStatus= 'available' ")
-    List<Cars> getAvailableCars();
+	
 }
