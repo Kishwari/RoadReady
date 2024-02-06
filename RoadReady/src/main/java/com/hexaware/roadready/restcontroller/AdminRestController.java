@@ -42,18 +42,9 @@ public class AdminRestController {
 		return service.addCustomer(customer);
 	}
 	
-<<<<<<< HEAD
-	@PutMapping("/updateCustomer")									// using any id ?
-	   public CustomerDTO	updateCustomer(@RequestBody CustomerDTO customer) throws CustomerNotFoundException {
-		   CustomerDTO checkCustomer = service.updateCustomer(customer);
-		   if(checkCustomer==null) {
-			   throw new CustomerNotFoundException();
-		   }
-		   return checkCustomer;
-	   }
+
 	
-=======
->>>>>>> joshitha
+
 	@GetMapping("/getCustomerById/{customerId}")
 	public CustomerDTO	getCustomerById(@PathVariable int customerId) throws CustomerNotFoundException {
 		CustomerDTO customer = service.getCustomerById(customerId);

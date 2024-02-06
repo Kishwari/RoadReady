@@ -56,11 +56,7 @@ public class AdminServiceImpl implements IAdminService {
 		return customerRepo.save(customer);
 	}
 	
-	@Override
-	public CustomerDTO updateCustomer(CustomerDTO customer) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 
 	@Override

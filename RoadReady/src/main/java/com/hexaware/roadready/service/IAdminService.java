@@ -28,11 +28,11 @@ public interface IAdminService {
 	
 	public String deleteCustomer(int customerId);
 	
-<<<<<<< HEAD
-	public CustomerDTO	updateCustomer(CustomerDTO customer);
-=======
+
+	
+
 	public Customers	updateCustomer(CustomerDTO customer);
->>>>>>> joshitha
+
 	
 	//manage cars 
     public Cars	addCar(CarDTO car);
