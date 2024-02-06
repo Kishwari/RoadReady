@@ -27,8 +27,8 @@ class AdminServiceImplTest {
 	@Test
 	void testAddCustomer() {
         CustomerDTO  dto = new CustomerDTO(1, "monica", "geller", "monicageller@gmail.com", "monica@15", "MonicaGeller@1", "9087654321");
-        CustomerDTO  dto2=service.addCustomer(dto);
-        Customers customer = new Customers();
+        Customers customer=service.addCustomer(dto);
+        //Customers customer = new Customers();
 	    customer.setCustomerId(dto.getCustomerId());
 	    customer.setFirstName(dto.getFirstName());
 	    customer.setLastName(dto.getLastName());
@@ -67,9 +67,9 @@ class AdminServiceImplTest {
 	@Test
 	void testAddCar() {
 		CarDTO dto = new CarDTO(101,"honda","honda city", "available", "mumbai", 200, "Displacement: 1.5 liters ", 5);
-		CarDTO dto2 = service.addCar(dto);
+		Cars car = service.addCar(dto);
 
-		Cars car = new Cars();
+		//Cars car = new Cars();
 		car.setCarId(dto.getCarId());
 		car.setMake(dto.getMake());
 		car.setModel(dto.getModel());
@@ -111,9 +111,9 @@ class AdminServiceImplTest {
 	@Test
 	void testUpdateCar() {
 		CarDTO dto = new CarDTO(101,"honda","honda city", "available", "mumbai", 200, "Displacement: 1.5 liters ", 4);
-		CarDTO dto2 = service.addCar(dto);
+		Cars car = service.addCar(dto);
 
-		Cars car = new Cars();
+		//Cars car = new Cars();
 		car.setCarId(dto.getCarId());
 		car.setMake(dto.getMake());
 		car.setModel(dto.getModel());
