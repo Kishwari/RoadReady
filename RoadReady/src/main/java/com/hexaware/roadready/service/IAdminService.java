@@ -3,10 +3,11 @@ package com.hexaware.roadready.service;
 import java.time.LocalDate;
 import java.util.List;
 
-
 import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.dto.PaymentDTO;
+import com.hexaware.roadready.dto.ReservationDTO;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
@@ -24,7 +25,7 @@ public interface IAdminService {
 	
 	public CustomerDTO	getCustomerById(int customerId);
 	
-	public List<Customers>	getAllCustomer();
+	public List<CustomerDTO>	getAllCustomer();
 	
 	public String deleteCustomer(int customerId);
 	
@@ -39,7 +40,7 @@ public interface IAdminService {
 	
 	public CarDTO	getCarById(int carId);
 	
-	public List<Cars>	getAllCars();
+	public List<CarDTO>	getAllCars();
 	
 	public String deleteCar(int carId);
 	
@@ -71,9 +72,9 @@ public interface IAdminService {
     
     public String  giveFeedback(String adminFeedback);
     
-    public List <Reservations> viewAllReservations();
+    public List <ReservationDTO> viewAllReservations();
  
-    public List<Payments> viewAllPayments();
+    public List<PaymentDTO> viewAllPayments();
     
     //generate Reports
     

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.dto.PaymentDTO;
+import com.hexaware.roadready.dto.ReservationDTO;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
@@ -55,7 +57,7 @@ public class AdminRestController {
 	}
 	
 	@GetMapping("/getAllCustomers")
-	public List<Customers>	getAllCustomer(){
+	public List<CustomerDTO>	getAllCustomer(){
 		return service.getAllCustomer();
 	}
 	@DeleteMapping("/deleteCustomerById/{customerId}")
@@ -91,7 +93,7 @@ public class AdminRestController {
 	}
 	
 	@GetMapping("/getAllCars")
-	public List<Cars>	getAllCars(){
+	public List<CarDTO>	getAllCars(){
 		return service.getAllCars();
 	}
 	
@@ -181,12 +183,12 @@ public class AdminRestController {
     }
     
     @GetMapping("/getAllReservations")
-    public List <Reservations> viewAllReservations(){
+    public List <ReservationDTO> viewAllReservations(){
     	return service.viewAllReservations();
     }
     
     @GetMapping("/getAllPayments")
-    public List<Payments> viewAllPayments(){
+    public List<PaymentDTO> viewAllPayments(){
     	return service.viewAllPayments();
     }
     

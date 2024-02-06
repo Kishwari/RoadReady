@@ -1,6 +1,7 @@
 package com.hexaware.roadready.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.dto.PaymentDTO;
+import com.hexaware.roadready.dto.ReservationDTO;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
@@ -74,9 +77,22 @@ public class AdminServiceImpl implements IAdminService {
 	}
 
 	@Override
-	public List<Customers> getAllCustomer() {
-		
-		return customerRepo.findAll();
+	public List<CustomerDTO> getAllCustomer() {
+		List<Customers> customersList = customerRepo.findAll();
+		List<CustomerDTO> customerDTOList = new ArrayList<>();
+		for(Customers customer : customersList) {
+			CustomerDTO customerdto = new CustomerDTO();
+			customerdto.setCustomerId(customer.getCustomerId());
+			customerdto.setFirstName(customer.getFirstName());
+			customerdto.setLastName(customer.getLastName());
+			customerdto.setEmailAddress(customer.getEmailAddress());
+			customerdto.setUsername(customer.getUsername());
+			customerdto.setPassword(customer.getPassword());
+			customerdto.setPhoneNumber(customer.getPhoneNumber());
+			
+			customerDTOList.add(customerdto);
+		}
+		return customerDTOList;
 	}
 
 	@Override
@@ -133,9 +149,23 @@ public class AdminServiceImpl implements IAdminService {
 	}
 
 	@Override
-	public List<Cars> getAllCars() {
-		
-		return carRepo.findAll();
+	public List<CarDTO> getAllCars() {
+		List<Cars> carsList = carRepo.findAll();
+		List<CarDTO> carDTOList = new ArrayList<>();
+		for(Cars car : carsList) {
+			CarDTO cardto=new CarDTO();
+			cardto.setCarId(car.getCarId());
+			cardto.setMake(car.getMake());
+			cardto.setModel(car.getModel());
+			cardto.setCarStatus(car.getCarStatus());
+			cardto.setSpecifications(car.getSpecification());
+			cardto.setLocation(car.getLocation());
+			cardto.setPassengerCapacity(car.getPassengerCapacity());
+			cardto.setDailyRate(car.getDailyRate());
+			
+			carDTOList.add(cardto);
+		}
+		return carDTOList;
 	}
 
 	@Override
@@ -164,14 +194,37 @@ public class AdminServiceImpl implements IAdminService {
 	}
 
 	@Override
-	public List<Reservations> viewAllReservations() {
-		return reservationRepo.findAll();
+	public List<ReservationDTO> viewAllReservations() {
+		 List<Reservations> reservationList = reservationRepo.findAll();
+		    List<ReservationDTO> reservationDTOList = new ArrayList<>();
+		    for (Reservations reservation : reservationList) {
+		        ReservationDTO reservationDTO = new ReservationDTO();
+		        reservationDTO.setReservationId(reservation.getResevationId());
+		        reservationDTO.setReservationStatus(reservation.getReservationstatus());
+		        reservationDTO.setDateOfReservation(reservation.getDateOfReservation());
+		        reservationDTO.setDateOfPickup(reservation.getDateOfPickup());
+		        reservationDTO.setDateOfDropoff(reservation.getDateOfDropoff());
+
+		        reservationDTOList.add(reservationDTO);
+		    }
+		    return reservationDTOList;
 		
 	}
 
 	@Override
-	public List<Payments> viewAllPayments() {
-		return paymentRepo.findAll();
+	public List<PaymentDTO> viewAllPayments() {
+		 List<Payments> paymentList = paymentRepo.findAll();
+		    List<PaymentDTO> paymentDTOList = new ArrayList<>();
+		    for (Payments payment : paymentList) {
+		        PaymentDTO paymentDTO = new PaymentDTO();
+		        paymentDTO.setPaymentId(payment.getPaymentId());
+		        paymentDTO.setAmountPaid(payment.getAmountPaid());
+		        paymentDTO.setDateOfPayment(payment.getDateOfPayment());
+		        paymentDTO.setModeOfPayment(payment.getModeOfPayment());
+
+		        paymentDTOList.add(paymentDTO);
+		    }
+		    return paymentDTOList;
 	}
 
 	@Override
