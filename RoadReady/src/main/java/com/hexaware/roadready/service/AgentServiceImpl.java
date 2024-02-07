@@ -1,9 +1,13 @@
 package com.hexaware.roadready.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.entities.Agent;
 
 @Service
 public class AgentServiceImpl implements IAgentService{
@@ -51,6 +55,30 @@ public class AgentServiceImpl implements IAgentService{
 	public String carMaintenanceReport(String maintenance) {
 		        
 				//return a string with car object that has maintance as required
+		return null;
+	}
+
+	@Override
+	public Agent addAgent(AgentDTO agent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AgentDTO getAgentById(int agentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Agent> getAllAgents() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String deleteAgent(int agentId) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -46,7 +46,7 @@ public class AdminServiceImpl implements IAdminService {
 	@Autowired
 	AgentRepository agentRepo;
 	
-	@Override
+/*	@Override
 	public Customers addCustomer(CustomerDTO customerdto) {
 		Customers customer = new Customers();
 		customer.setCustomerId(customerdto.getCustomerId());
@@ -304,8 +304,9 @@ public class AdminServiceImpl implements IAdminService {
 	public List<Reservations> getReservationDetailsForCustomer(int customerId) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}   */
 
+	
 	@Override
 	public String revenueReportBetweenDates(LocalDate startDtae , LocalDate endDate) {
 		// TODO Auto-generated method stub
@@ -320,6 +321,30 @@ public class AdminServiceImpl implements IAdminService {
 
 	@Override
 	public String totalRevenueReport() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Agent addAgent(AgentDTO agent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AgentDTO getAgentById(int agentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Agent> getAllAgents() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String deleteAgent(int agentId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

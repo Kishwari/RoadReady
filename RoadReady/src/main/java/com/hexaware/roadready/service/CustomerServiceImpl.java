@@ -1,5 +1,6 @@
 package com.hexaware.roadready.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,63 +10,93 @@ import org.springframework.stereotype.Service;
 import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.dto.ReservationDTO;
 import com.hexaware.roadready.entities.Cars;
+import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Feedback;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
-import com.hexaware.roadready.repository.CarRepository;
+import com.hexaware.roadready.repository.CustomerRepository;
 
 @Service
 public class CustomerServiceImpl implements ICustomerService {
     
 	@Autowired
-	CarRepository CarRepo;
+	CustomerRepository customerRepo;
+	
 	
 	@Override
-	public List<Cars> getAvailableCars() {
-		
-		return CarRepo.getAvailableCars();
+	public Customers addCustomer(CustomerDTO customerdto) {
+		Customers customer = new Customers();
+		customer.setCustomerId(customerdto.getCustomerId());
+		customer.setFirstName(customerdto.getFirstName());
+		customer.setLastName(customerdto.getLastName());
+		customer.setEmailAddress(customerdto.getEmailAddress());
+		customer.setUsername(customerdto.getUsername());
+		customer.setPassword(customerdto.getPassword());
+		customer.setPhoneNumber(customerdto.getPhoneNumber());
+		return customerRepo.save(customer);
+	}
+	
+
+
+
+	@Override
+	public CustomerDTO getCustomerById(int customerId) {
+		Customers customer = customerRepo.findById(customerId).orElse(null);
+		CustomerDTO customerdto=new CustomerDTO();
+		customerdto.setCustomerId(customer.getCustomerId());
+		customerdto.setFirstName(customer.getFirstName());
+		customerdto.setLastName(customer.getLastName());
+		customerdto.setEmailAddress(customer.getEmailAddress());
+		customerdto.setUsername(customer.getUsername());
+		customerdto.setPassword(customer.getPassword());
+		customerdto.setPhoneNumber(customer.getPhoneNumber());
+		return customerdto;
+	}
+
+	@Override
+	public List<CustomerDTO> getAllCustomer() {
+		List<Customers> customersList = customerRepo.findAll();
+		List<CustomerDTO> customerDTOList = new ArrayList<>();
+		for(Customers customer : customersList) {
+			CustomerDTO customerdto = new CustomerDTO();
+			customerdto.setCustomerId(customer.getCustomerId());
+			customerdto.setFirstName(customer.getFirstName());
+			customerdto.setLastName(customer.getLastName());
+			customerdto.setEmailAddress(customer.getEmailAddress());
+			customerdto.setUsername(customer.getUsername());
+			customerdto.setPassword(customer.getPassword());
+			customerdto.setPhoneNumber(customer.getPhoneNumber());
+			
+			customerDTOList.add(customerdto);
+		}
+		return customerDTOList;
+	}
+
+	@Override
+	public String deleteCustomer(int customerId) {
+		customerRepo.deleteById(customerId);
+		Customers deletedCustomer = customerRepo.findById(customerId).orElse(null);
+		if(deletedCustomer != null) {
+			return "customer deletion unsuccesfull";
+		}
+		return "customer " + customerId +" deleted successfully";
 	}
 	
 	@Override
-	public List<Cars> searchCars(String location, String make, String model) {
-        List<Cars> availableCars = CarRepo.getAvailableCars();
-        return availableCars.stream()
-                .filter(car -> car.getMake().equals(make) && car.getModel().equals(model)
-                && car.getLocation().equals(location) ) .collect(Collectors.toList());
+	public Customers updateCustomer(CustomerDTO customerdto) {
+		Customers customer = new Customers();
+		customer.setCustomerId(customerdto.getCustomerId());
+		customer.setFirstName(customerdto.getFirstName());
+		customer.setLastName(customerdto.getLastName());
+		customer.setEmailAddress(customerdto.getEmailAddress());
+		customer.setUsername(customerdto.getUsername());
+		customer.setPassword(customerdto.getPassword());
+		customer.setPhoneNumber(customerdto.getPhoneNumber());
+		return customerRepo.save(customer);
 	}
 
 	
-	@Override
-	public ReservationDTO makeReservation(ReservationDTO reservation) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public String cancelReservation(int reservationId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public ReservationDTO modifyReservation(ReservationDTO reservation) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Feedback provideFeedback(Feedback feedback) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List<Payments> viewPaymentHistory(int customerId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List<Reservations> viewReservations(int customerId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
-
+	
+	
 }

@@ -24,23 +24,48 @@ import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.exceptions.InvalidDateException;
 import com.hexaware.roadready.exceptions.PaymentNotFoundException;
 import com.hexaware.roadready.exceptions.ReservationNotFoundException;
+import com.hexaware.roadready.service.IAdminService;
+import com.hexaware.roadready.service.IAgentService;
+import com.hexaware.roadready.service.ICarService;
 import com.hexaware.roadready.service.ICustomerService;
+import com.hexaware.roadready.service.IFeedBackService;
+import com.hexaware.roadready.service.IPaymentService;
+import com.hexaware.roadready.service.IReservationService;
 
 @RestController
 @RequestMapping("/roadready/customers")
 public class CustomerRestController {
 	
-   @Autowired
-   ICustomerService service;
+	@Autowired
+	ICustomerService customerService;
+	
+	@Autowired
+	ICarService carService;
+	
+	@Autowired
+	IPaymentService paymentService;
+	
+	@Autowired
+	IReservationService reservationService;
+	
+	@Autowired
+	IFeedBackService feedbackService;
+	
+	@Autowired
+	IAgentService agentService;
+	
+	@Autowired
+	IAdminService adminService;
+	
    
    @GetMapping("/getAvailableCars")
 	public List<Cars> getAvailableCars(){
-		return service.getAvailableCars();
+		return carService.getAvailableCars();
 	}
    
    @GetMapping("/searchCars/{location}/{make}/{model}")
    public List<Cars> searchCars(@PathVariable String location , @PathVariable String make,@PathVariable String model) throws CarNotFoundException{
-	   List<Cars> cars= service.searchCars(location , make , model);
+	   List<Cars> cars= carService.searchCars(location , make , model);
 	   if(cars==null) {
 		   throw new CarNotFoundException();
 	   }
@@ -48,7 +73,7 @@ public class CustomerRestController {
    }
    @PostMapping("/makeReservation")									//	check  mapping for all methods below this
    ReservationDTO makeReservation(@RequestBody ReservationDTO reservation) throws InvalidDateException {
-	   ReservationDTO checkReservation = service.makeReservation(reservation);
+	   ReservationDTO checkReservation = reservationService.makeReservation(reservation);
 	   LocalDate today = LocalDate.now();
 	   if(checkReservation.getDateOfPickup().isBefore(today)) {
 	       throw new InvalidDateException();
@@ -59,12 +84,12 @@ public class CustomerRestController {
    
    @DeleteMapping("/cancelReservation/{reservationId}")
    String cancelReservation(@PathVariable int reservationId) {
-	   return service.cancelReservation(reservationId);
+	   return reservationService.cancelReservation(reservationId);
    }
    
    @PutMapping("/modifyReservation")
    ReservationDTO modifyReservation(@RequestBody ReservationDTO reservation) throws ReservationNotFoundException {
-	   ReservationDTO checkReservation = service.modifyReservation(reservation);
+	   ReservationDTO checkReservation = reservationService.modifyReservation(reservation);
 	   if(checkReservation==null) {
 		   throw new ReservationNotFoundException();
 	   }
@@ -74,12 +99,12 @@ public class CustomerRestController {
  
    @PostMapping("/CustomerFeedback")
    Feedback provideFeedback(@RequestBody Feedback feedback) { 		// return type I think feedback ?
-	  return service.provideFeedback(feedback);
+	  return feedbackService.provideFeedback(feedback);
    }
    
    @GetMapping("/viewPaymentHistory/{customerId}")
    List<Payments> viewPaymentHistory(@PathVariable int customerId) throws PaymentNotFoundException{
-	   List<Payments> payments= service.viewPaymentHistory(customerId);
+	   List<Payments> payments= paymentService.viewPaymentHistory(customerId);
 	   if(payments==null){
 		   throw new PaymentNotFoundException();
    }
@@ -88,7 +113,7 @@ public class CustomerRestController {
    
    @GetMapping("/viewReservations/{customerId}")
    List<Reservations> viewReservations(@PathVariable int customerId) throws ReservationNotFoundException{
-	   List<Reservations> reservations =service.viewReservations(customerId);
+	   List<Reservations> reservations =reservationService.viewReservations(customerId);
 	   if(reservations==null) {
 		   throw new ReservationNotFoundException();
 	   }

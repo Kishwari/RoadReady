@@ -21,16 +21,13 @@ public interface IAdminService {
 	
 	
 	//manage customer
-    public Customers	addCustomer(CustomerDTO customer);
+   /* public Customers	addCustomer(CustomerDTO customer);
 	
 	public CustomerDTO	getCustomerById(int customerId);
 	
 	public List<CustomerDTO>	getAllCustomer();
 	
 	public String deleteCustomer(int customerId);
-	
-
-	
 
 	public Customers	updateCustomer(CustomerDTO customer);
 
@@ -70,12 +67,14 @@ public interface IAdminService {
     
   
     
-    public String  giveFeedback(String adminFeedback);
+   public String  giveFeedback(String adminFeedback);
     
     public List <ReservationDTO> viewAllReservations();
  
-    public List<PaymentDTO> viewAllPayments();
+    public List<PaymentDTO> viewAllPayments();  */
     
+	
+	
     //generate Reports
     
     public String revenueReportBetweenDates(LocalDate startDate, LocalDate endDate);
@@ -83,6 +82,14 @@ public interface IAdminService {
     public String revenueReportGeneratedByCustomer(int customerId);
     
     public String totalRevenueReport();
+    
+    public Agent addAgent(AgentDTO agent);
+ 	
+    public AgentDTO getAgentById(int agentId);
+    	
+    public List<Agent> getAllAgents();
+    	
+    public String deleteAgent(int agentId);
     
 
 }

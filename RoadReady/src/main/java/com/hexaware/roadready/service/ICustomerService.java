@@ -15,24 +15,19 @@ import com.hexaware.roadready.entities.Reservations;
 
 public interface ICustomerService {
 	
-	public List<Cars> getAvailableCars(); 
 	
-	List<Cars> searchCars(String location,String make,String model);
-    
+    public Customers	addCustomer(CustomerDTO customer);
 	
-    ReservationDTO makeReservation(ReservationDTO reservation);
-    
-    String cancelReservation(int reservationId);
-    
-    ReservationDTO modifyReservation(ReservationDTO reservation);
-    
-  
-    
-    Feedback provideFeedback(Feedback feedback);
-    
-    List<Payments> viewPaymentHistory(int customerId);
-    
-    List<Reservations> viewReservations(int customerId);
+	public CustomerDTO	getCustomerById(int customerId);
+	
+	public List<CustomerDTO>	getAllCustomer();
+	
+	public String deleteCustomer(int customerId);
+	
+	public Customers updateCustomer(CustomerDTO customerdto);
+	
+	
+	
  
     
 }
