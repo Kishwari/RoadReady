@@ -1,5 +1,6 @@
 package com.hexaware.roadready.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,11 @@ import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Agent;
+import com.hexaware.roadready.entities.Customers;
+import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.repository.AgentRepository;
+import com.hexaware.roadready.repository.CustomerRepository;
+import com.hexaware.roadready.repository.ReservationRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -20,16 +25,33 @@ public class AgentServiceImpl implements IAgentService{
 	
 	@Autowired
 	AgentRepository agentRepo;
+	@Autowired
+	ReservationRepository reservationRepo;
+    
+	@Autowired
+	CustomerRepository customerRepo;
 
+	
 	@Override
 	 public String completeCheckIn(int reservationId) {
         //step1 :  get reservation details by reservation id 
+		Reservations reservation = reservationRepo.findById(reservationId).orElse(null);
+		Customers customer = reservation.getCustomer();
+	     Customers checkCustomer  = customerRepo.findById(customer.getCustomerId()).orElse(null);
         //step2 : check whether pickup date is today or not 
-		//step 3: check customer details by getting customer by customerId from reservation object that we retrieved from step 1
+	   //step 3: check customer details by getting customer by customerId from reservation object that we retrieved from step 1
+	     
+		if(reservation.getDateOfPickup()==LocalDate.now() && checkCustomer == customer) {
+			
+			return "checkin completed successfully";
+		
+		}
         //step 4 : if both 2 and 3 exist then return string as checked in and update in reservation as checkedin as completed(we need columns as checkin and checkout ) 
 		//   Reservations reservation = ReservationRepository.findById(reservationId).orElse(null);
        //continue the logic
-		return null;
+		else {
+			return " check in failed";
+		}
         }
 
 	public String completeCheckOut(int reservationId) {
