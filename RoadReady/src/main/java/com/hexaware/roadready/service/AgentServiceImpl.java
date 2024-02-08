@@ -7,20 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.AgentDTO;
-import com.hexaware.roadready.dto.CarDTO;
-import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Agent;
+import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.repository.AgentRepository;
+import com.hexaware.roadready.repository.CarRepository;
 import com.hexaware.roadready.repository.CustomerRepository;
 import com.hexaware.roadready.repository.ReservationRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-
 public class AgentServiceImpl implements IAgentService{
 	
 	@Autowired
@@ -30,63 +31,79 @@ public class AgentServiceImpl implements IAgentService{
     
 	@Autowired
 	CustomerRepository customerRepo;
+	
+	@Autowired
+	CarRepository carRepo;
+	
+	@PersistenceContext
+    private EntityManager entityManager;
 
 	
 	@Override
 	 public String completeCheckIn(int reservationId) {
         //step1 :  get reservation details by reservation id 
 		Reservations reservation = reservationRepo.findById(reservationId).orElse(null);
-		Customers customer = reservation.getCustomer();
-	     Customers checkCustomer  = customerRepo.findById(customer.getCustomerId()).orElse(null);
-        //step2 : check whether pickup date is today or not 
-	   //step 3: check customer details by getting customer by customerId from reservation object that we retrieved from step 1
-	     
-		if(reservation.getDateOfPickup()==LocalDate.now() && checkCustomer == customer) {
-			
-			return "checkin completed successfully";
-		
-		}
-        //step 4 : if both 2 and 3 exist then return string as checked in and update in reservation as checkedin as completed(we need columns as checkin and checkout ) 
-		//   Reservations reservation = ReservationRepository.findById(reservationId).orElse(null);
-       //continue the logic
-		else {
-			return " check in failed";
-		}
-        }
+		if (reservation != null) {
+	        // Step 2: Check whether pickup date is today or not 
+	        if (reservation.getDateOfPickup().equals(LocalDate.now())) {
+	            // Step 3: Check customer details 
+	            Customers customer = reservation.getCustomer();
+	            Customers checkCustomer = customerRepo.findById(customer.getCustomerId()).orElse(null);
+	            if (checkCustomer != null && checkCustomer.equals(customer)) {
+	                // Step 4: Check-in completed successfully 
+	                return "Check-in completed successfully";
+	            }
+	        }
+	    }
+	    // Step 5: Check-in failed 
+	    return "Check-in failed";
+	}
+        
 
-	public String completeCheckOut(int reservationId) {
-         //step1 : after receiving the car from customer check if maintanace required 
-		//if required update maintenance column in car entity as required else not required
-		//step 2 :if requited update car availability as not available also
-		// step 3 : update the checkout status in the reservation table  as completed
-         //   Reservation reservation = reservationRepository.findById(reservationId).orElse(null);
-        //  continue the logic
+	public String completeCheckOut(int reservationId , String carStatus) {
+         
+		 Reservations reservation = reservationRepo.findById(reservationId).orElse(null);
+		 Cars car  = reservation.getCar();
+		 int carId = car.getCarId();
+	     carRepo.updateCarStatusAfterCheckout(carStatus,carId);
+	     
+	       // Clear entity manager cache
+	      entityManager.clear();
+	     Cars updatedCar = carRepo.findById(carId).orElse(null);
 		
-		return null;
+		String updatedCarStatus = updatedCar.getCarStatus();
+		return  "checkout completed successfully and car status updated to " + updatedCarStatus;
         }
 
 	
 	
 
 	@Override
-	public CarDTO updateCarAvailability(int carId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Cars updateCarAvailability(String carStatus ,int carId) {
+		carRepo.updateCarAvailability(carStatus, carId);
+		return carRepo.findById(carId).orElse(null);
+		
 	}
 
 	@Override
-	public CustomerDTO verifyIdentity(int customerId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Customers verifyIdentity(int customerId) {
+		Customers customer =customerRepo.findById(customerId).orElse(null);
+		return customer;
 	}
      
 	
 
 	@Override
-	public String carMaintenanceReport(String maintenance) {
-		        
-				//return a string with car object that has maintance as required
-		return null;
+	public String carMaintenanceReport() {
+		List<Cars> carList = carRepo.carUnderMaintenance();    
+		StringBuilder report = new StringBuilder();
+	    report.append("Cars under maintenance:\n");
+	    for (Cars car : carList) {
+	        report.append(car.toString()).append("\n"); 
+	    }
+	    return report.toString();
+		
+
 	}
 
 	@Override

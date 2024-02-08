@@ -1,20 +1,14 @@
 package com.hexaware.roadready.restcontroller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hexaware.roadready.dto.AgentDTO;
-import com.hexaware.roadready.dto.CarDTO;
-import com.hexaware.roadready.dto.CustomerDTO;
-import com.hexaware.roadready.entities.Agent;
+import com.hexaware.roadready.entities.Cars;
+import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.service.IAgentService;
@@ -24,33 +18,33 @@ import com.hexaware.roadready.service.IAgentService;
 public class AgentRestController {
 
 	@Autowired
-	IAgentService service;
+	IAgentService agentService;
 	
      
 	 @GetMapping("/checkin/{reservationId}")
 	 public String completeCheckIn(@PathVariable int reservationId) {		// no idea about mapping
-		 return service.completeCheckIn(reservationId);
+		 return agentService.completeCheckIn(reservationId);
 
 	 }
-	 @GetMapping("/checkout/{reservationId}")
-	 public String completeCheckOut(@PathVariable int reservationId) { 		// no idea about mapping
-		 return service.completeCheckOut(reservationId);
+	 @GetMapping("/checkout/{reservationId}/{carStatus}")
+	 public String completeCheckOut(@PathVariable int reservationId , @PathVariable String carStatus) { 		// no idea about mapping
+		 return agentService.completeCheckOut(reservationId, carStatus);
 
 	 }
 	
-	 @PutMapping("/updateCarAvailability/{carId}")
-    public CarDTO updateCarAvailability(@PathVariable int carId) throws CarNotFoundException {
-		 CarDTO car = service.updateCarAvailability(carId);
+	 @PutMapping("/updateCarAvailability/{carStatus}/{carId}")
+    public Cars updateCarAvailability(@PathVariable String carStatus , @PathVariable int carId) throws CarNotFoundException {
+		 Cars car = agentService.updateCarAvailability(carStatus, carId);
 		 if(car==null) {
 			 throw new CarNotFoundException("car with id " + carId + "not present");
 		 }
 		 return car;
 	 }
-	 @GetMapping("/getCustomerIdentity/{customerId}")	
-    public CustomerDTO  verifyIdentity(@PathVariable int customerId) throws CustomerNotFoundException {
-		 CustomerDTO customer = service.verifyIdentity(customerId);
+	 @GetMapping("/verifyCustomerIdentity/{customerId}")	
+    public Customers  verifyIdentity(@PathVariable int customerId) throws CustomerNotFoundException {
+		 Customers customer = agentService.verifyIdentity(customerId);
 		 if(customer== null) {
-			 throw new CustomerNotFoundException();
+			 throw new CustomerNotFoundException("customer with Id" + customerId + "not found");
 		 }
          return customer;
 	 }
@@ -68,9 +62,9 @@ public class AgentRestController {
     } */
 	 
 
-     @GetMapping("/carMaintenanceReport/{maintenance}")
-	 public String carMaintenanceReport(@PathVariable String maintenance)   {
-		 return service.carMaintenanceReport(maintenance);
+     @GetMapping("/carMaintenanceReport")
+	 public String carMaintenanceReport()   {
+		 return agentService.carMaintenanceReport();
 	 }
      
      

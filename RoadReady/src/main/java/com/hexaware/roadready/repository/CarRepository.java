@@ -19,11 +19,21 @@ public interface CarRepository extends JpaRepository<Cars,Integer> {
 	
 	
 	@Modifying
-	
 	@Query("UPDATE Cars c SET c.dailyRate = c.dailyRate * (1 - ?2 / 100.0) WHERE c.make = ?1")
 	void discountOnCarPriceByMake(String make , double discountPrice);
 	
 	List<Cars> findByMake(String make);
+	
+	@Modifying
+	@Query("update Cars c set c.carStatus = ?1 where c.carId = ?2")
+	void updateCarStatusAfterCheckout(String carStatus , int carId);
+	
+	@Modifying
+	@Query("update Cars c set c.carStatus =?1 where c.carId =?2")
+	void updateCarAvailability(String carStatus , int carId);
+	
+	@Query("select c from Cars c where c.carStatus = 'maintenance'")
+	List<Cars> carUnderMaintenance();
 	
 	
 }

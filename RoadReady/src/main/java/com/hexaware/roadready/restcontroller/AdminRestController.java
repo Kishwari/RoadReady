@@ -74,7 +74,8 @@ public class AdminRestController {
 	public CustomerDTO	getCustomerById(@PathVariable int customerId) throws CustomerNotFoundException {
 		CustomerDTO customer = customerService.getCustomerById(customerId);
 		if(customer==null) {
-			throw new CustomerNotFoundException();
+			throw new CustomerNotFoundException("custome with id " + customerId + "not found");
+			
 		}
 		return customer;
 	}
@@ -93,7 +94,7 @@ public class AdminRestController {
 	public Customers	updateCustomer(@RequestBody CustomerDTO customer) throws CustomerNotFoundException {
 		Customers checkCustomer = customerService.updateCustomer(customer);
 		if(checkCustomer == null) {
-			throw new CustomerNotFoundException();
+			throw new CustomerNotFoundException("customer not found");
 		}
 		return checkCustomer;
 	}
