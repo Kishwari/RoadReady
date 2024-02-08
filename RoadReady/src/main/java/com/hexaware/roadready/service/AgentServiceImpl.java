@@ -9,7 +9,11 @@ import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Agent;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
+
 public class AgentServiceImpl implements IAgentService{
 
 	@Override

@@ -5,11 +5,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.repository.CarRepository;
+
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
 
 public class CarServiceImpl implements ICarService{
     
@@ -97,8 +103,8 @@ public class CarServiceImpl implements ICarService{
 		Cars car = new Cars();
 		car.setCarId(cardto.getCarId());
 		car.setMake(cardto.getMake());
-		car.setModel(car.getModel());
-		car.setLocation(car.getLocation());
+		car.setModel(cardto.getModel());
+		car.setLocation(cardto.getLocation());
 		car.setCarStatus(cardto.getCarStatus());
 		car.setSpecification(cardto.getSpecifications());
 		car.setPassengerCapacity(cardto.getPassengerCapacity());

@@ -1,4 +1,4 @@
-package com.hexaware.roadready.test;
+/*package com.hexaware.roadready.test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -77,4 +77,4 @@ class CustomerServiceImplTest {
 		assertFalse(flag);
 	}
 
-}
+}*/

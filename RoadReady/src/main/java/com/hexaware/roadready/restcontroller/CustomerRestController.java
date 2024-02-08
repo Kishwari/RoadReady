@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.dto.PaymentDTO;
 import com.hexaware.roadready.dto.ReservationDTO;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Feedback;
@@ -22,6 +23,7 @@ import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.exceptions.InvalidDateException;
+import com.hexaware.roadready.exceptions.InvalidPaymentException;
 import com.hexaware.roadready.exceptions.PaymentNotFoundException;
 import com.hexaware.roadready.exceptions.ReservationNotFoundException;
 import com.hexaware.roadready.service.IAdminService;
@@ -71,39 +73,51 @@ public class CustomerRestController {
 	   }
        return cars;
    }
-   @PostMapping("/makeReservation")									//	check  mapping for all methods below this
-   ReservationDTO makeReservation(@RequestBody ReservationDTO reservation) throws InvalidDateException {
-	   ReservationDTO checkReservation = reservationService.makeReservation(reservation);
+  /* @PostMapping("/makeReservation")									//	check  mapping for all methods below this
+   Reservations makeReservation(@RequestBody ReservationDTO reservation) throws InvalidDateException {
+	   Reservations checkReservation = reservationService.makeReservation(reservation);
 	   LocalDate today = LocalDate.now();
 	   if(checkReservation.getDateOfPickup().isBefore(today)) {
 	       throw new InvalidDateException();
 	   }
 	   return checkReservation;
-   }
+   }*/
   
+   @PostMapping("/makePayment/{customerId}/{carId}/{dateOfPickup}/{dateOfDropoff}")									//	check  mapping for all methods below this
+   public Payments makePayment(@PathVariable int customerId , @PathVariable int carId ,  @PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff ,@RequestBody PaymentDTO paymentdto  ) {
+	   Payments payment = new Payments();
+	try {
+		payment = paymentService.makePayment(customerId , carId ,paymentdto, dateOfPickup , dateOfDropoff);
+	} catch (InvalidPaymentException e) {
+		
+		e.printStackTrace();
+	}
+	   
+	   return payment;
+   }
    
    @DeleteMapping("/cancelReservation/{reservationId}")
-   String cancelReservation(@PathVariable int reservationId) {
+   public String cancelReservation(@PathVariable int reservationId) {
 	   return reservationService.cancelReservation(reservationId);
    }
    
-   @PutMapping("/modifyReservation")
-   ReservationDTO modifyReservation(@RequestBody ReservationDTO reservation) throws ReservationNotFoundException {
-	   ReservationDTO checkReservation = reservationService.modifyReservation(reservation);
+   /*@PutMapping("/modifyReservation")
+   Reservations modifyReservation(@RequestBody ReservationDTO reservation) throws ReservationNotFoundException {
+	   Reservations checkReservation = reservationService.modifyReservation(reservation);
 	   if(checkReservation==null) {
 		   throw new ReservationNotFoundException();
 	   }
 	   return checkReservation;
-   }
+   }*/
    
  
    @PostMapping("/CustomerFeedback")
-   Feedback provideFeedback(@RequestBody Feedback feedback) { 		// return type I think feedback ?
+  public Feedback provideFeedback(@RequestBody Feedback feedback) { 		// return type I think feedback ?
 	  return feedbackService.provideFeedback(feedback);
    }
    
    @GetMapping("/viewPaymentHistory/{customerId}")
-   List<Payments> viewPaymentHistory(@PathVariable int customerId) throws PaymentNotFoundException{
+   public List<Payments> viewPaymentHistory(@PathVariable int customerId) throws PaymentNotFoundException{
 	   List<Payments> payments= paymentService.viewPaymentHistory(customerId);
 	   if(payments==null){
 		   throw new PaymentNotFoundException();
@@ -112,7 +126,7 @@ public class CustomerRestController {
 }
    
    @GetMapping("/viewReservations/{customerId}")
-   List<Reservations> viewReservations(@PathVariable int customerId) throws ReservationNotFoundException{
+   public List<Reservations> viewReservations(@PathVariable int customerId) throws ReservationNotFoundException{
 	   List<Reservations> reservations =reservationService.viewReservations(customerId);
 	   if(reservations==null) {
 		   throw new ReservationNotFoundException();

@@ -1,14 +1,21 @@
 package com.hexaware.roadready.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.ReservationDTO;
 import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.repository.ReservationRepository;
 
+import jakarta.transaction.Transactional;
+
+
+@Service
+@Transactional
 public class ReservationServiceImpl implements IReservationService{
 	
 	@Autowired
@@ -32,11 +39,19 @@ public class ReservationServiceImpl implements IReservationService{
 		
 	}
 
-	@Override
-	public ReservationDTO makeReservation(ReservationDTO reservation) {
-		// TODO Auto-generated method stub
+	/*@Override
+	public Reservations makeReservation(int reservationId,LocalDate dateOfPickup ,LocalDate dateOfDropoff) {
+		Reservations reservation = new Reservations();
+        reservation.setResevationId(reservationId);
+        reservation.setDateOfReservation(LocalDate.now());
+        reservation.setDateOfPickup(dateOfPickup);
+        reservation.setDateOfDropoff(dateOfDropoff);
+        if 
+        reservation.setReservationstatus(reservationdto.getReservationStatus());
+        
+		
 		return null;
-	}
+	}*/
 
 	@Override
 	public String cancelReservation(int reservationId) {
@@ -45,7 +60,7 @@ public class ReservationServiceImpl implements IReservationService{
 	}
 
 	@Override
-	public ReservationDTO modifyReservation(ReservationDTO reservation) {
+	public Reservations modifyReservation(int reservationId ,LocalDate dateOfPickup , LocalDate dateOfDropoff) {
 		// TODO Auto-generated method stub
 		return null;
 	}

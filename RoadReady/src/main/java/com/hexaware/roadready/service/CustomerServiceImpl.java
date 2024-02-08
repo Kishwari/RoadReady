@@ -2,21 +2,18 @@ package com.hexaware.roadready.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.CustomerDTO;
-import com.hexaware.roadready.dto.ReservationDTO;
-import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
-import com.hexaware.roadready.entities.Feedback;
-import com.hexaware.roadready.entities.Payments;
-import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.repository.CustomerRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class CustomerServiceImpl implements ICustomerService {
     
 	@Autowired

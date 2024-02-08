@@ -1,5 +1,6 @@
 package com.hexaware.roadready.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.hexaware.roadready.dto.ReservationDTO;
@@ -7,11 +8,11 @@ import com.hexaware.roadready.entities.Reservations;
 
 public interface IReservationService {
     
-    ReservationDTO makeReservation(ReservationDTO reservation);
+  //  Reservations makeReservation(ReservationDTO reservationdto);
     
     String cancelReservation(int reservationId);
     
-    ReservationDTO modifyReservation(ReservationDTO reservation);
+    Reservations modifyReservation(int reservationId ,LocalDate dateOfPickup , LocalDate dateOfDropoff);
     
     List<Reservations> viewReservations(int customerId);
     

@@ -1,7 +1,10 @@
 package com.hexaware.roadready.service;
 
+import org.springframework.stereotype.Service;
+
 import com.hexaware.roadready.entities.Feedback;
 
+@Service
 public class FeedBackServiceImpl implements IFeedBackService {
 
 	@Override
