@@ -42,7 +42,7 @@ public class AgentRestController {
     public CarDTO updateCarAvailability(@PathVariable int carId) throws CarNotFoundException {
 		 CarDTO car = service.updateCarAvailability(carId);
 		 if(car==null) {
-			 throw new CarNotFoundException();
+			 throw new CarNotFoundException("car with id " + carId + "not present");
 		 }
 		 return car;
 	 }

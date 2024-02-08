@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Pattern;
 public class Feedback {
 	
 	@Id
-	private int FeedbackId;
+	private int feedbackId;
 	@NotBlank
 	private int customerId;
 	@NotBlank
@@ -25,15 +25,27 @@ public class Feedback {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Feedback(int customerId, String customerName, String customerReview, int rating, String adminFeedback) {
+
+	public Feedback(int feedbackId, int customerId,  String customerName,
+			String customerReview, int rating, String adminFeedback) {
 		super();
+		this.feedbackId = feedbackId;
 		this.customerId = customerId;
 		this.customerName = customerName;
 		this.customerReview = customerReview;
 		this.rating = rating;
 		AdminFeedback = adminFeedback;
 	}
+
+	public int getFeedbackId() {
+		return feedbackId;
+	}
+
+	public void setFeedbackId(int feedbackId) {
+		feedbackId = feedbackId;
+	}
+
+	
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -64,4 +76,6 @@ public class Feedback {
 	public void setAdminFeedback(String adminFeedback) {
 		AdminFeedback = adminFeedback;
 	}
+
+	
 }

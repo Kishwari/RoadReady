@@ -67,13 +67,11 @@ public class ReservationServiceImpl implements IReservationService{
 
 	@Override
 	public List<Reservations> viewReservations(int customerId) {
-		// TODO Auto-generated method stub
-		return null;
+		return reservationRepo.viewReservationHistory(customerId);
 	}
 
 	@Override
 	public List<Reservations> getReservationDetailsForCustomer(int customerId) {
-		// TODO Auto-generated method stub
-		return null;
+		return reservationRepo.getReservationDetailsForCustomer(customerId);
 	}
 }

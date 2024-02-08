@@ -21,6 +21,7 @@ import com.hexaware.roadready.dto.ReservationDTO;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
+import com.hexaware.roadready.entities.Feedback;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.exceptions.AgentNotFoundException;
@@ -110,7 +111,7 @@ public class AdminRestController {
 	public CarDTO	getCarById(@PathVariable int carId) throws CarNotFoundException {
 		CarDTO car= carService.getCarById(carId);
 		if(car==null) {
-			throw new CarNotFoundException();
+			throw new CarNotFoundException("car with id " + carId + "not present");
 		}
 		return car;
 	}
@@ -129,7 +130,7 @@ public class AdminRestController {
 	public Cars	updateCar(@RequestBody CarDTO car) throws CarNotFoundException {
 		Cars checkCar = carService.updateCar(car);
 		if(checkCar == null) {
-			throw new CarNotFoundException();
+			throw new CarNotFoundException("car not present");
 		}
 		return checkCar;
 	}
@@ -153,20 +154,20 @@ public class AdminRestController {
 		return reservations;
 	}
     
-    @PutMapping("/discountOnCar/{carId}/{discountPrice}")
-    public Cars discountOnCarPrice(@PathVariable int carId ,@PathVariable double discountPrice) throws CarNotFoundException {
-    	Cars car = carService.discountOnCarPrice(carId, discountPrice);
-    	if(car ==null) {
-    		throw new CarNotFoundException();
+    @PutMapping("/discountOnCarByMake/{make}/{discountPrice}")
+    public List<Cars> discountOnCarPrice(@PathVariable String make ,@PathVariable double discountPrice) throws CarNotFoundException {
+    	List<Cars>  cars = carService.discountOnCarPriceByMake(make, discountPrice);
+    	if(cars.isEmpty()) {
+    		throw new CarNotFoundException("car with make " + make+ "not present");
     	}
-    	return car;
+    	return cars;
     }
     
     @PutMapping("/updateCarPrice/{carId}/{newPrice}")
     public Cars updateCarPrice(@PathVariable int carId , @PathVariable double newPrice) throws CarNotFoundException {
     	Cars car = carService.updateCarPrice(carId, newPrice);
     	if(car == null) {
-    		throw new CarNotFoundException();
+    		throw new CarNotFoundException("car with id " + carId + "not present");
     	}
     	return car;
     }
@@ -174,8 +175,8 @@ public class AdminRestController {
     
    //manage agents
     @PostMapping("/addAgent")
-    public Agent addAgent(@RequestBody AgentDTO agent) {
-    	return agentService.addAgent(agent);
+    public Agent addAgent(@RequestBody AgentDTO agentdto) {
+    	return agentService.addAgent(agentdto);
     }
 	
     @GetMapping("/getAgentById/{agentId}")
@@ -191,18 +192,28 @@ public class AdminRestController {
     public List<Agent> getAllAgents(){
     	return agentService.getAllAgents();
     }
-    @DeleteMapping("/deleteAgentById")
+    @DeleteMapping("/deleteAgentById/{agentId}")
     public String deleteAgent(@PathVariable int agentId) {
     	return agentService.deleteAgent(agentId);
+    }
+    
+    @PutMapping("/updateAgentById/{agentId}")
+    public Agent updateAgent(@PathVariable int agentId , @RequestBody AgentDTO agent) {
+    	return agentService.updateAgent(agentId, agent);
     }
     
     //general
     
    // public String  generateReports(Date startDate, Date endDate, ReportType reportType);
     
-    @PostMapping("/giveFeedBack/{adminFeedback}")
-    public String  giveFeedback(@PathVariable String adminFeedback) {
-    	return feedbackService.giveFeedback(adminFeedback);
+    @PostMapping("/adminFeedBack/{feedbackId}/{adminFeedback}")
+    public String  giveFeedback(@PathVariable int feedbackId , @PathVariable String adminFeedback) {
+    	return feedbackService.adminFeedback(feedbackId ,adminFeedback);
+    }
+    
+    @GetMapping("/viewAllCustomerFeedBacks")
+    public List<Feedback> viewAllFeedbacks(){
+    	return feedbackService.viewAllFeedbacks();
     }
     
     @GetMapping("/getAllReservations")
@@ -231,6 +242,7 @@ public class AdminRestController {
     public String totalRevenueReport() {
     	return adminService.totalRevenueReport();
     }
+    
     
     
     

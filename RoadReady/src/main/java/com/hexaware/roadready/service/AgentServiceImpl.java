@@ -2,12 +2,14 @@ package com.hexaware.roadready.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Agent;
+import com.hexaware.roadready.repository.AgentRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -15,6 +17,9 @@ import jakarta.transaction.Transactional;
 @Transactional
 
 public class AgentServiceImpl implements IAgentService{
+	
+	@Autowired
+	AgentRepository agentRepo;
 
 	@Override
 	 public String completeCheckIn(int reservationId) {
@@ -63,27 +68,52 @@ public class AgentServiceImpl implements IAgentService{
 	}
 
 	@Override
-	public Agent addAgent(AgentDTO agent) {
-		// TODO Auto-generated method stub
-		return null;
+	public Agent addAgent(AgentDTO agentdto) {
+		Agent agent = new Agent();
+		agent.setAgentId(agentdto.getAgentId());
+		agent.setUsername(agentdto.getUsername());
+		agent.setPassword(agentdto.getPassword());
+		agentRepo.save(agent);
+		return agent;
 	}
 
 	@Override
 	public AgentDTO getAgentById(int agentId) {
-		// TODO Auto-generated method stub
-		return null;
+		Agent agent = agentRepo.findById(agentId).orElse(null);
+		AgentDTO agentdto = new AgentDTO ();
+		agentdto.setAgentId(agent.getAgentId());
+		agentdto.setUsername(agent.getUsername());
+		agentdto.setPassword(agent.getPassword());
+		return agentdto;
 	}
 
 	@Override
 	public List<Agent> getAllAgents() {
-		// TODO Auto-generated method stub
-		return null;
+		return agentRepo.findAll();
 	}
 
 	@Override
 	public String deleteAgent(int agentId) {
-		// TODO Auto-generated method stub
-		return null;
+		agentRepo.deleteById(agentId);
+		Agent agent = agentRepo.findById(agentId).orElse(null);
+
+		if(agent==null) {
+		   return  "agent with id " + agentId + "deleted succesfully";
+		}
+		else {
+			return " agent deletion unsuccessfull";
+		}
 	}
 
+	@Override
+	public Agent updateAgent(int agentId , AgentDTO agentdto) {
+		Agent agent = agentRepo.findById(agentId).orElse(null);
+		if(agent!=null) {
+		agent.setAgentId(agentdto.getAgentId());
+		agent.setUsername(agentdto.getUsername());
+		agent.setPassword(agentdto.getPassword());
+		agentRepo.save(agent);
+		}
+		return agent;
+	}
 }

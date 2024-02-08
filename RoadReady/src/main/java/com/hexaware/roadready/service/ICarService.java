@@ -25,7 +25,7 @@ public interface ICarService {
 		
 		public Cars	updateCar(CarDTO car);
 
-	    public Cars discountOnCarPrice(int carId , double discountPrice) throws CarNotFoundException;
+	    public List<Cars> discountOnCarPriceByMake(String make, double discountPrice) throws CarNotFoundException;
 	    
 	    public Cars updateCarPrice(int carId , double newPrice) throws CarNotFoundException;
 	    

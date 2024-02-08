@@ -16,5 +16,5 @@ public interface IPaymentService {
 	
 	public List<PaymentDTO> viewAllPayments();
 	
-	public Payments makePayment(int customerId , int carId ,PaymentDTO paymentdto ,LocalDate dateOfPickup , LocalDate dateOfdropoff ) throws InvalidPaymentException;
+	public Payments makePayment(int customerId , int carId , int reservationId ,PaymentDTO paymentdto ,LocalDate dateOfPickup , LocalDate dateOfdropoff ) throws InvalidPaymentException;
 }

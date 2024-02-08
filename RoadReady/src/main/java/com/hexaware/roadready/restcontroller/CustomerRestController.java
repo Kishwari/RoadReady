@@ -8,21 +8,19 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.dto.CustomerFeedbackDTO;
 import com.hexaware.roadready.dto.PaymentDTO;
-import com.hexaware.roadready.dto.ReservationDTO;
 import com.hexaware.roadready.entities.Cars;
+import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Feedback;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
-import com.hexaware.roadready.exceptions.CustomerNotFoundException;
-import com.hexaware.roadready.exceptions.InvalidDateException;
 import com.hexaware.roadready.exceptions.InvalidPaymentException;
 import com.hexaware.roadready.exceptions.PaymentNotFoundException;
 import com.hexaware.roadready.exceptions.ReservationNotFoundException;
@@ -59,6 +57,12 @@ public class CustomerRestController {
 	@Autowired
 	IAdminService adminService;
 	
+	
+	@PostMapping("/registerNewCustomer")
+	public Customers registration(CustomerDTO customerdto) {
+		return customerService.addCustomer(customerdto);
+	}
+	
    
    @GetMapping("/getAvailableCars")
 	public List<Cars> getAvailableCars(){
@@ -69,7 +73,7 @@ public class CustomerRestController {
    public List<Cars> searchCars(@PathVariable String location , @PathVariable String make,@PathVariable String model) throws CarNotFoundException{
 	   List<Cars> cars= carService.searchCars(location , make , model);
 	   if(cars==null) {
-		   throw new CarNotFoundException();
+		   throw new CarNotFoundException(make +" " + model + " car in location" + location + "not avaialble");
 	   }
        return cars;
    }
@@ -83,11 +87,11 @@ public class CustomerRestController {
 	   return checkReservation;
    }*/
   
-   @PostMapping("/makePayment/{customerId}/{carId}/{dateOfPickup}/{dateOfDropoff}")									//	check  mapping for all methods below this
-   public Payments makePayment(@PathVariable int customerId , @PathVariable int carId ,  @PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff ,@RequestBody PaymentDTO paymentdto  ) {
+   @PostMapping("/makePayment/{customerId}/{carId}/{reservationId}/{dateOfPickup}/{dateOfDropoff}")									//	check  mapping for all methods below this
+   public Payments makePayment(@PathVariable int customerId , @PathVariable int carId ,@PathVariable int reservationId ,  @PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff ,@RequestBody PaymentDTO paymentdto  ) {
 	   Payments payment = new Payments();
 	try {
-		payment = paymentService.makePayment(customerId , carId ,paymentdto, dateOfPickup , dateOfDropoff);
+		payment = paymentService.makePayment(customerId , carId , reservationId ,paymentdto, dateOfPickup , dateOfDropoff);
 	} catch (InvalidPaymentException e) {
 		
 		e.printStackTrace();
@@ -112,8 +116,8 @@ public class CustomerRestController {
    
  
    @PostMapping("/CustomerFeedback")
-  public Feedback provideFeedback(@RequestBody Feedback feedback) { 		// return type I think feedback ?
-	  return feedbackService.provideFeedback(feedback);
+  public Feedback provideFeedback(@RequestBody CustomerFeedbackDTO feedbackdto) { 		// return type I think feedback ?
+	  return feedbackService.customerFeedback(feedbackdto);
    }
    
    @GetMapping("/viewPaymentHistory/{customerId}")

@@ -83,13 +83,15 @@ public interface IAdminService {
     
     public String totalRevenueReport();
     
-    public Agent addAgent(AgentDTO agent);
+    
+    //agent 
+   /* public Agent addAgent(AgentDTO agentdto);
  	
     public AgentDTO getAgentById(int agentId);
     	
     public List<Agent> getAllAgents();
     	
-    public String deleteAgent(int agentId);
+    public String deleteAgent(int agentId);*/
     
 
 }

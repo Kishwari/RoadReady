@@ -68,7 +68,7 @@ public class PaymentServiceImpl implements IPaymentService {
 	}
 
 	@Override
-	public Payments makePayment(int customerId ,int carId ,PaymentDTO paymentdto ,LocalDate dateOfPickup , LocalDate dateOfdropoff) throws InvalidPaymentException {
+	public Payments makePayment(int customerId ,int carId , int reservationId ,PaymentDTO paymentdto ,LocalDate dateOfPickup , LocalDate dateOfdropoff) throws InvalidPaymentException {
 		Payments payment = new Payments();
 		Payments validPayment = new Payments();
 		Cars car = new Cars();
@@ -87,6 +87,7 @@ public class PaymentServiceImpl implements IPaymentService {
 		if(paymentdto.getAmountPaid() ==  amountToBePaid ) {
                validPayment = paymentRepo.save(payment);
                Reservations reservation = new Reservations();
+               reservation.setResevationId(reservationId);
                reservation.setReservationstatus("reserved");
                reservation.setDateOfPickup(dateOfPickup);
                reservation.setDateOfDropoff(dateOfdropoff);

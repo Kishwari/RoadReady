@@ -114,14 +114,17 @@ public class CarServiceImpl implements ICarService{
 	
 	
 	@Override
-	public Cars discountOnCarPrice(int carId, double discountPrice) throws CarNotFoundException {
+	public List<Cars> discountOnCarPriceByMake(String make, double discountPrice) throws CarNotFoundException {
        
-        carRepo.discountOnCarPrice(carId, discountPrice);
-
+        carRepo.discountOnCarPriceByMake(make, discountPrice);
   
-        Cars updatedCar = carRepo.findById(carId).orElse(null);
+        List<Cars> updatedCars = carRepo.findByMake(make);
         
-        return updatedCar;
+        if (updatedCars.isEmpty()) {
+            throw new CarNotFoundException("No cars found with make: " + make);
+        }
+        
+        return updatedCars;
 
 	}
 
@@ -134,7 +137,7 @@ public class CarServiceImpl implements ICarService{
 	           car = carRepo.save(existingCar);
 	        } 
 	        else {
-	              throw new CarNotFoundException();
+	              throw new CarNotFoundException("no cars found with id" + carId);
 		}
 	         return car;
 		

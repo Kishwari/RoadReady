@@ -1,33 +1,31 @@
 package com.hexaware.roadready.dto;
 
 
-public class FeedbackDTO {
+public class CustomerFeedbackDTO {
 
-	private int FeedbackId;
+	private int feedbackId;
 	private int customerId;
 	private String customerName;
 	private String customerReview;
 	private int rating;
-	private String AdminFeedback;
-	public FeedbackDTO() {
+	
+	public CustomerFeedbackDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public FeedbackDTO(int feedbackId, int customerId, String customerName, String customerReview, int rating,
-			String adminFeedback) {
+	public CustomerFeedbackDTO(int feedbackId, int customerId, String customerName, String customerReview, int rating) {
 		super();
-		FeedbackId = feedbackId;
+		this.feedbackId = feedbackId;
 		this.customerId = customerId;
 		this.customerName = customerName;
 		this.customerReview = customerReview;
 		this.rating = rating;
-		AdminFeedback = adminFeedback;
 	}
 	public int getFeedbackId() {
-		return FeedbackId;
+		return feedbackId;
 	}
 	public void setFeedbackId(int feedbackId) {
-		FeedbackId = feedbackId;
+		this.feedbackId = feedbackId;
 	}
 	public int getCustomerId() {
 		return customerId;
@@ -53,16 +51,11 @@ public class FeedbackDTO {
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-	public String getAdminFeedback() {
-		return AdminFeedback;
-	}
-	public void setAdminFeedback(String adminFeedback) {
-		AdminFeedback = adminFeedback;
-	}
 	@Override
 	public String toString() {
-		return "FeedbackDTO [FeedbackId=" + FeedbackId + ", customerId=" + customerId + ", customerName=" + customerName
-				+ ", customerReview=" + customerReview + ", rating=" + rating + ", AdminFeedback=" + AdminFeedback
-				+ "]";
+		return "CustomerFeedbackDTO [FeedbackId=" + feedbackId + ", customerId=" + customerId + ", customerName="
+				+ customerName + ", customerReview=" + customerReview + ", rating=" + rating + "]";
 	}
+	
+	
 }

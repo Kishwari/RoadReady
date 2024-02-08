@@ -20,6 +20,9 @@ public interface IAgentService {
     public List<Agent> getAllAgents();
     	
     public String deleteAgent(int agentId);
+    
+    public Agent updateAgent(int agentId , AgentDTO agent);
+    
      
      
      

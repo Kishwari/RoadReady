@@ -1,6 +1,7 @@
 package com.hexaware.roadready.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -18,8 +19,11 @@ public interface CarRepository extends JpaRepository<Cars,Integer> {
 	
 	
 	@Modifying
-	@Query("UPDATE Cars c SET c.dailyRate = ?2 WHERE c.id = ?1")
-	CarDTO discountOnCarPrice(int CarId , double discountPrice);
+	
+	@Query("UPDATE Cars c SET c.dailyRate = c.dailyRate * (1 - ?2 / 100.0) WHERE c.make = ?1")
+	void discountOnCarPriceByMake(String make , double discountPrice);
+	
+	List<Cars> findByMake(String make);
 	
 	
 }
