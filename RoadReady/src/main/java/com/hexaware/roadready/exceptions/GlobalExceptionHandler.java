@@ -47,4 +47,9 @@ public class GlobalExceptionHandler {
 	public void handleInvalidDateExp() {
     	  
       }
+	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE , reason="please enter a valid payment")
+    @ExceptionHandler({InvalidPaymentException.class})      
+	public void handleInvalidPaymentExp() {
+    	  
+      }
 }

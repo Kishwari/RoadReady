@@ -10,13 +10,12 @@ public class PaymentDTO {
 	private LocalDate dateOfPayment;
 	private String modeOfPayment;
 	
-	// constructor
 	
 	public PaymentDTO() {
 		super();
 	}
 	
-	// parameterized constructor
+
 	public PaymentDTO(int paymentId, double amountPaid, LocalDate dateOfPayment, String modeOfPayment) {
 		super();
 		this.paymentId = paymentId;
@@ -25,7 +24,7 @@ public class PaymentDTO {
 		this.modeOfPayment = modeOfPayment;
 	}
 	
-	// getters and setters
+
 	
 	public int getPaymentId() {
 		return paymentId;

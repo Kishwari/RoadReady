@@ -10,7 +10,6 @@ public class CustomerDTO {
 	private String password;
 	private String phoneNumber;
 	
-	//constructor 
 	
 	public CustomerDTO() {
 		super();

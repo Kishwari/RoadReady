@@ -13,13 +13,13 @@ public class ReservationDTO {
 	//private String checkIn;   //completed , not completed
 	//private String checkOut;  //completed , not completed
 	
-	// constructor
+
 	
 	public ReservationDTO() {
 		super();
 	}
 	
-	// parameterized constructor 
+
 	
 	public ReservationDTO(int reservationId, String reservationStatus, LocalDate dateOfReservation, LocalDate dateOfPickup,
 			LocalDate dateOfDropoff) {
@@ -31,7 +31,7 @@ public class ReservationDTO {
 		this.dateOfDropoff = dateOfDropoff;
 	}
 	
-	// getters and setters
+
 	
 	public int getReservationId() {
 		return reservationId;
