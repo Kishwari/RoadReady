@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.hexaware.roadready.dto.ReservationDTO;
 import com.hexaware.roadready.entities.Reservations;
+import com.hexaware.roadready.exceptions.ReservationNotFoundException;
 
 public interface IReservationService {
     
@@ -12,7 +13,7 @@ public interface IReservationService {
     
     String cancelReservation(int reservationId);
     
-    Reservations modifyReservation(int reservationId ,LocalDate dateOfPickup , LocalDate dateOfDropoff);
+    Reservations modifyReservation(int reservationId ,LocalDate dateOfPickup , LocalDate dateOfDropoff) throws ReservationNotFoundException;
     
     List<Reservations> viewReservations(int customerId);
     

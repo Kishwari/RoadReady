@@ -150,7 +150,7 @@ public class AdminRestController {
     public List<Reservations> getReservationDetailsForCustomer(@PathVariable int customerId) throws ReservationNotFoundException{
 		List<Reservations> reservations = reservationService.getReservationDetailsForCustomer(customerId);
 		if(reservations==null) {
-			throw new ReservationNotFoundException();
+			throw new ReservationNotFoundException("reservation for customer " + customerId + " doesnt exist");
 	    }
 		return reservations;
 	}

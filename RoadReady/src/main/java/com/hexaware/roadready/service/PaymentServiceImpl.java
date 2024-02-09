@@ -88,7 +88,7 @@ public class PaymentServiceImpl implements IPaymentService {
                validPayment = paymentRepo.save(payment);
                Reservations reservation = new Reservations();
                reservation.setResevationId(reservationId);
-               reservation.setReservationstatus("reserved");
+               reservation.setReservationStatus("reserved");
                reservation.setDateOfPickup(dateOfPickup);
                reservation.setDateOfDropoff(dateOfdropoff);
                reservation.setDateOfReservation(LocalDate.now());

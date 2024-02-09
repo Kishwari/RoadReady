@@ -17,7 +17,7 @@ public class Reservations {
 	@Id
 	private int resevationId;    
 	@NotBlank
-	private String Reservationstatus ; 
+	private String reservationStatus ; 
 	@NotBlank
 	private LocalDate dateOfReservation;
 	@NotBlank
@@ -47,13 +47,13 @@ public class Reservations {
 		super();
 	
 	}
-	public Reservations(int resevationId, int carId, int customerId, String reservationstatus, LocalDate dateOfReservation,
+	public Reservations(int resevationId, int carId, int customerId, String reservationStatus, LocalDate dateOfReservation,
 			LocalDate dateOfPickup, LocalDate dateOfDropoff) {
 		super();
 		this.resevationId = resevationId;
 		//this.carId = carId;
 		//this.customerId = customerId;
-		this.Reservationstatus = reservationstatus;
+		this.reservationStatus = reservationStatus;
 		this.dateOfReservation = dateOfReservation;
 		this.dateOfPickup = dateOfPickup;
 		this.dateOfDropoff = dateOfDropoff;
@@ -77,10 +77,10 @@ public class Reservations {
 		//this.customerId = customerId;
 	//}
 	public String getReservationstatus() {
-		return Reservationstatus;
+		return reservationStatus;
 	}
-	public void setReservationstatus(String reservationstatus) {
-		Reservationstatus = reservationstatus;
+	public void setReservationStatus(String reservationStatus) {
+		reservationStatus = reservationStatus;
 	}
 	public LocalDate getDateOfReservation() {
 		return dateOfReservation;
@@ -131,7 +131,7 @@ public class Reservations {
 	@Override
 	public String toString() {
 		return "Reservation [resevationId=" + resevationId + 
-				 ", Reservationstatus=" + Reservationstatus + ", dateOfReservation=" + dateOfReservation
+				 ", reservationStatus=" + reservationStatus + ", dateOfReservation=" + dateOfReservation
 				+ ", dateOfPickup=" + dateOfPickup + ", dateOfDropoff=" + dateOfDropoff + "]";
 	}
 	
