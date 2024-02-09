@@ -42,7 +42,7 @@ public class Admin {
 		super();
 	}
 
-	// parameterized constructor
+
 	
 	public Admin(int adminId , String username, String password) {
 		super();
@@ -51,7 +51,7 @@ public class Admin {
 		this.password = password;
 	}
 
-	// setter and getters
+
 	
 	public int getAdminId() {
 		return adminId;

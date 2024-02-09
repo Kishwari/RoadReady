@@ -12,13 +12,11 @@ public class CarDTO {
 	private int passengerCapacity;
 	//private String maintenance;
 	
-	// constructor
 	
 	public CarDTO() {
 		super();
 	}
 
-	// parameterized constructor
 	
 	public CarDTO(int carId, String make, String model, String carStatus, String location, double dailyRate,
 			String specifications, int passengerCapacity) {
@@ -33,7 +31,6 @@ public class CarDTO {
 		this.passengerCapacity = passengerCapacity;
 	}
 
-	// getter and setters
 	
 	public int getCarId() {
 		return carId;

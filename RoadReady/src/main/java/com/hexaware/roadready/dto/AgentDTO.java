@@ -5,9 +5,10 @@ public class AgentDTO {
 	private int agentId;
 	private String username;
 	private String password;
+	
 	public AgentDTO() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 	public AgentDTO(int agentId, String username, String password) {
 		super();

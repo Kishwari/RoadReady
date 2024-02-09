@@ -11,7 +11,7 @@ public class CustomerFeedbackDTO {
 	
 	public CustomerFeedbackDTO() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 	public CustomerFeedbackDTO(int feedbackId, int customerId, String customerName, String customerReview, int rating) {
 		super();

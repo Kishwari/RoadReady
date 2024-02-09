@@ -23,7 +23,7 @@ public class Feedback {
 	
 	public Feedback() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public Feedback(int feedbackId, int customerId,  String customerName,
