@@ -62,9 +62,15 @@ public class ReservationServiceImpl implements IReservationService{
 
 	@Override
 	public String cancelReservation(int reservationId) {
+		
+		Reservations reservation = reservationRepo.findById(reservationId).orElse(null);
+		
+		
+		
 		reservationRepo.deleteById(reservationId);
 		Reservations deletedReservation = reservationRepo.findById(reservationId).orElse(null);
 		if(deletedReservation == null) {
+			
 			
 			
 			return "your reservation " + reservationId +" cancelled successfully";
@@ -78,7 +84,7 @@ public class ReservationServiceImpl implements IReservationService{
 	
 	
 	@Override
-	public Reservations modifyReservation(int reservationId, LocalDate dateOfPickup, LocalDate dateOfDropoff) throws ReservationNotFoundException {
+	public ReservationDTO modifyReservation(int reservationId, LocalDate dateOfPickup, LocalDate dateOfDropoff) throws ReservationNotFoundException {
 	    Reservations reservation = reservationRepo.findById(reservationId)
 	            .orElseThrow(() -> new ReservationNotFoundException("Reservation with id " + reservationId + " not found"));
 
@@ -103,20 +109,56 @@ public class ReservationServiceImpl implements IReservationService{
 
 	    reservation.setDateOfPickup(dateOfPickup);
 	    reservation.setDateOfDropoff(dateOfDropoff);
-
-	    return reservationRepo.save(reservation);
+        reservation.setDateOfReservation(LocalDate.now());
+	    Reservations modifiedReservation = reservationRepo.save(reservation);
+	    
+	    ReservationDTO reservationdto = new ReservationDTO();
+	    reservationdto.setReservationId(modifiedReservation.getResevationId());
+	    reservationdto.setReservationStatus(modifiedReservation.getReservationstatus());
+	    reservationdto.setDateOfReservation(modifiedReservation.getDateOfReservation());
+	    reservationdto.setDateOfPickup(modifiedReservation.getDateOfPickup());
+	    reservationdto.setDateOfDropoff(modifiedReservation.getDateOfDropoff());
+	    
+	    return reservationdto;
 	}
 
 	
 	
 
 	@Override
-	public List<Reservations> viewReservations(int customerId) {
-		return reservationRepo.viewReservationHistory(customerId);
+	public List<ReservationDTO> viewReservations(int customerId) {
+		List<Reservations> reservationsList = reservationRepo.viewReservationHistory(customerId);
+		List<ReservationDTO> reservationDTOList = new ArrayList<>();
+		for(Reservations reservation : reservationsList) {
+			ReservationDTO reservationdto = new ReservationDTO();
+			reservationdto.setReservationId(reservation.getResevationId());
+			reservationdto.setReservationStatus(reservation.getReservationstatus());
+			reservationdto.setDateOfReservation(reservation.getDateOfReservation());
+			reservationdto.setDateOfPickup(reservation.getDateOfPickup());
+			reservationdto.setDateOfDropoff(reservation.getDateOfDropoff());
+			
+			reservationDTOList.add(reservationdto);
+		}
+		return reservationDTOList;
 	}
 
 	@Override
-	public List<Reservations> getReservationDetailsForCustomer(int customerId) {
-		return reservationRepo.getReservationDetailsForCustomer(customerId);
+	public List<ReservationDTO> getReservationDetailsForCustomer(int customerId) {
+		List<Reservations> reservationsList=  reservationRepo.getReservationDetailsForCustomer(customerId);
+		List<ReservationDTO> reservationDTOList = new ArrayList<>();
+		for(Reservations reservation : reservationsList) {
+			ReservationDTO reservationdto = new ReservationDTO();
+			reservationdto.setReservationId(reservation.getResevationId());
+			reservationdto.setReservationStatus(reservation.getReservationstatus());
+			reservationdto.setDateOfReservation(reservation.getDateOfReservation());
+			reservationdto.setDateOfPickup(reservation.getDateOfPickup());
+			reservationdto.setDateOfDropoff(reservation.getDateOfDropoff());
+			
+			reservationDTOList.add(reservationdto);
+		}
+		return reservationDTOList;
 	}
+	
+	
+	
 }

@@ -10,11 +10,11 @@ import com.hexaware.roadready.exceptions.InvalidPaymentException;
 
 public interface IPaymentService {
        
-	List<Payments> viewPaymentHistory(int customerId);
+	List<PaymentDTO> viewPaymentHistory(int customerId);
 	
-	public List<Payments> getPaymentDetailsForCustomer(int customerId);
+	public List<PaymentDTO> getPaymentDetailsForCustomer(int customerId);
 	
 	public List<PaymentDTO> viewAllPayments();
 	
-	public Payments makePayment(int customerId , int carId , int reservationId ,PaymentDTO paymentdto ,LocalDate dateOfPickup , LocalDate dateOfdropoff ) throws InvalidPaymentException;
+	public PaymentDTO makePayment(int customerId , int carId , int reservationId ,PaymentDTO paymentdto ,LocalDate dateOfPickup , LocalDate dateOfdropoff ) throws InvalidPaymentException;
 }

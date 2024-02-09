@@ -74,7 +74,7 @@ public class CustomerRestController {
    @GetMapping("/searchCars/{location}/{make}/{model}")
    public List<Cars> searchCars(@PathVariable String location , @PathVariable String make,@PathVariable String model) throws CarNotFoundException{
 	   List<Cars> cars= carService.searchCars(location , make , model);
-	   if(cars==null) {
+	   if(cars.isEmpty()) {
 		   throw new CarNotFoundException(make +" " + model + " car in location" + location + "not avaialble");
 	   }
        return cars;
@@ -90,8 +90,8 @@ public class CustomerRestController {
    }*/
   
    @PostMapping("/makePayment/{customerId}/{carId}/{reservationId}/{dateOfPickup}/{dateOfDropoff}")									//	check  mapping for all methods below this
-   public Payments makePayment(@PathVariable int customerId , @PathVariable int carId ,@PathVariable int reservationId ,  @PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff ,@RequestBody PaymentDTO paymentdto  ) {
-	   Payments payment = new Payments();
+   public PaymentDTO makePayment(@PathVariable int customerId , @PathVariable int carId ,@PathVariable int reservationId ,  @PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff ,@RequestBody PaymentDTO paymentdto  ) {
+	   PaymentDTO payment = new PaymentDTO();
 	try {
 		payment = paymentService.makePayment(customerId , carId , reservationId ,paymentdto, dateOfPickup , dateOfDropoff);
 	} catch (InvalidPaymentException e) {
@@ -108,8 +108,8 @@ public class CustomerRestController {
    }
    
    @PutMapping("/modifyReservation/{reservationId}/{dateOfPickup}/{dateOfDropoff}")
-   Reservations modifyReservation(@PathVariable int reservationId ,@PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff) throws ReservationNotFoundException {
-	   Reservations reservation = reservationService.modifyReservation(reservationId , dateOfPickup , dateOfDropoff);
+   ReservationDTO modifyReservation(@PathVariable int reservationId ,@PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff) throws ReservationNotFoundException {
+	   ReservationDTO reservation = reservationService.modifyReservation(reservationId , dateOfPickup , dateOfDropoff);
 	   if(reservation==null) {
 		   throw new ReservationNotFoundException("reservation with id " + reservationId + " doesnt exist");
 	   }
@@ -124,8 +124,8 @@ public class CustomerRestController {
    }
    
    @GetMapping("/viewPaymentHistory/{customerId}")
-   public List<Payments> viewPaymentHistory(@PathVariable int customerId) throws PaymentNotFoundException{
-	   List<Payments> payments= paymentService.viewPaymentHistory(customerId);
+   public List<PaymentDTO> viewPaymentHistory(@PathVariable int customerId) throws PaymentNotFoundException{
+	   List<PaymentDTO> payments= paymentService.viewPaymentHistory(customerId);
 	   if(payments==null){
 		   throw new PaymentNotFoundException();
    }
@@ -133,8 +133,8 @@ public class CustomerRestController {
 }
    
    @GetMapping("/viewReservations/{customerId}")
-   public List<Reservations> viewReservations(@PathVariable int customerId) throws ReservationNotFoundException{
-	   List<Reservations> reservations =reservationService.viewReservations(customerId);
+   public List<ReservationDTO> viewReservations(@PathVariable int customerId) throws ReservationNotFoundException{
+	   List<ReservationDTO> reservations =reservationService.viewReservations(customerId);
 	   if(reservations==null) {
 		   throw new ReservationNotFoundException("reservation for customer " + customerId + " doesnt exist");
 	   }

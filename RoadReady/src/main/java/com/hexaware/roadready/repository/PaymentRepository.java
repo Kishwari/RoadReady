@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -30,4 +31,6 @@ public interface PaymentRepository extends JpaRepository<Payments,Integer> {
 	//@Query("select p from Payments p where p.customerId = ?1 order by p.dateOfPayment desc")
 	@Query(value = "SELECT * FROM Payments WHERE customer_id = ?1 ORDER BY date_of_payment DESC", nativeQuery = true)
 	public List<Payments> getPaymentDetailsForCustomer(int customerId);
+	
+	
 }

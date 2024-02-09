@@ -56,21 +56,43 @@ public class PaymentServiceImpl implements IPaymentService {
 	}
 
 	@Override
-	public List<Payments> viewPaymentHistory(int customerId) {
-          
-		return paymentRepo.viewPaymentHistory(customerId);
+	public List<PaymentDTO> viewPaymentHistory(int customerId) {
+		List<Payments> paymentList = paymentRepo.viewPaymentHistory(customerId);
+	    List<PaymentDTO> paymentDTOList = new ArrayList<>();
+	    for (Payments payment : paymentList) {
+	        PaymentDTO paymentDTO = new PaymentDTO();
+	        paymentDTO.setPaymentId(payment.getPaymentId());
+	        paymentDTO.setAmountPaid(payment.getAmountPaid());
+	        paymentDTO.setDateOfPayment(payment.getDateOfPayment());
+	        paymentDTO.setModeOfPayment(payment.getModeOfPayment());
+
+	        paymentDTOList.add(paymentDTO);
+	    }
+	    return paymentDTOList;
 	}
 
 	@Override
-	public List<Payments> getPaymentDetailsForCustomer(int customerId) {
+	public List<PaymentDTO> getPaymentDetailsForCustomer(int customerId) {
 		
-		return paymentRepo.getPaymentDetailsForCustomer(customerId);
+		List<Payments> paymentList = paymentRepo.getPaymentDetailsForCustomer(customerId);
+		List<PaymentDTO> paymentDTOList = new ArrayList<>();
+	    for (Payments payment : paymentList) {
+	        PaymentDTO paymentDTO = new PaymentDTO();
+	        paymentDTO.setPaymentId(payment.getPaymentId());
+	        paymentDTO.setAmountPaid(payment.getAmountPaid());
+	        paymentDTO.setDateOfPayment(payment.getDateOfPayment());
+	        paymentDTO.setModeOfPayment(payment.getModeOfPayment());
+
+	        paymentDTOList.add(paymentDTO);
+	    }
+	    return paymentDTOList;
 	}
 
 	@Override
-	public Payments makePayment(int customerId ,int carId , int reservationId ,PaymentDTO paymentdto ,LocalDate dateOfPickup , LocalDate dateOfdropoff) throws InvalidPaymentException {
+	public PaymentDTO makePayment(int customerId ,int carId , int reservationId ,PaymentDTO paymentdto ,LocalDate dateOfPickup , LocalDate dateOfdropoff) throws InvalidPaymentException {
 		Payments payment = new Payments();
 		Payments validPayment = new Payments();
+		PaymentDTO validPaymentdto = new PaymentDTO();
 		Cars car = new Cars();
 		car = carRepo.findById(carId).orElse(null);
 		Customers customer = new Customers();
@@ -100,7 +122,11 @@ public class PaymentServiceImpl implements IPaymentService {
 		else {
 			throw new InvalidPaymentException("Please enter " + amountToBePaid + " rupees");
 		}
-		return validPayment;
+		validPaymentdto.setPaymentId(validPayment.getPaymentId());
+		validPaymentdto.setAmountPaid(validPayment.getAmountPaid());
+		validPaymentdto.setModeOfPayment(validPayment.getModeOfPayment());
+		validPaymentdto.setDateOfPayment(validPayment.getDateOfPayment());
+		return validPaymentdto;
 		
 	}
 }

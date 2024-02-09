@@ -3,9 +3,9 @@ package com.hexaware.roadready.service;
 import java.util.List;
 
 import com.hexaware.roadready.dto.AgentDTO;
+import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
-import com.hexaware.roadready.entities.Customers;
 
 public interface IAgentService {
 	
@@ -32,7 +32,7 @@ public interface IAgentService {
 	        
      public Cars updateCarAvailability(String carStatus ,int carId);
 	 
-     public Customers verifyIdentity(int customerId);
+     public CustomerDTO verifyIdentity(int customerId);
      
      public String carMaintenanceReport();
      

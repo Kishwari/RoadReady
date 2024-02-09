@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.AgentDTO;
+import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
@@ -86,9 +87,18 @@ public class AgentServiceImpl implements IAgentService{
 	}
 
 	@Override
-	public Customers verifyIdentity(int customerId) {
+	public CustomerDTO verifyIdentity(int customerId) {
 		Customers customer =customerRepo.findById(customerId).orElse(null);
-		return customer;
+		CustomerDTO customerdto=new CustomerDTO();
+		customerdto.setCustomerId(customer.getCustomerId());
+		customerdto.setFirstName(customer.getFirstName());
+		customerdto.setLastName(customer.getLastName());
+		customerdto.setEmailAddress(customer.getEmailAddress());
+		customerdto.setUsername(customer.getUsername());
+		customerdto.setPassword(customer.getPassword());
+		customerdto.setPhoneNumber(customer.getPhoneNumber());
+		return customerdto;
+		//return customer;
 	}
      
 	

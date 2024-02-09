@@ -137,8 +137,8 @@ public class AdminRestController {
 	}
     
 	@GetMapping("/getPaymentsOfCustomer/{customerId}")
-    public List<Payments> getPaymentDetailsForCustomer(@PathVariable int customerId) throws PaymentNotFoundException{
-		List<Payments>  payments = paymentService.getPaymentDetailsForCustomer(customerId);
+    public List<PaymentDTO> getPaymentDetailsForCustomer(@PathVariable int customerId) throws PaymentNotFoundException{
+		List<PaymentDTO>  payments = paymentService.getPaymentDetailsForCustomer(customerId);
 		if(payments == null) {
 			throw new PaymentNotFoundException();
 			
@@ -147,8 +147,8 @@ public class AdminRestController {
 	}
     
 	@GetMapping("/getReservationsOfCustomer/{customerId}")
-    public List<Reservations> getReservationDetailsForCustomer(@PathVariable int customerId) throws ReservationNotFoundException{
-		List<Reservations> reservations = reservationService.getReservationDetailsForCustomer(customerId);
+    public List<ReservationDTO> getReservationDetailsForCustomer(@PathVariable int customerId) throws ReservationNotFoundException{
+		List<ReservationDTO> reservations = reservationService.getReservationDetailsForCustomer(customerId);
 		if(reservations==null) {
 			throw new ReservationNotFoundException("reservation for customer " + customerId + " doesnt exist");
 	    }

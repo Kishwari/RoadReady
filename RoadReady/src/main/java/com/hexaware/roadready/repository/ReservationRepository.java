@@ -18,4 +18,6 @@ public interface ReservationRepository extends JpaRepository<Reservations,Intege
 	//@Query("select p from Payments p where p.customerId = ?1 order by p.dateOfPayment desc")
 	@Query(value = "SELECT r FROM Reservations r WHERE r.customer.id = ?1 ORDER BY dateOfReservation DESC")
 	public List<Reservations> getReservationDetailsForCustomer(int customerId);
+	
+	
 }

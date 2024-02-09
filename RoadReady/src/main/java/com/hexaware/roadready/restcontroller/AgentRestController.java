@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
@@ -41,8 +42,8 @@ public class AgentRestController {
 		 return car;
 	 }
 	 @GetMapping("/verifyCustomerIdentity/{customerId}")	
-    public Customers  verifyIdentity(@PathVariable int customerId) throws CustomerNotFoundException {
-		 Customers customer = agentService.verifyIdentity(customerId);
+    public CustomerDTO  verifyIdentity(@PathVariable int customerId) throws CustomerNotFoundException {
+		 CustomerDTO customer = agentService.verifyIdentity(customerId);
 		 if(customer== null) {
 			 throw new CustomerNotFoundException("customer with Id" + customerId + "not found");
 		 }

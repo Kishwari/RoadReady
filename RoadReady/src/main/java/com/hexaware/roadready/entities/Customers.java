@@ -3,6 +3,8 @@ package com.hexaware.roadready.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -30,7 +32,7 @@ public class Customers{
 	        @NotBlank
 			private String password;
 	        @NotBlank
-	        @Pattern(regexp="\\d{10")
+	        @Pattern(regexp="\\d{10}")
 			private String phoneNumber;
 			
 			@OneToMany(mappedBy = "customer" , cascade=CascadeType.ALL)
@@ -45,6 +47,8 @@ public class Customers{
 			
 			@ManyToOne
 			@JoinColumn(name = "agentId")
+			//@JsonIgnore
+			//@JsonBackReference
 			private Agent agent;
 			
 			public Customers() {
@@ -142,6 +146,8 @@ public class Customers{
 			public void setAdmin(Admin admin) {
 				this.admin = admin;
 			}
+			
+			//@JsonIgnore 
 			public Agent getAgent() {
 				return agent;
 			}

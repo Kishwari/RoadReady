@@ -2,6 +2,8 @@ package com.hexaware.roadready.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -22,6 +24,7 @@ public class Agent {
 	private String password;
 	
 	@OneToMany(mappedBy = "agent")
+	//@JsonManagedReference
 	private List<Customers> customers;
 	
 	@ManyToOne

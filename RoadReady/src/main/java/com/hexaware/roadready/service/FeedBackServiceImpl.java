@@ -19,12 +19,17 @@ public class FeedBackServiceImpl implements IFeedBackService {
 	@Override
 	public Feedback customerFeedback(CustomerFeedbackDTO feedbackdto) {
 		Feedback feedback = new Feedback();
+		CustomerFeedbackDTO customerfeedbackdto = new CustomerFeedbackDTO();
+		
 		feedback.setFeedbackId(feedbackdto.getFeedbackId());
 		feedback.setCustomerId(feedbackdto.getCustomerId());
 		feedback.setCustomerName(feedbackdto.getCustomerName());
 		feedback.setCustomerReview(feedbackdto.getCustomerReview());
 		feedback.setRating(feedbackdto.getRating());
+		
 		return feedbackRepo.save(feedback);
+		
+		
 		
 	}
 

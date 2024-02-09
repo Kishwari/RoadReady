@@ -13,11 +13,11 @@ public interface IReservationService {
     
     String cancelReservation(int reservationId);
     
-    Reservations modifyReservation(int reservationId ,LocalDate dateOfPickup , LocalDate dateOfDropoff) throws ReservationNotFoundException;
+    ReservationDTO modifyReservation(int reservationId ,LocalDate dateOfPickup , LocalDate dateOfDropoff) throws ReservationNotFoundException;
     
-    List<Reservations> viewReservations(int customerId);
+    List<ReservationDTO> viewReservations(int customerId);
     
     public List <ReservationDTO> viewAllReservations();
     
-    public List<Reservations> getReservationDetailsForCustomer(int customerId);
+    public List<ReservationDTO> getReservationDetailsForCustomer(int customerId);
 }
