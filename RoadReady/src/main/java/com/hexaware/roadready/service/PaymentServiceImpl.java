@@ -98,7 +98,7 @@ public class PaymentServiceImpl implements IPaymentService {
                reservationRepo.save(reservation);
 		}
 		else {
-			throw new InvalidPaymentException("please enter " + amountToBePaid + "rupees");
+			throw new InvalidPaymentException("Please enter " + amountToBePaid + " rupees");
 		}
 		return validPayment;
 		
