@@ -6,6 +6,7 @@ public class AgentDTO {
 	private String username;
 	private String password;
 	
+	
 	public AgentDTO() {
 		super();
 
@@ -15,6 +16,7 @@ public class AgentDTO {
 		this.agentId = agentId;
 		this.username = username;
 		this.password = password;
+		
 	}
 	public int getAgentId() {
 		return agentId;

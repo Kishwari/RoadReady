@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.AgentDTO;
@@ -35,6 +36,9 @@ public class AgentServiceImpl implements IAgentService{
 	
 	@Autowired
 	CarRepository carRepo;
+	
+	//@Autowired
+   // PasswordEncoder passwordEncoder;
 	
 	@PersistenceContext
     private EntityManager entityManager;
@@ -122,6 +126,7 @@ public class AgentServiceImpl implements IAgentService{
 		agent.setAgentId(agentdto.getAgentId());
 		agent.setUsername(agentdto.getUsername());
 		agent.setPassword(agentdto.getPassword());
+		 //agent.setPassword(passwordEncoder.encode(agentdto.getPassword()));
 		agentRepo.save(agent);
 		return agent;
 	}

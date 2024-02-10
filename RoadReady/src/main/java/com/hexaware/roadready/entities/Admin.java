@@ -22,6 +22,8 @@ public class Admin {
 	@Pattern(regexp="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+=])[A-Za-z0-9!@#$%^&*()-+=]{10,20}$")
 	private String password;
 	
+	private String role;
+	
 	@OneToMany(mappedBy = "admin" , cascade=CascadeType.ALL)
 	private Set<Customers> customers = new HashSet<Customers>();
 	
@@ -44,11 +46,12 @@ public class Admin {
 
 
 	
-	public Admin(int adminId , String username, String password) {
+	public Admin(int adminId , String username, String password , String role) {
 		super();
 		this.adminId=adminId;
 		this.username = username;
 		this.password = password;
+		this.role = "ROLE_ADMIN";
 	}
 
 
@@ -154,6 +157,18 @@ public class Admin {
 	@Override
 	public String toString() {
 		return "Admin [adminId=" + adminId + ",username=" + username + ", password=" + password + "]";
+	}
+
+
+
+	public String getRole() {
+		return role;
+	}
+
+
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	

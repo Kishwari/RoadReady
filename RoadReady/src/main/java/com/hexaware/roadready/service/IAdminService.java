@@ -1,19 +1,9 @@
 package com.hexaware.roadready.service;
 
 import java.time.LocalDate;
-import java.util.List;
 
-import com.hexaware.roadready.dto.AgentDTO;
-import com.hexaware.roadready.dto.CarDTO;
-import com.hexaware.roadready.dto.CustomerDTO;
-import com.hexaware.roadready.dto.PaymentDTO;
-import com.hexaware.roadready.dto.ReservationDTO;
-import com.hexaware.roadready.entities.Agent;
-import com.hexaware.roadready.entities.Cars;
-import com.hexaware.roadready.entities.Customers;
-import com.hexaware.roadready.entities.Payments;
-import com.hexaware.roadready.entities.Reservations;
-import com.hexaware.roadready.exceptions.CarNotFoundException;
+import com.hexaware.roadready.dto.AdminDTO;
+import com.hexaware.roadready.entities.Admin;
 
 
 
@@ -73,7 +63,9 @@ public interface IAdminService {
  
     public List<PaymentDTO> viewAllPayments();  */
     
+	//admin
 	
+	public Admin addAdmin(AdminDTO admindto);
 	
     //generate Reports
     

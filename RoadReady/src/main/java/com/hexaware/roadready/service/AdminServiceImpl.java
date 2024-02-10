@@ -4,10 +4,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.hexaware.roadready.dto.AdminDTO;
 import com.hexaware.roadready.dto.AgentDTO;
+import com.hexaware.roadready.entities.Admin;
 import com.hexaware.roadready.entities.Agent;
+import com.hexaware.roadready.repository.AdminRepository;
 import com.hexaware.roadready.repository.AgentRepository;
 import com.hexaware.roadready.repository.CarRepository;
 import com.hexaware.roadready.repository.CustomerRepository;
@@ -25,6 +29,9 @@ public class AdminServiceImpl implements IAdminService {
 	CustomerRepository customerRepo;
 	
 	@Autowired
+	AdminRepository adminRepo;
+	
+	@Autowired
 	CarRepository carRepo;
 	
 	@Autowired
@@ -35,6 +42,9 @@ public class AdminServiceImpl implements IAdminService {
 	
 	@Autowired
 	AgentRepository agentRepo;
+	
+	//@Autowired
+   // PasswordEncoder passwordEncoder;
 	
 /*	@Override
 	public Customers addCustomer(CustomerDTO customerdto) {
@@ -315,6 +325,20 @@ public class AdminServiceImpl implements IAdminService {
 		
 		return "Total Revenue generated till today for RoadReady is " + amount ;
 	}
+
+	@Override
+	public Admin addAdmin(AdminDTO admindto) {
+		Admin admin = new Admin();
+		admin.setAdminId(admindto.getAdminId());
+		admin.setUsername(admindto.getUsername());
+		admin.setPassword(admindto.getPassword());
+		 //admin.setPassword(passwordEncoder.encode(admindto.getPassword()));
+		return adminRepo.save(admin);
+		
+	}
+	
+	
+	
 
 	/*@Override
 	public Agent addAgent(AgentDTO agentdto) {

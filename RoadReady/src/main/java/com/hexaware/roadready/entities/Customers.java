@@ -34,6 +34,8 @@ public class Customers{
 	        @NotBlank
 	        @Pattern(regexp="\\d{10}")
 			private String phoneNumber;
+	        
+	        private String role;
 			
 			@OneToMany(mappedBy = "customer" , cascade=CascadeType.ALL)
 			private Set<Payments> payments = new HashSet<Payments>();
@@ -56,7 +58,7 @@ public class Customers{
 				
 			}
 			public Customers(int customerId, String firstName, String lastName, String emailAddress,String username, String password,
-					String phoneNumber) {
+					String phoneNumber , String role) {
 				super();
 				this.customerId = customerId;
 				this.firstName = firstName;
@@ -65,6 +67,7 @@ public class Customers{
 				this.emailAddress = emailAddress;
 				this.password = password;
 				this.phoneNumber = phoneNumber;
+				this.role = "ROLE_CUSTOMER";
 			}
 			public int getCustomerId() {
 				return customerId;
@@ -160,6 +163,12 @@ public class Customers{
 				return "Customers [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName
 						+ ", username=" + username + ", emailAddress=" + emailAddress + ", password=" + password
 						+ ", phoneNumber=" + phoneNumber + "]";
+			}
+			public String getRole() {
+				return role;
+			}
+			public void setRole(String role) {
+				this.role = role;
 			}
 			
 			
