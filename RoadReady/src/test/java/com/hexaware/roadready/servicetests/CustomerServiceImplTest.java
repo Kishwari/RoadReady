@@ -14,7 +14,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.service.ICustomerService;
 
@@ -54,12 +56,17 @@ class CustomerServiceImplTest {
 
 	@Test
 	void testDeleteCustomer() {
-
+		int customerId=101;
+		String result = service.deleteCustomer(customerId);
+        assertEquals("customer " + customerId + " deleted successfully", result);
 	}
 
 	@Test
-	void testUpdateCustomer() {
-
+	void testUpdateCustomer() {								
+		CustomerDTO originalData = new CustomerDTO(389403488,"firstName","lastName","username","emailAddress","password","customerId");
+        CustomerDTO updatedData = new CustomerDTO(389034889,"firstName","lastName","username","emailAddress","password","customerId");
+        Customers result = service.updateCustomer(originalData);
+        assertEquals(updatedData, result);
 	}
 
 }

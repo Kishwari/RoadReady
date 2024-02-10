@@ -29,12 +29,16 @@ class CarServiceImplTest {
 
 	@Test
 	void testGetAvailableCars() {
-
+		List list=service.getAvailableCars();
+		boolean flag=list.isEmpty();
+		assertFalse(flag);
 	}
 
 	@Test
 	void testSearchCars() {
-		
+		List list=service.searchCars("location","make","model");
+		boolean flag=list.isEmpty();
+		assertFalse(flag);
 
 	}
 
@@ -63,12 +67,18 @@ class CarServiceImplTest {
 
 	@Test
 	void testDeleteCar() {
-
-	}
+		int carId=101;
+		String result = service.deleteCar(carId);
+        assertEquals("car " + carId + " deleted successfully", result);
+    }
+	
 
 	@Test
 	void testUpdateCar() {
-
+		 CarDTO originalData = new CarDTO(1, "John Doe", "model", "location", "status", 30, "specification", 0);
+	        CarDTO updatedData = new CarDTO(1, "Jane Doe", null, null, null, 35, null, 0);
+	        Cars result = service.updateCar(originalData);
+	        assertEquals(updatedData, result);
 	}
 
 	@Test

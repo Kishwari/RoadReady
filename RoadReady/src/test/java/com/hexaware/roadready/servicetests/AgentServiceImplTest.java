@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hexaware.roadready.dto.AgentDTO;
+import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.entities.Agent;
+import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.service.IAgentService;
 
 @SpringBootTest
@@ -39,7 +41,11 @@ class AgentServiceImplTest {
 
 	@Test
 	void testUpdateCarAvailability() {
-
+		int carId=203;
+		String carStatus="available";
+		//updatedData=
+	//	Agent result = service.updateCarAvailability(carId,carStatus);
+      //  assertEquals(updatedData, result);
 	}
 
 	@Test
@@ -78,12 +84,18 @@ class AgentServiceImplTest {
 
 	@Test
 	void testDeleteAgent() {
-
+		int agentId=101;
+		String result = service.deleteAgent(agentId);
+        assertEquals("agent with id " + agentId + "deleted succesfully", result);
 	}
 
 	@Test
 	void testUpdateAgent() {
-
+		int agentId=101;
+		AgentDTO originalData = new AgentDTO(1, "username","password");
+		AgentDTO updatedData = new AgentDTO(1, "username","password");
+        Agent result = service.updateAgent(agentId,originalData);
+        assertEquals(updatedData, result);
 	}
 
 }
