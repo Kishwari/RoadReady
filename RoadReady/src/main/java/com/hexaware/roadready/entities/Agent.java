@@ -23,6 +23,8 @@ public class Agent {
 	@Pattern(regexp="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+=])[A-Za-z0-9!@#$%^&*()-+=]{10,20}$")
 	private String password;
 	
+	 private String role;
+	
 	@OneToMany(mappedBy = "agent")
 	//@JsonManagedReference
 	private List<Customers> customers;
@@ -37,11 +39,12 @@ public class Agent {
 		super();
 	}
 	
-	public Agent(int agentId ,String username, String password) {
+	public Agent(int agentId ,String username, String password , String role) {
 		super();
 		this.agentId=agentId;
 		this.username = username;
 		this.password = password;
+		this.role="ROLE_CUSTOMER";
 	}
 	
 	public String getUsername() {
@@ -91,5 +94,13 @@ public class Agent {
 	@Override
 	public String toString() {
 		return "Agent [agentId=" + agentId + ", username=" + username + ", password=" + password + "]";
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 }

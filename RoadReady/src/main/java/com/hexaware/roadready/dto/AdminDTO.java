@@ -3,7 +3,7 @@ package com.hexaware.roadready.dto;
 
 public class AdminDTO {
     
-	private String adminId;
+	private int adminId;
 	private String username;
 	private String password;
 	
@@ -11,16 +11,16 @@ public class AdminDTO {
 		super();
 		
 	}
-	public AdminDTO(String adminId, String username, String password) {
+	public AdminDTO(int adminId, String username, String password) {
 		super();
 		this.adminId = adminId;
 		this.username = username;
 		this.password = password;
 	}
-	public String getAdminId() {
+	public int getAdminId() {
 		return adminId;
 	}
-	public void setAdminId(String adminId) {
+	public void setAdminId(int adminId) {
 		this.adminId = adminId;
 	}
 	public String getUsername() {
