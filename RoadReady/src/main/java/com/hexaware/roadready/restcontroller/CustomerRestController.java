@@ -23,6 +23,7 @@ import com.hexaware.roadready.entities.Feedback;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
+import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.exceptions.InvalidPaymentException;
 import com.hexaware.roadready.exceptions.PaymentNotFoundException;
 import com.hexaware.roadready.exceptions.ReservationNotFoundException;
@@ -41,44 +42,49 @@ public class CustomerRestController {
 	@Autowired
 	ICustomerService customerService;
 	
-	@Autowired
-	ICarService carService;
+
+
+	@PostMapping("/addCustomer")
+    public Customers	addCustomer(@RequestBody CustomerDTO customer) {
+		return customerService.addCustomer(customer);
+	}
 	
-	@Autowired
-	IPaymentService paymentService;
+	@GetMapping("/getCustomerById/{customerId}")
+	public CustomerDTO	getCustomerById(@PathVariable int customerId) throws CustomerNotFoundException {
+		CustomerDTO customer = customerService.getCustomerById(customerId);
+		if(customer==null) {
+			throw new CustomerNotFoundException("custome with id " + customerId + "not found");
+			
+		}
+		return customer;
+	}
 	
-	@Autowired
-	IReservationService reservationService;
+	@GetMapping("/getAllCustomers")
+	public List<CustomerDTO>	getAllCustomer(){
+		return customerService.getAllCustomer();
+	}
 	
-	@Autowired
-	IFeedBackService feedbackService;
+	@DeleteMapping("/deleteCustomerById/{customerId}")
+	public String deleteCustomer(@PathVariable int customerId) {
+		return customerService.deleteCustomer(customerId);
+	}
 	
-	@Autowired
-	IAgentService agentService;
-	
-	@Autowired
-	IAdminService adminService;
-	
-	
+	@PutMapping("/updateCustomerDetails")
+	public Customers	updateCustomer(@RequestBody CustomerDTO customer) throws CustomerNotFoundException {
+		Customers checkCustomer = customerService.updateCustomer(customer);
+		if(checkCustomer == null) {
+			throw new CustomerNotFoundException("customer not found");
+		}
+		return checkCustomer;
+	}
 	@PostMapping("/registerNewCustomer")
 	public Customers registration(CustomerDTO customerdto) {
 		return customerService.addCustomer(customerdto);
 	}
 	
+  
+  
    
-   @GetMapping("/getAvailableCars")
-	public List<Cars> getAvailableCars(){
-		return carService.getAvailableCars();
-	}
-   
-   @GetMapping("/searchCars/{location}/{make}/{model}")
-   public List<Cars> searchCars(@PathVariable String location , @PathVariable String make,@PathVariable String model) throws CarNotFoundException{
-	   List<Cars> cars= carService.searchCars(location , make , model);
-	   if(cars.isEmpty()) {
-		   throw new CarNotFoundException(make +" " + model + " car in location" + location + "not avaialble");
-	   }
-       return cars;
-   }
   /* @PostMapping("/makeReservation")									//	check  mapping for all methods below this
    Reservations makeReservation(@RequestBody ReservationDTO reservation) throws InvalidDateException {
 	   Reservations checkReservation = reservationService.makeReservation(reservation);
@@ -89,57 +95,17 @@ public class CustomerRestController {
 	   return checkReservation;
    }*/
   
-   @PostMapping("/makePayment/{customerId}/{carId}/{reservationId}/{dateOfPickup}/{dateOfDropoff}")									//	check  mapping for all methods below this
-   public PaymentDTO makePayment(@PathVariable int customerId , @PathVariable int carId ,@PathVariable int reservationId ,  @PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff ,@RequestBody PaymentDTO paymentdto  ) {
-	   PaymentDTO payment = new PaymentDTO();
-	try {
-		payment = paymentService.makePayment(customerId , carId , reservationId ,paymentdto, dateOfPickup , dateOfDropoff);
-	} catch (InvalidPaymentException e) {
-		
-		e.printStackTrace();
-	}
-	   
-	   return payment;
-   }
+  
    
-   @DeleteMapping("/cancelReservation/{reservationId}")
-   public String cancelReservation(@PathVariable int reservationId) {
-	   return reservationService.cancelReservation(reservationId);
-   }
-   
-   @PutMapping("/modifyReservation/{reservationId}/{dateOfPickup}/{dateOfDropoff}")
-   ReservationDTO modifyReservation(@PathVariable int reservationId ,@PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff) throws ReservationNotFoundException {
-	   ReservationDTO reservation = reservationService.modifyReservation(reservationId , dateOfPickup , dateOfDropoff);
-	   if(reservation==null) {
-		   throw new ReservationNotFoundException("reservation with id " + reservationId + " doesnt exist");
-	   }
-	   return reservation;
-   }
+  
+  
    
    
  
-   @PostMapping("/CustomerFeedback")
-  public Feedback provideFeedback(@RequestBody CustomerFeedbackDTO feedbackdto) { 		// return type I think feedback ?
-	  return feedbackService.customerFeedback(feedbackdto);
-   }
    
-   @GetMapping("/viewPaymentHistory/{customerId}")
-   public List<PaymentDTO> viewPaymentHistory(@PathVariable int customerId) throws PaymentNotFoundException{
-	   List<PaymentDTO> payments= paymentService.viewPaymentHistory(customerId);
-	   if(payments==null){
-		   throw new PaymentNotFoundException();
-   }
-	   return payments;
-}
    
-   @GetMapping("/viewReservations/{customerId}")
-   public List<ReservationDTO> viewReservations(@PathVariable int customerId) throws ReservationNotFoundException{
-	   List<ReservationDTO> reservations =reservationService.viewReservations(customerId);
-	   if(reservations==null) {
-		   throw new ReservationNotFoundException("reservation for customer " + customerId + " doesnt exist");
-	   }
-	   return reservations;
-   }
+   
+   
 
    
    

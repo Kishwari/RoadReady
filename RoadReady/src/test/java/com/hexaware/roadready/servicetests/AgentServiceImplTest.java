@@ -41,8 +41,8 @@ class AgentServiceImplTest {
 
 	@Test
 	void testUpdateCarAvailability() {
-		int carId=203;
-		String carStatus="available";
+		//int carId=203;
+		//String carStatus="available";
 		//updatedData=
 	//	Agent result = service.updateCarAvailability(carId,carStatus);
       //  assertEquals(updatedData, result);
@@ -61,10 +61,10 @@ class AgentServiceImplTest {
 
 	@Test
 	void testAddAgent() {
-		AgentDTO agentdto=new AgentDTO(122,"username","password");
+		AgentDTO agentdto=new AgentDTO(303,"bittu","BITTU");
 		Agent e1=service.addAgent(agentdto);
 		assertNotNull(e1);
-		assertEquals(122,e1.getAgentId());
+		assertEquals(303,e1.getAgentId());
 		assertTrue(e1.getAgentId() >0);
 	}
 
@@ -84,7 +84,7 @@ class AgentServiceImplTest {
 
 	@Test
 	void testDeleteAgent() {
-		int agentId=101;
+		int agentId=202;
 		String result = service.deleteAgent(agentId);
         assertEquals("agent with id " + agentId + "deleted succesfully", result);
 	}
@@ -92,8 +92,8 @@ class AgentServiceImplTest {
 	@Test
 	void testUpdateAgent() {
 		int agentId=101;
-		AgentDTO originalData = new AgentDTO(1, "username","password");
-		AgentDTO updatedData = new AgentDTO(1, "username","password");
+		AgentDTO originalData = new AgentDTO(101, "laxman01","LAXMAN");
+		AgentDTO updatedData = new AgentDTO(101, "laxman101","laxMAN");
         Agent result = service.updateAgent(agentId,originalData);
         assertEquals(updatedData, result);
 	}

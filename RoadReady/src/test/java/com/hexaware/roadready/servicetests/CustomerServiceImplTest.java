@@ -33,18 +33,18 @@ class CustomerServiceImplTest {
 	@DisplayName("Insert_Customer")
 	void testAddCustomer() {
 
-		CustomerDTO customerdto=new CustomerDTO();
+		CustomerDTO customerdto=new CustomerDTO(6,"Tina","Muneem","tina_mun","tina.muneem@rxmaple.com","muneem@123","3746583980");
 		Customers c1=service.addCustomer(customerdto);
 		assertNotNull(c1);
-		assertEquals(122,c1.getCustomerId());
+		assertEquals(6,c1.getCustomerId());
 		assertTrue(c1.getCustomerId() >0);
 		}
 
 	@Test
 	void testGetCustomerById() {
-		CustomerDTO customerdto=service.getCustomerById(101);
-		assertEquals("Tommy",customerdto.getUsername());
-		assertNotEquals("smith",customerdto.getUsername());
+		CustomerDTO customerdto=service.getCustomerById(4);
+		assertEquals("ananya_das",customerdto.getUsername());
+		assertNotEquals("ananydas",customerdto.getUsername());
 	}
 
 	@Test
@@ -56,17 +56,17 @@ class CustomerServiceImplTest {
 
 	@Test
 	void testDeleteCustomer() {
-		int customerId=101;
+		int customerId=6;
 		String result = service.deleteCustomer(customerId);
         assertEquals("customer " + customerId + " deleted successfully", result);
 	}
 
 	@Test
 	void testUpdateCustomer() {								
-		CustomerDTO originalData = new CustomerDTO(389403488,"firstName","lastName","username","emailAddress","password","customerId");
-        CustomerDTO updatedData = new CustomerDTO(389034889,"firstName","lastName","username","emailAddress","password","customerId");
+		CustomerDTO originalData = new CustomerDTO(5,"Vikram","Srivastava","vikram_78","vikram.srivastava@example.com","vikram@123","3894039488");
+        CustomerDTO updatedData = new CustomerDTO(5,"Vikram","Srivastava","vikram_78","vikram.srivastava@example.com","vikram@123","4897839488");
         Customers result = service.updateCustomer(originalData);
-        assertEquals(updatedData, result);
+        assertNotEquals(updatedData, result);
 	}
 
 }

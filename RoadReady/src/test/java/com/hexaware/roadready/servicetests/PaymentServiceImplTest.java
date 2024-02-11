@@ -35,14 +35,14 @@ class PaymentServiceImplTest {
 
 	@Test
 	void testViewPaymentHistory() {
-		List list=service.viewPaymentHistory(0);
+		List list=service.viewPaymentHistory(123);
 		boolean flag=list.isEmpty();
 		assertFalse(flag);
 	}
 
 	@Test
 	void testGetPaymentDetailsForCustomer() {
-		List list=service.getPaymentDetailsForCustomer(0);
+		List list=service.getPaymentDetailsForCustomer(1);
 		boolean flag=list.isEmpty();
 		assertFalse(flag);
 	}

@@ -1,9 +1,8 @@
 package com.hexaware.roadready.servicetests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import java.util.List;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,8 @@ class AdminServiceImplTest {
 
 	@Test
 	void testRevenueReportBetweenDates() {
-		String result = service.revenueReportBetweenDates(startDate,enddate);
+		LocalDate startDate=LocalDate.of(2023, 03, 03);
+		String result = service.revenueReportBetweenDates( startDate,enddate);
         assertEquals("Total revenue Generated Between " + startDate + " and " +endDate+ " is " + amount, result);
 	}
 
