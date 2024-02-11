@@ -5,7 +5,7 @@ public class AuthRequest {
     private String password;
 	public AuthRequest() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 	public AuthRequest(String username, String password) {
 		super();

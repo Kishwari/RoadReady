@@ -29,27 +29,31 @@ class CarServiceImplTest {
 
 	@Test
 	void testGetAvailableCars() {
-
+		List list=service.getAvailableCars();
+		boolean flag=list.isEmpty();
+		assertFalse(flag);
 	}
 
 	@Test
 	void testSearchCars() {
-		
+		List list=service.searchCars("Chennai","Mahindra","Thar");
+		boolean flag=list.isEmpty();
+		assertFalse(flag);
 
 	}
 
 	@Test
 	void testAddCar() {
-		CarDTO car=new CarDTO(122,"make","model", "location", "status", 4000, "specification", 0);
+		CarDTO car=new CarDTO(77,"Hyundai","Creta", "Kolkata", "Maintenance", 4000, "Diesel , Manual", 5);
 		Cars e1=service.addCar(car);
 		assertNotNull(e1);
-		assertEquals(122,e1.getCarId());
+		assertEquals(77,e1.getCarId());
 		assertTrue(e1.getCarId() >0);
 	}
 
 	@Test
 	void testGetCarById() {
-		CarDTO car=service.getCarById(101);
+		CarDTO car=service.getCarById(55);
 		assertEquals("Tommy",car.getMake());
 		assertNotEquals("smith",car.getMake());
 	}
@@ -63,12 +67,18 @@ class CarServiceImplTest {
 
 	@Test
 	void testDeleteCar() {
-
-	}
+		int carId=66;
+		String result = service.deleteCar(carId);
+        assertEquals("car " + carId + " deleted successfully", result);
+    }
+	
 
 	@Test
 	void testUpdateCar() {
-
+		 CarDTO originalData = new CarDTO(55, "Honda", "City", "Banglore", "Unavailable", 2000, "Petrol, Manual Transmission, AC", 5);
+	        CarDTO updatedData = new CarDTO(55, " Honda", "City", "Banglore", "Avialable", 2500, "Petrol, Manual Transmission", 5);
+	        Cars result = service.updateCar(originalData);
+	        assertEquals(updatedData, result);
 	}
 
 	@Test
