@@ -1,6 +1,7 @@
 package com.hexaware.roadready.restcontroller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -29,15 +30,18 @@ public class PaymentRestController {
 	@Autowired
 	IPaymentService paymentService;
 	
-<<<<<<< HEAD
-	
-=======
->>>>>>> joshitha
+
 	@GetMapping("/getPaymentsOfCustomer/{customerId}")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public List<PaymentDTO> getPaymentDetailsForCustomer(@PathVariable int customerId) throws PaymentNotFoundException{
+    public List<PaymentDTO> getPaymentDetailsForCustomer(@PathVariable int customerId){
     	logger.warn("Might throw PaymentNotFoundException ");
-		List<PaymentDTO>  payments = paymentService.getPaymentDetailsForCustomer(customerId);
+		List<PaymentDTO> payments = new ArrayList<PaymentDTO>();
+		try {
+			payments = paymentService.getPaymentDetailsForCustomer(customerId);
+		} catch (PaymentNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	logger.info("Payment details of customer with Id : "+customerId);
 		return payments;
 	}
@@ -51,19 +55,22 @@ public class PaymentRestController {
 	    
 	 @GetMapping("/viewPaymentHistory/{customerId}")
 	 @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
-	   public List<PaymentDTO> viewPaymentHistory(@PathVariable int customerId) throws PaymentNotFoundException{
-		   List<PaymentDTO> payments= paymentService.viewPaymentHistory(customerId);
+	   public List<PaymentDTO> viewPaymentHistory(@PathVariable int customerId){
+		   List<PaymentDTO> payments=new ArrayList<PaymentDTO>();
+		try {
+			payments = paymentService.viewPaymentHistory(customerId);
+		} catch (PaymentNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		   return payments;
 	}
 	 
-<<<<<<< HEAD
-	 @PostMapping("/makePayment/{customerId}/{carId}/{reservationId}/{dateOfPickup}/{dateOfDropoff}")									//	check  mapping for all methods below this
-	   public PaymentDTO makePayment(@PathVariable int customerId , @PathVariable int carId ,@PathVariable int reservationId ,  @PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff ,@RequestBody PaymentDTO paymentdto  ) throws InvalidPaymentException {
-=======
+
 	 @PostMapping("/makePayment/{customerId}/{carId}/{reservationId}/{dateOfPickup}/{dateOfDropoff}")
 	 @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
 	   public PaymentDTO makePayment(@PathVariable int customerId , @PathVariable int carId ,@PathVariable int reservationId ,  @PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff ,@RequestBody PaymentDTO paymentdto  ) {
->>>>>>> joshitha
+
 		   PaymentDTO payment = new PaymentDTO();
 		try {
 			payment = paymentService.makePayment(customerId , carId , reservationId ,paymentdto, dateOfPickup , dateOfDropoff);

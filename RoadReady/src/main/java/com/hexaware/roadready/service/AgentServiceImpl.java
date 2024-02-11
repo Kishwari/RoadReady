@@ -137,15 +137,15 @@ public class AgentServiceImpl implements IAgentService{
 		Agent agent = new Agent();
 		agent.setAgentId(agentdto.getAgentId());
 		agent.setUsername(agentdto.getUsername());
-<<<<<<< HEAD
-		agent.setPassword(agentdto.getPassword());
+
+		//agent.setPassword(agentdto.getPassword());
 		 //agent.setPassword(passwordEncoder.encode(agentdto.getPassword()));
 		logger.info("New Agent added");
-=======
+
 		//agent.setPassword(agentdto.getPassword());
 		agent.setPassword(passwordEncoder.encode(agentdto.getPassword()));
 		agent.setRole("ROLE_AGENT");
->>>>>>> joshitha
+
 		agentRepo.save(agent);
 		return agent;
 	}
@@ -160,7 +160,8 @@ public class AgentServiceImpl implements IAgentService{
 		agentdto.setPassword(agent.getPassword());
 		return agentdto;
 		}
-		throw new AgentNotFoundException();
+		throw new AgentNotFoundException("agnet with id " + agentId +" not found");
+		
 	}
 
 	@Override

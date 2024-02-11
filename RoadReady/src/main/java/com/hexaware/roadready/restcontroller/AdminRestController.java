@@ -73,13 +73,9 @@ public class AdminRestController {
     }
     
     @PostMapping("/registerAdmin")
-<<<<<<< HEAD
-    public Admin addAdmin(AdminDTO admindto) {
-    	logger.info("Now Registering");
-=======
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Admin addAdmin(@RequestBody AdminDTO admindto) {
->>>>>>> joshitha
+    	logger.info("Now Registering");
 		return adminService.addAdmin(admindto);
 		
 	}
