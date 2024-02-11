@@ -14,6 +14,7 @@ import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.exceptions.InvalidPaymentException;
+import com.hexaware.roadready.exceptions.PaymentNotFoundException;
 import com.hexaware.roadready.repository.CarRepository;
 import com.hexaware.roadready.repository.CustomerRepository;
 import com.hexaware.roadready.repository.PaymentRepository;
@@ -56,8 +57,13 @@ public class PaymentServiceImpl implements IPaymentService {
 	}
 
 	@Override
-	public List<PaymentDTO> viewPaymentHistory(int customerId) {
+	public List<PaymentDTO> viewPaymentHistory(int customerId) throws  PaymentNotFoundException
+ {
 		List<Payments> paymentList = paymentRepo.viewPaymentHistory(customerId);
+		if(paymentList.isEmpty()) {
+			   throw new PaymentNotFoundException("Payment doesn't exist");
+
+		}
 	    List<PaymentDTO> paymentDTOList = new ArrayList<>();
 	    for (Payments payment : paymentList) {
 	        PaymentDTO paymentDTO = new PaymentDTO();
@@ -72,9 +78,12 @@ public class PaymentServiceImpl implements IPaymentService {
 	}
 
 	@Override
-	public List<PaymentDTO> getPaymentDetailsForCustomer(int customerId) {
+	public List<PaymentDTO> getPaymentDetailsForCustomer(int customerId)throws PaymentNotFoundException {
 		
 		List<Payments> paymentList = paymentRepo.getPaymentDetailsForCustomer(customerId);
+		if(paymentList.isEmpty()) {
+			throw new PaymentNotFoundException("Payment doesnt exist");
+		}
 		List<PaymentDTO> paymentDTOList = new ArrayList<>();
 	    for (Payments payment : paymentList) {
 	        PaymentDTO paymentDTO = new PaymentDTO();
@@ -86,6 +95,8 @@ public class PaymentServiceImpl implements IPaymentService {
 	        paymentDTOList.add(paymentDTO);
 	    }
 	    return paymentDTOList;
+	    
+		
 	}
 
 	@Override

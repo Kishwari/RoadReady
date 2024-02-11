@@ -13,17 +13,17 @@ public interface ICarService {
 	
         public List<Cars> getAvailableCars(); 
 	
-	    List<Cars> searchCars(String location,String make,String model);
+	    List<Cars> searchCars(String location,String make,String model) throws CarNotFoundException;
 	
 	    public Cars	addCar(CarDTO car);
 		
-		public CarDTO	getCarById(int carId);
+		public CarDTO	getCarById(int carId)throws CarNotFoundException;
 		
 		public List<CarDTO>	getAllCars();
 		
 		public String deleteCar(int carId);
 		
-		public Cars	updateCar(CarDTO car);
+		public Cars	updateCar(CarDTO car) throws CarNotFoundException;
 
 	    public List<Cars> discountOnCarPriceByMake(String make, double discountPrice) throws CarNotFoundException;
 	    

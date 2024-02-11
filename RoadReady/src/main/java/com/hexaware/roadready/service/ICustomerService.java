@@ -10,6 +10,7 @@ import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Feedback;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
+import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 
 
 
@@ -18,13 +19,13 @@ public interface ICustomerService {
 	
     public Customers	addCustomer(CustomerDTO customer);
 	
-	public CustomerDTO	getCustomerById(int customerId);
+	public CustomerDTO	getCustomerById(int customerId) throws CustomerNotFoundException;
 	
 	public List<CustomerDTO>	getAllCustomer();
 	
 	public String deleteCustomer(int customerId);
 	
-	public Customers updateCustomer(CustomerDTO customerdto);
+	public Customers updateCustomer(CustomerDTO customerdto) throws  CustomerNotFoundException ;
 	
 	
 	

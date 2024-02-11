@@ -3,6 +3,8 @@ package com.hexaware.roadready.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,10 +15,13 @@ import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Reservations;
+import com.hexaware.roadready.exceptions.AgentNotFoundException;
+import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.repository.AgentRepository;
 import com.hexaware.roadready.repository.CarRepository;
 import com.hexaware.roadready.repository.CustomerRepository;
 import com.hexaware.roadready.repository.ReservationRepository;
+import com.hexaware.roadready.restcontroller.AdminRestController;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -26,6 +31,8 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class AgentServiceImpl implements IAgentService{
 	
+	Logger logger=LoggerFactory.getLogger(AgentServiceImpl.class);
+
 	@Autowired
 	AgentRepository agentRepo;
 	@Autowired
@@ -84,9 +91,14 @@ public class AgentServiceImpl implements IAgentService{
 	
 
 	@Override
-	public Cars updateCarAvailability(String carStatus ,int carId) {
+	public Cars updateCarAvailability(String carStatus ,int carId)  throws CarNotFoundException
+ {
 		carRepo.updateCarAvailability(carStatus, carId);
+		logger.info(carId+" for this car Id , status has been Updated ");
 		return carRepo.findById(carId).orElse(null);
+		
+		//	 throw new CarNotFoundException("car with id " + carId + "not present");
+
 		
 	}
 
@@ -127,22 +139,27 @@ public class AgentServiceImpl implements IAgentService{
 		agent.setUsername(agentdto.getUsername());
 		agent.setPassword(agentdto.getPassword());
 		 //agent.setPassword(passwordEncoder.encode(agentdto.getPassword()));
+		logger.info("New Agent added");
 		agentRepo.save(agent);
 		return agent;
 	}
 
 	@Override
-	public AgentDTO getAgentById(int agentId) {
+	public AgentDTO getAgentById(int agentId) throws AgentNotFoundException {
 		Agent agent = agentRepo.findById(agentId).orElse(null);
+		if(agent!=null) {
 		AgentDTO agentdto = new AgentDTO ();
 		agentdto.setAgentId(agent.getAgentId());
 		agentdto.setUsername(agent.getUsername());
 		agentdto.setPassword(agent.getPassword());
 		return agentdto;
+		}
+		throw new AgentNotFoundException();
 	}
 
 	@Override
 	public List<Agent> getAllAgents() {
+		logger.info("Generating list of agents");
 		return agentRepo.findAll();
 	}
 
@@ -155,6 +172,7 @@ public class AgentServiceImpl implements IAgentService{
 		   return  "agent with id " + agentId + "deleted succesfully";
 		}
 		else {
+	    	
 			return " agent deletion unsuccessfull";
 		}
 	}

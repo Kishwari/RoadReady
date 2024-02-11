@@ -2,6 +2,8 @@ package com.hexaware.roadready.restcontroller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,9 @@ import com.hexaware.roadready.service.IAgentService;
 @RequestMapping("/roadready/agents")
 public class AgentRestController {
 
+	Logger logger=LoggerFactory.getLogger(AgentRestController.class);
+
+	
 	@Autowired
 	IAgentService agentService;
 	
@@ -44,28 +49,24 @@ public class AgentRestController {
 	 @PutMapping("/updateCarAvailability/{carStatus}/{carId}")
     public Cars updateCarAvailability(@PathVariable String carStatus , @PathVariable int carId) throws CarNotFoundException {
 		 Cars car = agentService.updateCarAvailability(carStatus, carId);
-		 if(car==null) {
-			 throw new CarNotFoundException("car with id " + carId + "not present");
-		 }
 		 return car;
 	 }
 	
 	 @PostMapping("/addAgent")
 	    public Agent addAgent(@RequestBody AgentDTO agentdto) {
+	    	logger.info("Now adding agent using addAgent method");
 	    	return agentService.addAgent(agentdto);
 	    }
 		
 	    @GetMapping("/getAgentById/{agentId}")
 	    public AgentDTO getAgentById(@PathVariable int agentId) throws AgentNotFoundException {
 	    	AgentDTO agent = agentService.getAgentById(agentId);
-	    	if(agent==null) {
-	    		throw new AgentNotFoundException();
-	    	}
 	    	return agent;
 	    }
 	    
 	    @GetMapping("/getAllAgents")
 	    public List<Agent> getAllAgents(){
+	    	logger.info("Getting list of agents");
 	    	return agentService.getAllAgents();
 	    }
 	    @DeleteMapping("/deleteAgentById/{agentId}")

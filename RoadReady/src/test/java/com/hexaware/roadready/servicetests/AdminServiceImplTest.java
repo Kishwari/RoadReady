@@ -23,8 +23,9 @@ class AdminServiceImplTest {
 
 	@Test
 	void testRevenueReportBetweenDates() {
-		LocalDate startDate=LocalDate.of(2023, 03, 03);
-		String result = service.revenueReportBetweenDates( startDate,enddate);
+		LocalDate startDate=LocalDate.of(2024, 01, 01);
+		LocalDate endDate=LocalDate.of(2024, 04, 04);
+		String result = service.revenueReportBetweenDates( startDate,endDate);
         assertEquals("Total revenue Generated Between " + startDate + " and " +endDate+ " is " + amount, result);
 	}
 

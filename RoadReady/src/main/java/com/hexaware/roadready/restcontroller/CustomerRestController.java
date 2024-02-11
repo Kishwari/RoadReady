@@ -3,6 +3,8 @@ package com.hexaware.roadready.restcontroller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +41,8 @@ import com.hexaware.roadready.service.IReservationService;
 @RequestMapping("/roadready/customers")
 public class CustomerRestController {
 	
+	Logger logger=LoggerFactory.getLogger(CustomerRestController.class);
+
 	@Autowired
 	ICustomerService customerService;
 	
@@ -52,10 +56,7 @@ public class CustomerRestController {
 	@GetMapping("/getCustomerById/{customerId}")
 	public CustomerDTO	getCustomerById(@PathVariable int customerId) throws CustomerNotFoundException {
 		CustomerDTO customer = customerService.getCustomerById(customerId);
-		if(customer==null) {
-			throw new CustomerNotFoundException("custome with id " + customerId + "not found");
-			
-		}
+    	logger.warn("Might throw exception CustomerNotFoundException ");
 		return customer;
 	}
 	
@@ -72,9 +73,6 @@ public class CustomerRestController {
 	@PutMapping("/updateCustomerDetails")
 	public Customers	updateCustomer(@RequestBody CustomerDTO customer) throws CustomerNotFoundException {
 		Customers checkCustomer = customerService.updateCustomer(customer);
-		if(checkCustomer == null) {
-			throw new CustomerNotFoundException("customer not found");
-		}
 		return checkCustomer;
 	}
 	@PostMapping("/registerNewCustomer")

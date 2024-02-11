@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.repository.CarRepository;
+import com.hexaware.roadready.restcontroller.AdminRestController;
 
 import jakarta.transaction.Transactional;
 
@@ -19,18 +22,23 @@ import jakarta.transaction.Transactional;
 
 public class CarServiceImpl implements ICarService {
 
+	Logger logger=LoggerFactory.getLogger(CarServiceImpl.class);
+
 	@Autowired
 	CarRepository carRepo;
 
 	@Override
 	public List<Cars> getAvailableCars() {
-
+    	logger.info("List of cars that are available at the moment");
 		return carRepo.getAvailableCars();
 	}
 
 	@Override
-	public List<Cars> searchCars(String location, String make, String model) {
+	public List<Cars> searchCars(String location, String make, String model) throws CarNotFoundException{
 		List<Cars> availableCars = carRepo.getAvailableCars();
+		if(availableCars.isEmpty()) {
+			throw new CarNotFoundException("car not present");
+		}
 		return availableCars.stream().filter(
 				car -> car.getMake().equals(make) && car.getModel().equals(model) && car.getLocation().equals(location))
 				.collect(Collectors.toList());
@@ -48,12 +56,14 @@ public class CarServiceImpl implements ICarService {
 		car.setSpecification(cardto.getSpecifications());
 		car.setPassengerCapacity(cardto.getPassengerCapacity());
 		car.setDailyRate(cardto.getDailyRate());
+    	logger.info("Car has been added using addCar method");
 		return carRepo.save(car);
 	}
 
 	@Override
-	public CarDTO getCarById(int carId) {
+	public CarDTO getCarById(int carId) throws CarNotFoundException{
 		Cars car = carRepo.findById(carId).orElse(null);
+		if( car!=null) {
 		CarDTO cardto = new CarDTO();
 		cardto.setCarId(car.getCarId());
 		cardto.setMake(car.getMake());
@@ -63,7 +73,8 @@ public class CarServiceImpl implements ICarService {
 		cardto.setLocation(car.getLocation());
 		cardto.setPassengerCapacity(car.getPassengerCapacity());
 		cardto.setDailyRate(car.getDailyRate());
-		return cardto;
+		return cardto;}
+		throw new CarNotFoundException("car not present");
 	}
 
 	@Override
@@ -89,6 +100,7 @@ public class CarServiceImpl implements ICarService {
 	@Override
 	public String deleteCar(int carId) {
 		carRepo.deleteById(carId);
+    	logger.info("Deleting Car");
 		Cars deletedCar = carRepo.findById(carId).orElse(null);
 		if (deletedCar != null) {
 			return "car deletion unsuccesfull";
@@ -97,8 +109,9 @@ public class CarServiceImpl implements ICarService {
 	}
 
 	@Override
-	public Cars updateCar(CarDTO cardto) {
+	public Cars updateCar(CarDTO cardto) throws CarNotFoundException {
 		Cars car = new Cars();
+		if(car!=null) {
 		car.setCarId(cardto.getCarId());
 		car.setMake(cardto.getMake());
 		car.setModel(cardto.getModel());
@@ -108,6 +121,8 @@ public class CarServiceImpl implements ICarService {
 		car.setPassengerCapacity(cardto.getPassengerCapacity());
 		car.setDailyRate(cardto.getDailyRate());
 		return carRepo.save(car);
+		}
+		throw new CarNotFoundException("car not present");
 	}
 
 	@Override
@@ -116,7 +131,7 @@ public class CarServiceImpl implements ICarService {
 		carRepo.discountOnCarPriceByMake(make, discountPrice);
 
 		List<Cars> updatedCars = carRepo.findByMake(make);
-
+    	logger.warn("Might throw exception CarNotFoundException ");
 		if (updatedCars.isEmpty()) {
 			throw new CarNotFoundException("No cars found with make: " + make);
 		}
@@ -129,6 +144,7 @@ public class CarServiceImpl implements ICarService {
 	public Cars updateCarPrice(int carId, double newPrice) throws CarNotFoundException {
 		Cars car = new Cars();
 		Cars existingCar = carRepo.findById(carId).orElse(null);
+    	logger.warn("Might throw exception CarNotFoundException ");
 		if (existingCar != null) {
 			existingCar.setDailyRate(newPrice);
 			car = carRepo.save(existingCar);

@@ -3,6 +3,8 @@ package com.hexaware.roadready.restcontroller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,6 +46,7 @@ import com.hexaware.roadready.service.IReservationService;
 @RequestMapping("/roadready/admin")
 public class AdminRestController {
 	
+	Logger logger=LoggerFactory.getLogger(AdminRestController.class);
 	
 	@Autowired
 	IAdminService adminService;
@@ -56,16 +59,19 @@ public class AdminRestController {
     
     @GetMapping("/revenueGeneratedByCustomer/{customerId}")
     public String revenueReportGeneratedByCustomer(@PathVariable int customerId) {
+    	logger.info("Now generating revenue for customer with Id : "+customerId);
     	return adminService.revenueReportGeneratedByCustomer(customerId);
     }
     
     @GetMapping("/totalRevenueReport")
     public String totalRevenueReport() {
+    	logger.info("Now generating total revenue report");
     	return adminService.totalRevenueReport();
     }
     
     @PostMapping("/registerAdmin")
     public Admin addAdmin(AdminDTO admindto) {
+    	logger.info("Now Registering");
 		return adminService.addAdmin(admindto);
 		
 	}

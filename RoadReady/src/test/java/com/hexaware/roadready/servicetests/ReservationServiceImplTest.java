@@ -43,12 +43,13 @@ class ReservationServiceImplTest {
 
 	/*@Test
 	void testModifyReservation() {
-		 int reservationId = 1;
-	        LocalDate dateOfPickup = LocalDate.of(2024, 3, 15);
-	        LocalDate dateOfDropoff = LocalDate.of(2024, 3, 20);
+		// int reservationId = 1;
+	     //   LocalDate dateOfPickup = LocalDate.of(2024, 3, 15);
+	    //    LocalDate dateOfDropoff = LocalDate.of(2024, 3, 20);
 		 ReservationDTO originalData = new ReservationDTO(1,"reserved",LocalDate.of(2024, 2, 25),LocalDate.of(2024, 3, 3),LocalDate.of(2024, 4, 4));
-		 ReservationDTO result = service.modifyReservation(reservationId,dateOfPickup,dateOfDropoff);
-	        assertEquals(originalData, result);
+		  ReservationDTO updatedData = new ReservationDTO(1,"reserved",LocalDate.of(2024, 2, 25),LocalDate.of(2024, 3, 3),LocalDate.of(2024, 4, 4));
+		 ReservationDTO result = service.modifyReservation(originalData);
+	        assertEquals(updatedData, result);
 
 	}*/
 

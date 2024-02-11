@@ -3,13 +3,17 @@ package com.hexaware.roadready.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Customers;
+import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.repository.CustomerRepository;
+import com.hexaware.roadready.restcontroller.AdminRestController;
 
 import jakarta.transaction.Transactional;
 
@@ -17,6 +21,8 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class CustomerServiceImpl implements ICustomerService {
     
+	Logger logger=LoggerFactory.getLogger(CustomerServiceImpl.class);
+
 	@Autowired
 	CustomerRepository customerRepo;
 	
@@ -35,6 +41,7 @@ public class CustomerServiceImpl implements ICustomerService {
 		customer.setPassword(customerdto.getPassword());
 		//customer.setPassword(passwordEncoder.encode(customerdto.getPassword()));
 		customer.setPhoneNumber(customerdto.getPhoneNumber());
+    	logger.info("Added a new customer");
 		return customerRepo.save(customer);
 	}
 	
@@ -42,8 +49,9 @@ public class CustomerServiceImpl implements ICustomerService {
 
 
 	@Override
-	public CustomerDTO getCustomerById(int customerId) {
+	public CustomerDTO getCustomerById(int customerId) throws CustomerNotFoundException{
 		Customers customer = customerRepo.findById(customerId).orElse(null);
+		if(customer !=null) {
 		CustomerDTO customerdto=new CustomerDTO();
 		customerdto.setCustomerId(customer.getCustomerId());
 		customerdto.setFirstName(customer.getFirstName());
@@ -53,6 +61,8 @@ public class CustomerServiceImpl implements ICustomerService {
 		customerdto.setPassword(customer.getPassword());
 		customerdto.setPhoneNumber(customer.getPhoneNumber());
 		return customerdto;
+		}
+		throw new CustomerNotFoundException("custome with id " + customerId + "not found");
 	}
 
 	@Override
@@ -85,8 +95,10 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 	
 	@Override
-	public Customers updateCustomer(CustomerDTO customerdto) {
+	public Customers updateCustomer(CustomerDTO customerdto) throws  CustomerNotFoundException
+{
 		Customers customer = new Customers();
+		if(customer!=null) {
 		customer.setCustomerId(customerdto.getCustomerId());
 		customer.setFirstName(customerdto.getFirstName());
 		customer.setLastName(customerdto.getLastName());
@@ -94,7 +106,11 @@ public class CustomerServiceImpl implements ICustomerService {
 		customer.setUsername(customerdto.getUsername());
 		customer.setPassword(customerdto.getPassword());
 		customer.setPhoneNumber(customerdto.getPhoneNumber());
+    	logger.info("Updated an existing customer");
 		return customerRepo.save(customer);
+		}
+		throw new CustomerNotFoundException("customer not found");
+
 	}
 
 	

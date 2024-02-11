@@ -3,6 +3,8 @@ package com.hexaware.roadready.restcontroller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,20 +21,21 @@ import com.hexaware.roadready.service.IReservationService;
 @RequestMapping("/roadready/reservations")
 public class ReservationRestController {
 
+	Logger logger=LoggerFactory.getLogger(ReservationRestController.class);
+
+	
 	@Autowired
 	IReservationService reservationService;
 	
 	 @PutMapping("/modifyReservation/{reservationId}/{dateOfPickup}/{dateOfDropoff}")
 	   ReservationDTO modifyReservation(@PathVariable int reservationId ,@PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff) throws ReservationNotFoundException {
 		   ReservationDTO reservation = reservationService.modifyReservation(reservationId , dateOfPickup , dateOfDropoff);
-		   if(reservation==null) {
-			   throw new ReservationNotFoundException("reservation with id " + reservationId + " doesnt exist");
-		   }
 		   return reservation;
 	   }
 	 
 	 @DeleteMapping("/cancelReservation/{reservationId}")
 	   public String cancelReservation(@PathVariable int reservationId) {
+	    	logger.info("Cancelling the reservation");
 		   return reservationService.cancelReservation(reservationId);
 	   }
 	   
@@ -57,6 +60,7 @@ public class ReservationRestController {
 	 
 	    @GetMapping("/getAllReservations")
 	    public List <ReservationDTO> viewAllReservations(){
+	    	logger.info("Listing all the reservations");
 	    	return reservationService.viewAllReservations();
 	    }
 }

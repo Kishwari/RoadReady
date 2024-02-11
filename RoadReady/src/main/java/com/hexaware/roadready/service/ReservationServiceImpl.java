@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.hexaware.roadready.dto.ReservationDTO;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
+import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.exceptions.ReservationNotFoundException;
 import com.hexaware.roadready.repository.PaymentRepository;
 import com.hexaware.roadready.repository.ReservationRepository;
@@ -111,7 +112,7 @@ public class ReservationServiceImpl implements IReservationService{
 	    reservation.setDateOfDropoff(dateOfDropoff);
         reservation.setDateOfReservation(LocalDate.now());
 	    Reservations modifiedReservation = reservationRepo.save(reservation);
-	    
+	    if(modifiedReservation !=null) {
 	    ReservationDTO reservationdto = new ReservationDTO();
 	    reservationdto.setReservationId(modifiedReservation.getResevationId());
 	    reservationdto.setReservationStatus(modifiedReservation.getReservationstatus());
@@ -119,7 +120,11 @@ public class ReservationServiceImpl implements IReservationService{
 	    reservationdto.setDateOfPickup(modifiedReservation.getDateOfPickup());
 	    reservationdto.setDateOfDropoff(modifiedReservation.getDateOfDropoff());
 	    
-	    return reservationdto;
+	    return reservationdto;}
+	    else {
+			   throw new ReservationNotFoundException("reservation with id " + reservationId + " doesnt exist");
+
+	    }
 	}
 
 	

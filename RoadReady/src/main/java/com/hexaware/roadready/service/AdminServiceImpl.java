@@ -3,6 +3,8 @@ package com.hexaware.roadready.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import com.hexaware.roadready.repository.CarRepository;
 import com.hexaware.roadready.repository.CustomerRepository;
 import com.hexaware.roadready.repository.PaymentRepository;
 import com.hexaware.roadready.repository.ReservationRepository;
+import com.hexaware.roadready.restcontroller.AdminRestController;
 
 import jakarta.transaction.Transactional;
 
@@ -25,23 +28,15 @@ import jakarta.transaction.Transactional;
 @Service
 public class AdminServiceImpl implements IAdminService {
     
-	@Autowired
-	CustomerRepository customerRepo;
+	Logger logger=LoggerFactory.getLogger(AdminServiceImpl.class);
 	
 	@Autowired
 	AdminRepository adminRepo;
 	
 	@Autowired
-	CarRepository carRepo;
-	
-	@Autowired
-	ReservationRepository reservationRepo;
-	
-	@Autowired
 	PaymentRepository paymentRepo;
 	
-	@Autowired
-	AgentRepository agentRepo;
+	
 	
 	//@Autowired
    // PasswordEncoder passwordEncoder;
@@ -322,7 +317,7 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public String totalRevenueReport() {
 		Double amount = paymentRepo.findTotalRevenue();
-		
+		logger.info("Total revenue report generated");
 		return "Total Revenue generated till today for RoadReady is " + amount ;
 	}
 

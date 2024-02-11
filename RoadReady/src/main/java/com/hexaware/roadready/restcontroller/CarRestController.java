@@ -32,9 +32,6 @@ public class CarRestController {
 	@GetMapping("/getCarById/{carId}")
 	public CarDTO	getCarById(@PathVariable int carId) throws CarNotFoundException {
 		CarDTO car= carService.getCarById(carId);
-		if(car==null) {
-			throw new CarNotFoundException("car with id " + carId + "not present");
-		}
 		return car;
 	}
 	
@@ -51,9 +48,6 @@ public class CarRestController {
 	@PutMapping("/updateCarDetails")
 	public Cars	updateCar(@RequestBody CarDTO car) throws CarNotFoundException {
 		Cars checkCar = carService.updateCar(car);
-		if(checkCar == null) {
-			throw new CarNotFoundException("car not present");
-		}
 		return checkCar;
 	}
      	
@@ -61,18 +55,12 @@ public class CarRestController {
     @PutMapping("/discountOnCarByMake/{make}/{discountPrice}")
     public List<Cars> discountOnCarPrice(@PathVariable String make ,@PathVariable double discountPrice) throws CarNotFoundException {
     	List<Cars>  cars = carService.discountOnCarPriceByMake(make, discountPrice);
-    	if(cars.isEmpty()) {
-    		throw new CarNotFoundException("car with make " + make+ "not present");
-    	}
     	return cars;
     }
     
     @PutMapping("/updateCarPrice/{carId}/{newPrice}")
     public Cars updateCarPrice(@PathVariable int carId , @PathVariable double newPrice) throws CarNotFoundException {
     	Cars car = carService.updateCarPrice(carId, newPrice);
-    	if(car == null) {
-    		throw new CarNotFoundException("car with id " + carId + "not present");
-    	}
     	return car;
     }
     
@@ -85,9 +73,6 @@ public class CarRestController {
     @GetMapping("/searchCars/{location}/{make}/{model}")
     public List<Cars> searchCars(@PathVariable String location , @PathVariable String make,@PathVariable String model) throws CarNotFoundException{
  	   List<Cars> cars= carService.searchCars(location , make , model);
- 	   if(cars.isEmpty()) {
- 		   throw new CarNotFoundException(make +" " + model + " car in location" + location + "not avaialble");
- 	   }
         return cars;
     }
     
