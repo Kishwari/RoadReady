@@ -51,7 +51,7 @@ public class Admin {
 		this.adminId=adminId;
 		this.username = username;
 		this.password = password;
-		this.role = "ROLE_ADMIN";
+		this.role =role;
 	}
 
 

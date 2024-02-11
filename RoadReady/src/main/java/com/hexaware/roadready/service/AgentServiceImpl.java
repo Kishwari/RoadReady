@@ -37,8 +37,8 @@ public class AgentServiceImpl implements IAgentService{
 	@Autowired
 	CarRepository carRepo;
 	
-	//@Autowired
-   // PasswordEncoder passwordEncoder;
+	@Autowired
+   PasswordEncoder passwordEncoder;
 	
 	@PersistenceContext
     private EntityManager entityManager;
@@ -125,8 +125,9 @@ public class AgentServiceImpl implements IAgentService{
 		Agent agent = new Agent();
 		agent.setAgentId(agentdto.getAgentId());
 		agent.setUsername(agentdto.getUsername());
-		agent.setPassword(agentdto.getPassword());
-		 //agent.setPassword(passwordEncoder.encode(agentdto.getPassword()));
+		//agent.setPassword(agentdto.getPassword());
+		agent.setPassword(passwordEncoder.encode(agentdto.getPassword()));
+		agent.setRole("ROLE_AGENT");
 		agentRepo.save(agent);
 		return agent;
 	}
@@ -166,6 +167,7 @@ public class AgentServiceImpl implements IAgentService{
 		agent.setAgentId(agentdto.getAgentId());
 		agent.setUsername(agentdto.getUsername());
 		agent.setPassword(agentdto.getPassword());
+		agent.setRole("ROLE_AGENT");
 		agentRepo.save(agent);
 		}
 		return agent;

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,9 @@ public class PaymentRestController {
 
 	@Autowired
 	IPaymentService paymentService;
+	
 	@GetMapping("/getPaymentsOfCustomer/{customerId}")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<PaymentDTO> getPaymentDetailsForCustomer(@PathVariable int customerId) throws PaymentNotFoundException{
 		List<PaymentDTO>  payments = paymentService.getPaymentDetailsForCustomer(customerId);
 		if(payments == null) {
@@ -33,11 +36,13 @@ public class PaymentRestController {
 	}
 	
 	 @GetMapping("/getAllPayments")
+	 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	    public List<PaymentDTO> viewAllPayments(){
 	    	return paymentService.viewAllPayments();
 	    }
 	    
 	 @GetMapping("/viewPaymentHistory/{customerId}")
+	 @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
 	   public List<PaymentDTO> viewPaymentHistory(@PathVariable int customerId) throws PaymentNotFoundException{
 		   List<PaymentDTO> payments= paymentService.viewPaymentHistory(customerId);
 		   if(payments==null){
@@ -46,7 +51,8 @@ public class PaymentRestController {
 		   return payments;
 	}
 	 
-	 @PostMapping("/makePayment/{customerId}/{carId}/{reservationId}/{dateOfPickup}/{dateOfDropoff}")									//	check  mapping for all methods below this
+	 @PostMapping("/makePayment/{customerId}/{carId}/{reservationId}/{dateOfPickup}/{dateOfDropoff}")
+	 @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
 	   public PaymentDTO makePayment(@PathVariable int customerId , @PathVariable int carId ,@PathVariable int reservationId ,  @PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff ,@RequestBody PaymentDTO paymentdto  ) {
 		   PaymentDTO payment = new PaymentDTO();
 		try {

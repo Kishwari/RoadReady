@@ -3,6 +3,7 @@ package com.hexaware.roadready.restcontroller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,17 +32,20 @@ public class AgentRestController {
 	
      
 	 @GetMapping("/checkin/{reservationId}")
+	 @PreAuthorize("hasAuthority('ROLE_AGENT' , 'ROLE_ADMIN')")
 	 public String completeCheckIn(@PathVariable int reservationId) {		// no idea about mapping
 		 return agentService.completeCheckIn(reservationId);
 
 	 }
 	 @GetMapping("/checkout/{reservationId}/{carStatus}")
+	 @PreAuthorize("hasAuthority('ROLE_AGENT', 'ROLE_ADMIN')")
 	 public String completeCheckOut(@PathVariable int reservationId , @PathVariable String carStatus) { 		// no idea about mapping
 		 return agentService.completeCheckOut(reservationId, carStatus);
 
 	 }
 	
 	 @PutMapping("/updateCarAvailability/{carStatus}/{carId}")
+	 @PreAuthorize("hasAuthority('ROLE_AGENT')")
     public Cars updateCarAvailability(@PathVariable String carStatus , @PathVariable int carId) throws CarNotFoundException {
 		 Cars car = agentService.updateCarAvailability(carStatus, carId);
 		 if(car==null) {
@@ -51,11 +55,14 @@ public class AgentRestController {
 	 }
 	
 	 @PostMapping("/addAgent")
+	// @PreAuthorize("hasAuthority('ROLE_ADMIN','ROLE_AGENT')")
+	 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	    public Agent addAgent(@RequestBody AgentDTO agentdto) {
 	    	return agentService.addAgent(agentdto);
 	    }
 		
 	    @GetMapping("/getAgentById/{agentId}")
+	    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	    public AgentDTO getAgentById(@PathVariable int agentId) throws AgentNotFoundException {
 	    	AgentDTO agent = agentService.getAgentById(agentId);
 	    	if(agent==null) {
@@ -65,15 +72,18 @@ public class AgentRestController {
 	    }
 	    
 	    @GetMapping("/getAllAgents")
+	    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	    public List<Agent> getAllAgents(){
 	    	return agentService.getAllAgents();
 	    }
 	    @DeleteMapping("/deleteAgentById/{agentId}")
+	    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	    public String deleteAgent(@PathVariable int agentId) {
 	    	return agentService.deleteAgent(agentId);
 	    }
 	    
 	    @PutMapping("/updateAgentById/{agentId}")
+	    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	    public Agent updateAgent(@PathVariable int agentId , @RequestBody AgentDTO agent) {
 	    	return agentService.updateAgent(agentId, agent);
 	    }
@@ -89,7 +99,8 @@ public class AgentRestController {
 
     } */
 	 
-	 @GetMapping("/verifyCustomerIdentity/{customerId}")	
+	 @GetMapping("/verifyCustomerIdentity/{customerId}")
+	 @PreAuthorize("hasAuthority('ROLE_AGENT')")
 	   public CustomerDTO  verifyIdentity(@PathVariable int customerId) throws CustomerNotFoundException {
 			 CustomerDTO customer = agentService.verifyIdentity(customerId);
 			 if(customer== null) {
@@ -98,6 +109,7 @@ public class AgentRestController {
 	        return customer;
 		 }
      @GetMapping("/carMaintenanceReport")
+     @PreAuthorize("hasAuthority('ROLE_AGENT')")
 	 public String carMaintenanceReport()   {
 		 return agentService.carMaintenanceReport();
 	 }

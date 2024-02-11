@@ -39,9 +39,9 @@ public class SecurityConfig {
     	
     		
 			return http.csrf().disable()
-    			.authorizeHttpRequests().requestMatchers("/registration/customer/new","/registration/agent/new","/registration/admin/new").permitAll()
+    			.authorizeHttpRequests().requestMatchers("/roadready/user/*").permitAll()
     			.and()
-    			.authorizeHttpRequests().requestMatchers("/roadready/admin/**","/roadready/agent/**","/roadready/customer/**")
+    			.authorizeHttpRequests().requestMatchers("/roadready/admin/**","/roadready/agents/**","/roadready/customers/**","/roadready/cars/**","/roadready/payments/**","/roadready/reservations/**")
     			.authenticated().and() //.formLogin().and().build();
     	        .sessionManagement()
     	        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -51,9 +51,10 @@ public class SecurityConfig {
     	        .build();
 	
     }
-    
-    
-    
+    	
+    	
+    //  "/registration/welcome","/registration/customer/new","/registration/agent/new","/registration/admin/new"
+    //"/registration/customer/new","/registration/agent/new","/registration/admin/new"
     
 
     @Bean    

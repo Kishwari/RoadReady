@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,11 +46,13 @@ public class CustomerRestController {
 
 
 	@PostMapping("/addCustomer")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Customers	addCustomer(@RequestBody CustomerDTO customer) {
 		return customerService.addCustomer(customer);
 	}
 	
 	@GetMapping("/getCustomerById/{customerId}")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public CustomerDTO	getCustomerById(@PathVariable int customerId) throws CustomerNotFoundException {
 		CustomerDTO customer = customerService.getCustomerById(customerId);
 		if(customer==null) {
@@ -60,16 +63,19 @@ public class CustomerRestController {
 	}
 	
 	@GetMapping("/getAllCustomers")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public List<CustomerDTO>	getAllCustomer(){
 		return customerService.getAllCustomer();
 	}
 	
 	@DeleteMapping("/deleteCustomerById/{customerId}")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String deleteCustomer(@PathVariable int customerId) {
 		return customerService.deleteCustomer(customerId);
 	}
 	
 	@PutMapping("/updateCustomerDetails")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public Customers	updateCustomer(@RequestBody CustomerDTO customer) throws CustomerNotFoundException {
 		Customers checkCustomer = customerService.updateCustomer(customer);
 		if(checkCustomer == null) {
@@ -78,6 +84,7 @@ public class CustomerRestController {
 		return checkCustomer;
 	}
 	@PostMapping("/registerNewCustomer")
+	@PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
 	public Customers registration(CustomerDTO customerdto) {
 		return customerService.addCustomer(customerdto);
 	}

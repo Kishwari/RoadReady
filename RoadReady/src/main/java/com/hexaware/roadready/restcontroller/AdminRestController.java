@@ -50,22 +50,26 @@ public class AdminRestController {
 
 	
     @GetMapping("/revenueReportBetweenDates/{startDate}/{endDate}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String revenueReportBetweenDates(@PathVariable LocalDate startDate , @PathVariable LocalDate endDate ) {
     	return adminService.revenueReportBetweenDates(startDate , endDate);
     }
     
     @GetMapping("/revenueGeneratedByCustomer/{customerId}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String revenueReportGeneratedByCustomer(@PathVariable int customerId) {
     	return adminService.revenueReportGeneratedByCustomer(customerId);
     }
     
     @GetMapping("/totalRevenueReport")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String totalRevenueReport() {
     	return adminService.totalRevenueReport();
     }
     
     @PostMapping("/registerAdmin")
-    public Admin addAdmin(AdminDTO admindto) {
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public Admin addAdmin(@RequestBody AdminDTO admindto) {
 		return adminService.addAdmin(admindto);
 		
 	}

@@ -20,8 +20,8 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Autowired
 	CustomerRepository customerRepo;
 	
-	//@Autowired
-    //PasswordEncoder passwordEncoder;
+	@Autowired
+    PasswordEncoder passwordEncoder;
 	
 	
 	@Override
@@ -32,9 +32,10 @@ public class CustomerServiceImpl implements ICustomerService {
 		customer.setLastName(customerdto.getLastName());
 		customer.setEmailAddress(customerdto.getEmailAddress());
 		customer.setUsername(customerdto.getUsername());
-		customer.setPassword(customerdto.getPassword());
-		//customer.setPassword(passwordEncoder.encode(customerdto.getPassword()));
+		//customer.setPassword(customerdto.getPassword());
+		customer.setPassword(passwordEncoder.encode(customerdto.getPassword()));
 		customer.setPhoneNumber(customerdto.getPhoneNumber());
+		customer.setRole("ROLE_CUSTOMER");
 		return customerRepo.save(customer);
 	}
 	
@@ -94,6 +95,7 @@ public class CustomerServiceImpl implements ICustomerService {
 		customer.setUsername(customerdto.getUsername());
 		customer.setPassword(customerdto.getPassword());
 		customer.setPhoneNumber(customerdto.getPhoneNumber());
+		customer.setRole("ROLE_CUSTOMER");
 		return customerRepo.save(customer);
 	}
 

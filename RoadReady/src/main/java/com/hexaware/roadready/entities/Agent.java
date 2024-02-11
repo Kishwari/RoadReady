@@ -44,7 +44,7 @@ public class Agent {
 		this.agentId=agentId;
 		this.username = username;
 		this.password = password;
-		this.role="ROLE_CUSTOMER";
+		this.role=role;
 	}
 	
 	public String getUsername() {

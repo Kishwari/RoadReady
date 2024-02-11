@@ -43,8 +43,8 @@ public class AdminServiceImpl implements IAdminService {
 	@Autowired
 	AgentRepository agentRepo;
 	
-	//@Autowired
-   // PasswordEncoder passwordEncoder;
+	@Autowired
+   PasswordEncoder passwordEncoder;
 	
 /*	@Override
 	public Customers addCustomer(CustomerDTO customerdto) {
@@ -331,8 +331,9 @@ public class AdminServiceImpl implements IAdminService {
 		Admin admin = new Admin();
 		admin.setAdminId(admindto.getAdminId());
 		admin.setUsername(admindto.getUsername());
-		admin.setPassword(admindto.getPassword());
-		 //admin.setPassword(passwordEncoder.encode(admindto.getPassword()));
+		//admin.setPassword(admindto.getPassword());
+		 admin.setPassword(passwordEncoder.encode(admindto.getPassword()));
+		 admin.setRole("ROLE_ADMIN");
 		return adminRepo.save(admin);
 		
 	}
