@@ -1,4 +1,4 @@
-/*package com.hexaware.roadready.service;
+package com.hexaware.roadready.service;
 
 import java.security.Key;
 import java.util.Date;
@@ -64,4 +64,4 @@ public class JwtService {
 		final String username = extractUsername(token);
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 	}
-}*/
+}

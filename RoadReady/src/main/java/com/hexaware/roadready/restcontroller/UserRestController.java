@@ -1,4 +1,4 @@
-/*package com.hexaware.roadready.restcontroller;
+package com.hexaware.roadready.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -81,4 +81,4 @@ public class UserRestController {
      }
      
      
-}*/
+}

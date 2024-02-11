@@ -1,4 +1,4 @@
-/*package com.hexaware.roadready.config;
+package com.hexaware.roadready.config;
 
 import java.util.Optional;
 
@@ -46,4 +46,4 @@ public class UserInfoUserDetailsService implements UserDetailsService {
 
         throw new UsernameNotFoundException("User not found with username: " + username);
     }
-}*/
+}
