@@ -41,11 +41,11 @@ public class CustomerServiceImpl implements ICustomerService {
 		//customer.setPassword(customerdto.getPassword());
 		customer.setPassword(passwordEncoder.encode(customerdto.getPassword()));
 		customer.setPhoneNumber(customerdto.getPhoneNumber());
-<<<<<<< HEAD
+
     	logger.info("Added a new customer");
-=======
+
 		customer.setRole("ROLE_CUSTOMER");
->>>>>>> joshitha
+
 		return customerRepo.save(customer);
 	}
 	
@@ -110,11 +110,11 @@ public class CustomerServiceImpl implements ICustomerService {
 		customer.setUsername(customerdto.getUsername());
 		customer.setPassword(customerdto.getPassword());
 		customer.setPhoneNumber(customerdto.getPhoneNumber());
-<<<<<<< HEAD
+
     	logger.info("Updated an existing customer");
-=======
+
 		customer.setRole("ROLE_CUSTOMER");
->>>>>>> joshitha
+
 		return customerRepo.save(customer);
 		}
 		throw new CustomerNotFoundException("customer not found");

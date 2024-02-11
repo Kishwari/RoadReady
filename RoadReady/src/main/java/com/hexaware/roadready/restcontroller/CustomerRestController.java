@@ -57,8 +57,14 @@ public class CustomerRestController {
 	
 	@GetMapping("/getCustomerById/{customerId}")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public CustomerDTO	getCustomerById(@PathVariable int customerId) throws CustomerNotFoundException {
-		CustomerDTO customer = customerService.getCustomerById(customerId);
+	public CustomerDTO	getCustomerById(@PathVariable int customerId){
+		CustomerDTO customer=new CustomerDTO();
+		try {
+			customer = customerService.getCustomerById(customerId);
+		} catch (CustomerNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	logger.warn("Might throw exception CustomerNotFoundException ");
 		return customer;
 	}
@@ -77,8 +83,14 @@ public class CustomerRestController {
 	
 	@PutMapping("/updateCustomerDetails")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public Customers	updateCustomer(@RequestBody CustomerDTO customer) throws CustomerNotFoundException {
-		Customers checkCustomer = customerService.updateCustomer(customer);
+	public Customers	updateCustomer(@RequestBody CustomerDTO customer) {
+		Customers checkCustomer=new Customers();
+		try {
+			checkCustomer = customerService.updateCustomer(customer);
+		} catch (CustomerNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return checkCustomer;
 	}
 	@PostMapping("/registerNewCustomer")

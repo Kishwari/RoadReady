@@ -18,6 +18,7 @@ import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
+import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.service.ICustomerService;
 
 @SpringBootTest
@@ -41,7 +42,7 @@ class CustomerServiceImplTest {
 		}
 
 	@Test
-	void testGetCustomerById() {
+	void testGetCustomerById() throws CustomerNotFoundException {
 		CustomerDTO customerdto=service.getCustomerById(4);
 		assertEquals("ananya_das",customerdto.getUsername());
 		assertNotEquals("ananydas",customerdto.getUsername());
@@ -62,7 +63,7 @@ class CustomerServiceImplTest {
 	}
 
 	@Test
-	void testUpdateCustomer() {								
+	void testUpdateCustomer() throws CustomerNotFoundException {								
 		CustomerDTO originalData = new CustomerDTO(5,"Vikram","Srivastava","vikram_78","vikram.srivastava@example.com","vikram@123","3894039488");
         CustomerDTO updatedData = new CustomerDTO(5,"Vikram","Srivastava","vikram_78","vikram.srivastava@example.com","vikram@123","4897839488");
         Customers result = service.updateCustomer(originalData);

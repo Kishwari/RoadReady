@@ -51,8 +51,14 @@ public class AgentRestController {
 	
 	 @PutMapping("/updateCarAvailability/{carStatus}/{carId}")
 	 @PreAuthorize("hasAuthority('ROLE_AGENT')")
-    public Cars updateCarAvailability(@PathVariable String carStatus , @PathVariable int carId) throws CarNotFoundException {
-		 Cars car = agentService.updateCarAvailability(carStatus, carId);
+    public Cars updateCarAvailability(@PathVariable String carStatus , @PathVariable int carId) {
+		 Cars car=new Cars();
+		try {
+			car = agentService.updateCarAvailability(carStatus, carId);
+		} catch (CarNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		 return car;
 	 }
 	
@@ -66,9 +72,15 @@ public class AgentRestController {
 		
 	    @GetMapping("/getAgentById/{agentId}")
 	    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	    public AgentDTO getAgentById(@PathVariable int agentId) throws AgentNotFoundException {
-	    	AgentDTO agent = agentService.getAgentById(agentId);
-	    	return agent;
+	    public AgentDTO getAgentById(@PathVariable int agentId) {
+	    	AgentDTO agentdto = new AgentDTO();
+	    	try {
+				agentdto= agentService.getAgentById(agentId);
+			} catch (AgentNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	return agentdto;
 	    }
 	    
 	    @GetMapping("/getAllAgents")

@@ -33,8 +33,14 @@ public class CarRestController {
     
 	@GetMapping("/getCarById/{carId}")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public CarDTO	getCarById(@PathVariable int carId) throws CarNotFoundException {
-		CarDTO car= carService.getCarById(carId);
+	public CarDTO	getCarById(@PathVariable int carId) {
+		CarDTO car=null;
+		try {
+			car = carService.getCarById(carId);
+		} catch (CarNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return car;
 	}
 	
@@ -52,8 +58,14 @@ public class CarRestController {
 	
 	@PutMapping("/updateCarDetails")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public Cars	updateCar(@RequestBody CarDTO car) throws CarNotFoundException {
-		Cars checkCar = carService.updateCar(car);
+	public Cars	updateCar(@RequestBody CarDTO car){
+		Cars checkCar=null;
+		try {
+			checkCar = carService.updateCar(car);
+		} catch (CarNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return checkCar;
 	}
      	
@@ -81,8 +93,14 @@ public class CarRestController {
     
     @GetMapping("/searchCars/{location}/{make}/{model}")
     @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
-    public List<Cars> searchCars(@PathVariable String location , @PathVariable String make,@PathVariable String model) throws CarNotFoundException{
- 	   List<Cars> cars= carService.searchCars(location , make , model);
+    public List<Cars> searchCars(@PathVariable String location , @PathVariable String make,@PathVariable String model){
+ 	   List<Cars> cars=null;
+	try {
+		cars = carService.searchCars(location , make , model);
+	} catch (CarNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
         return cars;
     }
     
