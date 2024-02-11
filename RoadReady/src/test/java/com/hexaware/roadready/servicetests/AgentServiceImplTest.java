@@ -17,6 +17,8 @@ import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
+import com.hexaware.roadready.exceptions.AgentNotFoundException;
+import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.service.IAgentService;
 
 @SpringBootTest
@@ -40,12 +42,12 @@ class AgentServiceImplTest {
 	}
 
 	@Test
-	void testUpdateCarAvailability() {
-		//int carId=203;
-		//String carStatus="available";
-		//updatedData=
-	//	Agent result = service.updateCarAvailability(carId,carStatus);
-      //  assertEquals(updatedData, result);
+	void testUpdateCarAvailability() throws CarNotFoundException {
+		int carId=203;
+		String carStatus="available";
+		
+        Cars updatedCar = service.updateCarAvailability(carStatus,carId);
+        assertEquals(carStatus,updatedCar.getCarStatus());
 	}
 
 	@Test
@@ -69,7 +71,7 @@ class AgentServiceImplTest {
 	}
 
 	@Test
-	void testGetAgentById() {
+	void testGetAgentById() throws AgentNotFoundException {
 		AgentDTO agent=service.getAgentById(101);
 		assertEquals("Tommy",agent.getUsername());
 		assertNotEquals("smith",agent.getUsername());

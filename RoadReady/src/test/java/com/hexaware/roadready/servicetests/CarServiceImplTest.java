@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.entities.Cars;
+import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.service.ICarService;
 
 @SpringBootTest
@@ -35,7 +36,7 @@ class CarServiceImplTest {
 	}
 
 	@Test
-	void testSearchCars() {
+	void testSearchCars() throws CarNotFoundException {
 		List list=service.searchCars("Chennai","Mahindra","Thar");
 		boolean flag=list.isEmpty();
 		assertFalse(flag);
@@ -52,7 +53,7 @@ class CarServiceImplTest {
 	}
 
 	@Test
-	void testGetCarById() {
+	void testGetCarById() throws CarNotFoundException {
 		CarDTO car=service.getCarById(55);
 		assertEquals("Tommy",car.getMake());
 		assertNotEquals("smith",car.getMake());
@@ -74,7 +75,7 @@ class CarServiceImplTest {
 	
 
 	@Test
-	void testUpdateCar() {
+	void testUpdateCar() throws CarNotFoundException {
 		 CarDTO originalData = new CarDTO(55, "Honda", "City", "Banglore", "Unavailable", 2000, "Petrol, Manual Transmission, AC", 5);
 	        CarDTO updatedData = new CarDTO(55, " Honda", "City", "Banglore", "Avialable", 2500, "Petrol, Manual Transmission", 5);
 	        Cars result = service.updateCar(originalData);

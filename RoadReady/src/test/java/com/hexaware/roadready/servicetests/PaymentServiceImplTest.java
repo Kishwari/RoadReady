@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hexaware.roadready.entities.Payments;
+import com.hexaware.roadready.exceptions.PaymentNotFoundException;
 import com.hexaware.roadready.service.IPaymentService;
 
 @SpringBootTest
@@ -34,14 +35,14 @@ class PaymentServiceImplTest {
 		}
 
 	@Test
-	void testViewPaymentHistory() {
+	void testViewPaymentHistory() throws PaymentNotFoundException {
 		List list=service.viewPaymentHistory(123);
 		boolean flag=list.isEmpty();
 		assertFalse(flag);
 	}
 
 	@Test
-	void testGetPaymentDetailsForCustomer() {
+	void testGetPaymentDetailsForCustomer() throws PaymentNotFoundException {
 		List list=service.getPaymentDetailsForCustomer(1);
 		boolean flag=list.isEmpty();
 		assertFalse(flag);
