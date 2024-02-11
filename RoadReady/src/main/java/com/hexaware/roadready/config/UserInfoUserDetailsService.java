@@ -1,4 +1,4 @@
-/*package com.hexaware.roadready.config;
+package com.hexaware.roadready.config;
 
 import java.util.Optional;
 
@@ -15,6 +15,7 @@ import com.hexaware.roadready.repository.AdminRepository;
 import com.hexaware.roadready.repository.AgentRepository;
 import com.hexaware.roadready.repository.CustomerRepository;
 
+
 @Component
 public class UserInfoUserDetailsService implements UserDetailsService {
 
@@ -29,11 +30,39 @@ public class UserInfoUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Customers> customer = customerRepository.findByUsername(username);
+       
+    	
+    	Optional<Customers> customer = customerRepository.findByUsername(username);
+    	if (customer.isPresent()) {
+        return customer.map(UserInfoUserDetails::new).orElse(null);
+            
+    	}
+
+    	Optional<Admin> admin = adminRepository.findByUsername(username);
+    	if (admin.isPresent()) {
+        return admin.map(UserInfoUserDetails::new).orElse(null);
+               
+    	}
+    	
+    	Optional<Agent> agent = agentRepository.findByUsername(username);
+    	if (agent.isPresent()) {
+        return admin.map(UserInfoUserDetails::new).orElse(null);
+               
+    	}
+    	
+    	throw new UsernameNotFoundException("user not found " + username );
+    	
+    }
+}
+    	
+    	
+    	
+    	
+    	/* Optional<Customers> customer = customerRepository.findByUsername(username);
         if (customer.isPresent()) {
             return new UserInfoUserDetails(customer.get());
         }
-
+        
         Optional<Agent> agent = agentRepository.findByUsername(username);
         if (agent.isPresent()) {
             return new UserInfoUserDetails(agent.get());
@@ -45,5 +74,5 @@ public class UserInfoUserDetailsService implements UserDetailsService {
         }
 
         throw new UsernameNotFoundException("User not found with username: " + username);
-    }
-}*/
+    }*/
+

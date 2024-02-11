@@ -9,7 +9,7 @@ public class CustomerDTO {
 	private String emailAddress;
 	private String password;
 	private String phoneNumber;
-	private String role = "ROLE_CUSTOMER";
+	//private String role = "ROLE_CUSTOMER";
 	
 	
 	public CustomerDTO() {

@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,18 +29,21 @@ public class ReservationRestController {
 	IReservationService reservationService;
 	
 	 @PutMapping("/modifyReservation/{reservationId}/{dateOfPickup}/{dateOfDropoff}")
+	 @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
 	   ReservationDTO modifyReservation(@PathVariable int reservationId ,@PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff) throws ReservationNotFoundException {
 		   ReservationDTO reservation = reservationService.modifyReservation(reservationId , dateOfPickup , dateOfDropoff);
 		   return reservation;
 	   }
 	 
 	 @DeleteMapping("/cancelReservation/{reservationId}")
+	 @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
 	   public String cancelReservation(@PathVariable int reservationId) {
 	    	logger.info("Cancelling the reservation");
 		   return reservationService.cancelReservation(reservationId);
 	   }
 	   
 	 @GetMapping("/getReservationsOfCustomer/{customerId}")
+	 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	    public List<ReservationDTO> getReservationDetailsForCustomer(@PathVariable int customerId) throws ReservationNotFoundException{
 			List<ReservationDTO> reservations = reservationService.getReservationDetailsForCustomer(customerId);
 			if(reservations==null) {
@@ -49,7 +53,8 @@ public class ReservationRestController {
 			return reservations;
 		}
 	 
-	 @GetMapping("/viewReservations/{customerId}")
+	 @GetMapping("/viewReservationHistory/{customerId}")
+	 @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
 	   public List<ReservationDTO> viewReservations(@PathVariable int customerId) throws ReservationNotFoundException{
 		   List<ReservationDTO> reservations =reservationService.viewReservations(customerId);
 		   if(reservations==null) {
@@ -59,6 +64,7 @@ public class ReservationRestController {
 	   }
 	 
 	    @GetMapping("/getAllReservations")
+	    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	    public List <ReservationDTO> viewAllReservations(){
 	    	logger.info("Listing all the reservations");
 	    	return reservationService.viewAllReservations();

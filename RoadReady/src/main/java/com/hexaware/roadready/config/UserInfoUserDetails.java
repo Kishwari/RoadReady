@@ -1,4 +1,4 @@
-/*package com.hexaware.roadready.config;
+package com.hexaware.roadready.config;
 
 
 import java.util.Arrays;
@@ -32,7 +32,7 @@ public class UserInfoUserDetails implements UserDetails {
     }*/
     
     
-   /* public UserInfoUserDetails(Customers customer) {
+    public UserInfoUserDetails(Customers customer) {
         this.name = customer.getUsername();
         this.password = customer.getPassword();
         this.authorities = Arrays.stream(customer.getRole().split(","))
@@ -94,4 +94,4 @@ public class UserInfoUserDetails implements UserDetails {
     }
 
 	
-}*/
+}

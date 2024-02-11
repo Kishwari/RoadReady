@@ -26,8 +26,8 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Autowired
 	CustomerRepository customerRepo;
 	
-	//@Autowired
-    //PasswordEncoder passwordEncoder;
+	@Autowired
+    PasswordEncoder passwordEncoder;
 	
 	
 	@Override
@@ -38,10 +38,14 @@ public class CustomerServiceImpl implements ICustomerService {
 		customer.setLastName(customerdto.getLastName());
 		customer.setEmailAddress(customerdto.getEmailAddress());
 		customer.setUsername(customerdto.getUsername());
-		customer.setPassword(customerdto.getPassword());
-		//customer.setPassword(passwordEncoder.encode(customerdto.getPassword()));
+		//customer.setPassword(customerdto.getPassword());
+		customer.setPassword(passwordEncoder.encode(customerdto.getPassword()));
 		customer.setPhoneNumber(customerdto.getPhoneNumber());
+<<<<<<< HEAD
     	logger.info("Added a new customer");
+=======
+		customer.setRole("ROLE_CUSTOMER");
+>>>>>>> joshitha
 		return customerRepo.save(customer);
 	}
 	
@@ -106,7 +110,11 @@ public class CustomerServiceImpl implements ICustomerService {
 		customer.setUsername(customerdto.getUsername());
 		customer.setPassword(customerdto.getPassword());
 		customer.setPhoneNumber(customerdto.getPhoneNumber());
+<<<<<<< HEAD
     	logger.info("Updated an existing customer");
+=======
+		customer.setRole("ROLE_CUSTOMER");
+>>>>>>> joshitha
 		return customerRepo.save(customer);
 		}
 		throw new CustomerNotFoundException("customer not found");

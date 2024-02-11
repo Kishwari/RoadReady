@@ -67,7 +67,7 @@ public class Customers{
 				this.emailAddress = emailAddress;
 				this.password = password;
 				this.phoneNumber = phoneNumber;
-				this.role = "ROLE_CUSTOMER";
+				this.role =role;
 			}
 			public int getCustomerId() {
 				return customerId;

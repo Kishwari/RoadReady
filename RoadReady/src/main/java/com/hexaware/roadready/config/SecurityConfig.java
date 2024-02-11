@@ -1,6 +1,7 @@
-/*package com.hexaware.roadready.config;
+package com.hexaware.roadready.config;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +25,7 @@ import com.hexaware.roadready.filter.JwtAuthFilter;
 @EnableMethodSecurity
 public class SecurityConfig {
     
+	@Autowired
 	JwtAuthFilter authFilter;
     @Bean
     //authentication
@@ -37,9 +39,9 @@ public class SecurityConfig {
     	
     		
 			return http.csrf().disable()
-    			.authorizeHttpRequests().requestMatchers("/products/welcome","/registration/new").permitAll()
+    			.authorizeHttpRequests().requestMatchers("/roadready/user/*").permitAll()
     			.and()
-    			.authorizeHttpRequests().requestMatchers("/products/**")
+    			.authorizeHttpRequests().requestMatchers("/roadready/admin/**","/roadready/agents/**","/roadready/customers/**","/roadready/cars/**","/roadready/payments/**","/roadready/reservations/**")
     			.authenticated().and() //.formLogin().and().build();
     	        .sessionManagement()
     	        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -49,9 +51,10 @@ public class SecurityConfig {
     	        .build();
 	
     }
-    
-    
-    
+    	
+    	
+    //  "/registration/welcome","/registration/customer/new","/registration/agent/new","/registration/admin/new"
+    //"/registration/customer/new","/registration/agent/new","/registration/admin/new"
     
 
     @Bean    
