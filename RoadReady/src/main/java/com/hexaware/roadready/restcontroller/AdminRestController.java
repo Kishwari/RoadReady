@@ -1,6 +1,7 @@
 package com.hexaware.roadready.restcontroller;
 
 import java.time.LocalDate;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hexaware.roadready.dto.AdminDTO;
 import com.hexaware.roadready.entities.Admin;
 import com.hexaware.roadready.service.IAdminService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/roadready/admin")
@@ -47,8 +50,8 @@ public class AdminRestController {
     }
     
     @PostMapping("/registerAdmin")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public Admin addAdmin(@RequestBody AdminDTO admindto) {
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public Admin addAdmin(@Valid @RequestBody AdminDTO admindto) {
     	logger.info("Now Registering");
 		return adminService.addAdmin(admindto);
 		

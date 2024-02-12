@@ -9,7 +9,7 @@ import com.hexaware.roadready.exceptions.CarNotFoundException;
 
 public interface ICarService {
 	
-        public List<Cars> getAvailableCars(); 
+        public List<CarDTO> getAvailableCars(); 
 	
 	    List<Cars> searchCars(String location,String make,String model) throws CarNotFoundException;
 	
@@ -21,9 +21,9 @@ public interface ICarService {
 		
 		public String deleteCar(int carId);
 		
-		public Cars	updateCar(CarDTO car) throws CarNotFoundException;
+		public Cars	updateCar(CarDTO car);
 
-	    public List<Cars> discountOnCarPriceByMake(String make, double discountPrice) throws CarNotFoundException;
+	    public List<CarDTO> discountOnCarPriceByMake(String make, double discountPrice) throws CarNotFoundException;
 	    
 	    public Cars updateCarPrice(int carId , double newPrice) throws CarNotFoundException;
 	    

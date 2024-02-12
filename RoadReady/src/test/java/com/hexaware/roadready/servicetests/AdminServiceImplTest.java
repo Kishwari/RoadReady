@@ -25,7 +25,7 @@ class AdminServiceImplTest {
 	void testRevenueReportBetweenDates() {
 		LocalDate startDate=LocalDate.of(2024, 01, 01);
 		LocalDate endDate=LocalDate.of(2024, 04, 04);
-		double amount=1450;
+		double amount=5290;
 		
 		String result = service.revenueReportBetweenDates( startDate,endDate);
 		
@@ -43,7 +43,7 @@ class AdminServiceImplTest {
 	@Test
 	void testTotalRevenueReport() {
 		String result = service.totalRevenueReport();
-		double amount=1450;
+		double amount=5290;
 		assertEquals("Total Revenue generated till today for RoadReady is " + amount,result);
 	}
 

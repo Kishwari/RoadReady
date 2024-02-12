@@ -24,6 +24,8 @@ import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.service.IAgentService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/roadready/agents")
 public class AgentRestController {
@@ -62,9 +64,8 @@ public class AgentRestController {
 	 }
 	
 	 @PostMapping("/addAgent")
-	// @PreAuthorize("hasAuthority('ROLE_ADMIN','ROLE_AGENT')")
 	 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	    public Agent addAgent(@RequestBody AgentDTO agentdto) {
+	    public Agent addAgent(@Valid @RequestBody AgentDTO agentdto) {
 	    	logger.info("Now adding agent using addAgent method");
 	    	return agentService.addAgent(agentdto);
 	    }
@@ -95,7 +96,7 @@ public class AgentRestController {
 	    
 	    @PutMapping("/updateAgentById/{agentId}")
 	    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	    public Agent updateAgent(@PathVariable int agentId , @RequestBody AgentDTO agent) {
+	    public Agent updateAgent(@PathVariable int agentId ,@Valid @RequestBody AgentDTO agent) {
 	    	return agentService.updateAgent(agentId, agent);
 	    }
   
@@ -108,6 +109,8 @@ public class AgentRestController {
 			 }
 	        return customer;
 		 }
+	 
+	 
      @GetMapping("/carMaintenanceReport")
      @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
 	 public String carMaintenanceReport()   {

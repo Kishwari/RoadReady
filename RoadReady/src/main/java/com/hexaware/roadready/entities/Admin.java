@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 
 @Entity
@@ -18,7 +19,7 @@ public class Admin {
 	@NotBlank
 	private String username;
 	@NotBlank
-	//@Pattern(regexp="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+=])[A-Za-z0-9!@#$%^&*()-+=]{10,20}$")
+	@Size(min = 10, message = "Password must be at least 10 characters long.")
 	private String password;
 	
 	private String role;

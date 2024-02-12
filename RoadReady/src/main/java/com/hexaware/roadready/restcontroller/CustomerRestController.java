@@ -22,6 +22,8 @@ import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.service.ICustomerService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/roadready/customers")
 public class CustomerRestController {
@@ -35,7 +37,7 @@ public class CustomerRestController {
 
 	@PostMapping("/addCustomer")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public Customers	addCustomer(@RequestBody CustomerDTO customer) {
+    public Customers	addCustomer(@Valid @RequestBody CustomerDTO customer) {
 		return customerService.addCustomer(customer);
 	}
 	
@@ -67,7 +69,7 @@ public class CustomerRestController {
 	
 	@PutMapping("/updateCustomerDetails")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public Customers	updateCustomer(@RequestBody CustomerDTO customer) {
+	public Customers	updateCustomer(@Valid @RequestBody CustomerDTO customer) {
 		Customers checkCustomer=new Customers();
 		try {
 			checkCustomer = customerService.updateCustomer(customer);
@@ -77,24 +79,12 @@ public class CustomerRestController {
 		}
 		return checkCustomer;
 	}
-	@PostMapping("/registerNewCustomer")
-	@PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
-	public Customers registration(CustomerDTO customerdto) {
-		return customerService.addCustomer(customerdto);
-	}
+	
 	
   
   
    
-  /* @PostMapping("/makeReservation")									//	check  mapping for all methods below this
-   Reservations makeReservation(@RequestBody ReservationDTO reservation) throws InvalidDateException {
-	   Reservations checkReservation = reservationService.makeReservation(reservation);
-	   LocalDate today = LocalDate.now();
-	   if(checkReservation.getDateOfPickup().isBefore(today)) {
-	       throw new InvalidDateException();
-	   }
-	   return checkReservation;
-   }*/
+ 
   
   
    

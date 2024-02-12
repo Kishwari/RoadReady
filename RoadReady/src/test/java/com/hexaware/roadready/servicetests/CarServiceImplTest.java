@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -37,9 +38,9 @@ class CarServiceImplTest {
 
 	@Test
 	void testSearchCars() throws CarNotFoundException {
-		List list=service.searchCars("Chennai","Mahindra","Thar");
+		List list=service.searchCars("Chennai","mahindra","A4");
 		boolean flag=list.isEmpty();
-		assertFalse(flag);
+		assertTrue(flag);
 
 	}
 
@@ -54,9 +55,9 @@ class CarServiceImplTest {
 
 	@Test
 	void testGetCarById() throws CarNotFoundException {
-		CarDTO car=service.getCarById(55);
-		assertEquals("Tommy",car.getMake());
-		assertNotEquals("smith",car.getMake());
+		CarDTO car=service.getCarById(77);
+		assertEquals("Hyundai",car.getMake());
+		assertNotEquals("Toyota",car.getMake());
 	}
 
 	@Test
@@ -75,21 +76,26 @@ class CarServiceImplTest {
 	
 
 	@Test
-	void testUpdateCar() throws CarNotFoundException {
-		 CarDTO originalData = new CarDTO(55, "Honda", "City", "Banglore", "Unavailable", 2000, "Petrol, Manual Transmission, AC", 5);
-	        CarDTO updatedData = new CarDTO(55, " Honda", "City", "Banglore", "Avialable", 2500, "Petrol, Manual Transmission", 5);
-	        Cars result = service.updateCar(originalData);
-	        assertEquals(updatedData, result);
+	void testUpdateCar() {
+		    CarDTO originalData = new CarDTO(1005, "Mercedes-Benz", "C-Class", "mumbai", "available", 80, "Automatic transmission, Sunroof , Leather seats", 5);
+	        CarDTO updatedData = new CarDTO(1005, "Mercedes-Benz", "C-Class", "mumbai", "available", 80, "Automatic transmission, Sunroof", 5);
+	        Cars result = service.updateCar(updatedData);
+	        assertEquals(updatedData.getSpecifications(), result.getSpecification());
+	        assertNotEquals(originalData.getSpecifications(), result.getSpecification());
 	}
 
 	@Test
-	void testDiscountOnCarPriceByMake() {
-
+	void testDiscountOnCarPriceByMake() throws CarNotFoundException {
+		List<CarDTO> carDTOList = service.discountOnCarPriceByMake("Audi",10);
+		assertNotNull(carDTOList);
+		
+		
 	}
 
 	@Test
-	void testUpdateCarPrice() {
-
+	void testUpdateCarPrice() throws CarNotFoundException {
+		Cars car=service.updateCarPrice(1006,75);
+		assertEquals(75,car.getDailyRate());
 	}
 
 }

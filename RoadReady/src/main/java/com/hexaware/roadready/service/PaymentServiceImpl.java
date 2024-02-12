@@ -13,7 +13,6 @@ import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
-import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.exceptions.InvalidPaymentException;
 import com.hexaware.roadready.exceptions.PaymentNotFoundException;
 import com.hexaware.roadready.repository.CarRepository;

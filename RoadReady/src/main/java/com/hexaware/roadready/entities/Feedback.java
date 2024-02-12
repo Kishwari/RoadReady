@@ -2,23 +2,27 @@ package com.hexaware.roadready.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Feedback {
 	
 	@Id
 	private int feedbackId;
-	@NotBlank
+	@NotNull
 	private int customerId;
 	@NotBlank
 	private String customerName;
 	@NotBlank
 	private String customerReview;
-	@NotBlank
-	@Pattern(regexp="[1-5]")
+	@NotNull
+	@Min(value = 1, message = "Rating must be at least 1")
+    @Max(value = 5, message = "Rating must be at most 5")
 	private int rating;
+	
 	private String AdminFeedback;
 	
 	public Feedback() {
@@ -34,7 +38,7 @@ public class Feedback {
 		this.customerName = customerName;
 		this.customerReview = customerReview;
 		this.rating = rating;
-		AdminFeedback = adminFeedback;
+		this.AdminFeedback = adminFeedback;
 	}
 
 	public int getFeedbackId() {
@@ -42,7 +46,7 @@ public class Feedback {
 	}
 
 	public void setFeedbackId(int feedbackId) {
-		feedbackId = feedbackId;
+		this.feedbackId = feedbackId;
 	}
 
 	
@@ -74,7 +78,7 @@ public class Feedback {
 		return AdminFeedback;
 	}
 	public void setAdminFeedback(String adminFeedback) {
-		AdminFeedback = adminFeedback;
+		this.AdminFeedback = adminFeedback;
 	}
 
 	

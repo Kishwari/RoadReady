@@ -46,7 +46,7 @@ public class UserInfoUserDetailsService implements UserDetailsService {
     	
     	Optional<Agent> agent = agentRepository.findByUsername(username);
     	if (agent.isPresent()) {
-        return admin.map(UserInfoUserDetails::new).orElse(null);
+        return agent.map(UserInfoUserDetails::new).orElse(null);
                
     	}
     	

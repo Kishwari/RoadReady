@@ -16,19 +16,19 @@ import jakarta.validation.constraints.NotNull;
 public class Cars {
 	@Id
 	private int carId;
-	@NotBlank
+	@NotBlank(message="cannot be blank")
 	private String make;
-	@NotBlank
+	@NotBlank(message="cannot be blank")
 	private String model;
-	@NotBlank
+	@NotBlank(message="cannot be blank")
 	private String location;
-	@NotNull
+	@NotNull(message="cannot be null")
 	private double dailyRate;
-	@NotBlank
+	@NotBlank(message="cannot be null")
 	private String carStatus;
-	@NotBlank
+	@NotBlank(message="cannot be blank")
 	private String specification;
-	@NotNull
+	@NotNull(message="cannot be null")
 	private int passengerCapacity;
 	
 	

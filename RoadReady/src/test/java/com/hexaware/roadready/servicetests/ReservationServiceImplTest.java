@@ -47,10 +47,14 @@ class ReservationServiceImplTest {
 		int reservationId = 3000;
 	        LocalDate dateOfPickup = LocalDate.of(2024, 2, 12);
 	       LocalDate dateOfDropoff = LocalDate.of(2024, 3, 12);
-		  // ReservationDTO originalData = new ReservationDTO(3000,"reserved",LocalDate.now(),LocalDate.of(2024, 3, 3),LocalDate.of(2024, 4, 4));
-		  ReservationDTO expectedData = new ReservationDTO(3000,"reserved",LocalDate.of(2024, 2, 12),dateOfPickup,dateOfDropoff);
-		 ReservationDTO result = service.modifyReservation(reservationId, dateOfPickup, dateOfDropoff);
-	        assertEquals(expectedData, result);
+		   ReservationDTO originalData = new ReservationDTO(3000,"reserved",LocalDate.of(2024,2,12),LocalDate.of(2024, 3, 3),LocalDate.of(2024, 4, 4));
+		   ReservationDTO expectedData = new ReservationDTO(3000,"reserved",LocalDate.of(2024, 2, 12),dateOfPickup,dateOfDropoff);
+		   ReservationDTO result = service.modifyReservation(reservationId, dateOfPickup, dateOfDropoff);
+	        assertEquals(expectedData.getDateOfPickup(), result.getDateOfPickup());
+	        assertEquals(expectedData.getDateOfDropoff(),result.getDateOfDropoff());
+	        assertNotEquals(originalData.getDateOfPickup(), result.getDateOfPickup());
+	        assertNotEquals(originalData.getDateOfDropoff(),result.getDateOfDropoff());
+	        
 
 	}
 

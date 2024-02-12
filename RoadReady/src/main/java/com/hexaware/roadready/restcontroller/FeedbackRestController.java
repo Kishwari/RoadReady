@@ -15,6 +15,8 @@ import com.hexaware.roadready.dto.CustomerFeedbackDTO;
 import com.hexaware.roadready.entities.Feedback;
 import com.hexaware.roadready.service.IFeedBackService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/roadready/feedbacks")
 public class FeedbackRestController {
@@ -24,7 +26,7 @@ public class FeedbackRestController {
 	
 	   @PostMapping("/CustomerFeedback")
 	   @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
-	  public Feedback provideFeedback(@RequestBody CustomerFeedbackDTO feedbackdto) { 		// return type I think feedback ?
+	  public Feedback provideFeedback(@Valid @RequestBody CustomerFeedbackDTO feedbackdto) { 		// return type I think feedback ?
 		  return feedbackService.customerFeedback(feedbackdto);
 	   }
 	   @PostMapping("/adminFeedBack/{feedbackId}/{adminFeedback}")

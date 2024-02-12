@@ -11,6 +11,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 
@@ -18,19 +19,21 @@ public class Customers{
  
 	        @Id
 			private int customerId;
-	        @NotBlank
+	        @NotBlank(message="cannot be blank")
 			private String firstName;
-	        @NotBlank
+	        @NotBlank(message="cannot be blank")
 			private String lastName;
-	        @NotBlank
-	        //@Pattern(regexp="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+=])[A-Za-z0-9!@#$%^&*()-+=]{10,20}$")
+	        @NotBlank(message="cannot be blank")
 			private String username;
-	        //@Pattern(regexp= "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")
+	        @NotBlank(message="cannot be blank")
+	        @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+	         message = "Email address should have at least two letters after the period.")
 			private String emailAddress;
-	        @NotBlank
+	        @NotBlank(message="cannot be blank")
+	        @Size(min = 10, message = "Password must be at least 10 characters long.")
 			private String password;
-	        @NotBlank
-	        @Pattern(regexp="\\d{10}")
+	        @NotBlank(message="cannot be blank")
+	        @Pattern(regexp="\\d{10}" , message="should have ten digits")
 			private String phoneNumber;
 	        
 	        private String role;

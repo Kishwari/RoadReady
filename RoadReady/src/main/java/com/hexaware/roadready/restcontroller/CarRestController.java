@@ -29,7 +29,7 @@ public class CarRestController {
 	
 	@PostMapping("/addCar")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public Cars	addCar(@RequestBody CarDTO car) {
+    public Cars	addCar(@Valid @RequestBody CarDTO car) {
 		return carService.addCar(car);
 	}
     
@@ -60,21 +60,20 @@ public class CarRestController {
 	
 	@PutMapping("/updateCarDetails")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public Cars	updateCar(@RequestBody CarDTO car){
+	public Cars	updateCar(@Valid @RequestBody CarDTO car){
 		Cars checkCar=null;
-		try {
+		
 			checkCar = carService.updateCar(car);
-		} catch (CarNotFoundException e) {
-
-			e.printStackTrace();
-		}
+		
+		
+		
 		return checkCar;
 	}
      	
     
     @PutMapping("/discountOnCarByMake/{make}/{discountPrice}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public List<Cars> discountOnCarPrice(@PathVariable String make ,@PathVariable double discountPrice) throws CarNotFoundException {
+    public List<CarDTO> discountOnCarPrice(@PathVariable String make ,@PathVariable double discountPrice) throws CarNotFoundException {
     	return   carService.discountOnCarPriceByMake(make, discountPrice);
     
     }
@@ -89,7 +88,7 @@ public class CarRestController {
     
     @GetMapping("/getAvailableCars")
     @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
- 	public List<Cars> getAvailableCars(){
+ 	public List<CarDTO> getAvailableCars(){
  		return carService.getAvailableCars();
  	}
     

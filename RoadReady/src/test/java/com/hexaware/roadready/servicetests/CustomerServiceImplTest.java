@@ -34,18 +34,18 @@ class CustomerServiceImplTest {
 	@DisplayName("Insert_Customer")
 	void testAddCustomer() {
 
-		CustomerDTO customerdto=new CustomerDTO(6,"Tina","Muneem","tina_mun","tina.muneem@rxmaple.com","muneem@123","3746583980");
+		CustomerDTO customerdto=new CustomerDTO(9,"Tina","Muneem","tina_mun","tina.muneem@rxmaple.com","muneem@123","3746583980");
 		Customers c1=service.addCustomer(customerdto);
 		assertNotNull(c1);
-		assertEquals(6,c1.getCustomerId());
+		assertEquals(9,c1.getCustomerId());
 		assertTrue(c1.getCustomerId() >0);
 		}
 
 	@Test
 	void testGetCustomerById() throws CustomerNotFoundException {
 		CustomerDTO customerdto=service.getCustomerById(4);
-		assertEquals("ananya_das",customerdto.getUsername());
-		assertNotEquals("ananydas",customerdto.getUsername());
+		assertEquals("emmadavis",customerdto.getUsername());
+		assertNotEquals("emma_davis",customerdto.getUsername());
 	}
 
 	@Test
@@ -57,15 +57,15 @@ class CustomerServiceImplTest {
 
 	@Test
 	void testDeleteCustomer() {
-		int customerId=6;
+		int customerId=9;
 		String result = service.deleteCustomer(customerId);
         assertEquals("customer " + customerId + " deleted successfully", result);
 	}
 
 	@Test
 	void testUpdateCustomer() throws CustomerNotFoundException {								
-		CustomerDTO originalData = new CustomerDTO(5,"Vikram","Srivastava","vikram_78","vikram.srivastava@example.com","vikram@123","3894039488");
-        CustomerDTO updatedData = new CustomerDTO(5,"Vikram","Srivastava","vikram_78","vikram.srivastava@example.com","vikram@123","4897839488");
+		CustomerDTO originalData = new CustomerDTO(8,"Olivia","Taylor","olivyataylor","olivia@example.com","oliviataylorpassword","9998887776");
+        CustomerDTO updatedData = new CustomerDTO(8,"Olivia","Taylor","olivyataylor","olivia@example.com","oliviataylorpassword","7688887776");
         Customers result = service.updateCustomer(originalData);
         assertNotEquals(updatedData, result);
 	}

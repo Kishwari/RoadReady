@@ -1,4 +1,4 @@
-package com.hexaware.roadready.service;
+/*package com.hexaware.roadready.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,4 +43,4 @@ public class UserService {
         adminRepository.save(admin);
         return "Admin added to system";
     }
-}
+}*/

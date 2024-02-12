@@ -21,6 +21,8 @@ import com.hexaware.roadready.exceptions.InvalidPaymentException;
 import com.hexaware.roadready.exceptions.PaymentNotFoundException;
 import com.hexaware.roadready.service.IPaymentService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/roadready/payments")
 public class PaymentRestController {
@@ -68,7 +70,7 @@ public class PaymentRestController {
 
 	 @PostMapping("/makePayment/{customerId}/{carId}/{reservationId}/{dateOfPickup}/{dateOfDropoff}")
 	 @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
-	   public PaymentDTO makePayment(@PathVariable int customerId , @PathVariable int carId ,@PathVariable int reservationId ,  @PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff ,@RequestBody PaymentDTO paymentdto  ) {
+	   public PaymentDTO makePayment(@PathVariable int customerId , @PathVariable int carId ,@PathVariable int reservationId ,  @PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff ,@Valid @RequestBody PaymentDTO paymentdto  ) {
 
 		   PaymentDTO payment = new PaymentDTO();
 		try {

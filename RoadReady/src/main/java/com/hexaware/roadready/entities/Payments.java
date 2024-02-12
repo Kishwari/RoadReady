@@ -8,17 +8,19 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Payments {
 	
 	@Id
 	private int paymentId;                                                             
-	//@NotNull
+	@NotNull(message="cannot be null")
 	private double amountPaid;              
-	//@NotNull
+	@NotNull(message="cannot be null")
 	private LocalDate dateOfPayment ;
-	//@NotBlank
+	@NotBlank(message="cannot be blank")
+	@Pattern(regexp = "^(upi|creditcard|debitcard)$", message = "Mode of payment must be 'upi', 'credit', or 'debit'.")
 	private String modeOfPayment ;
 	
 	@ManyToOne
@@ -34,10 +36,9 @@ public class Payments {
 		
 	}
 	
-	public Payments(int paymentId, int reservationId, double amountPaid, LocalDate dateOfPayment, String modeOfPayment) {
+	public Payments(int paymentId, double amountPaid, LocalDate dateOfPayment, String modeOfPayment) {
 		super();
 		this.paymentId = paymentId;
-		//this.reservationId = reservationId;
 		this.amountPaid = amountPaid;
 		this.dateOfPayment = dateOfPayment;
 		this.modeOfPayment = modeOfPayment;
@@ -50,12 +51,7 @@ public class Payments {
 	public void setPaymentId(int paymentId) {
 		this.paymentId = paymentId;
 	}
-	//public int getReservationId() {
-	//	return reservationId;
-	//}
-	//public void setReservationId(int reservationId) {
-		//this.reservationId = reservationId;
-	//}
+	
 	public double getAmountPaid() {
 		return amountPaid;
 	}

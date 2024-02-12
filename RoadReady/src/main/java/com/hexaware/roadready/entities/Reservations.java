@@ -16,13 +16,13 @@ public class Reservations {
 	
 	@Id
 	private int resevationId;    
-	//@NotBlank
+	
 	private String reservationStatus ; 
-	//@NotNull
+	@NotNull(message="cannot be blank")
 	private LocalDate dateOfReservation;
-	//@NotNull
+	@NotNull(message="cannot be blank")
 	private LocalDate dateOfPickup;
-	//@NotNull
+	@NotNull(message="cannot be blank")
 	private LocalDate dateOfDropoff;
 	
 	@ManyToOne
@@ -67,7 +67,7 @@ public class Reservations {
 		return reservationStatus;
 	}
 	public void setReservationStatus(String reservationStatus) {
-		reservationStatus = reservationStatus;
+		this.reservationStatus = reservationStatus;
 	}
 	public LocalDate getDateOfReservation() {
 		return dateOfReservation;

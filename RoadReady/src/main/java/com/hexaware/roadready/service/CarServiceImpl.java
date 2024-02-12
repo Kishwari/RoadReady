@@ -27,9 +27,24 @@ public class CarServiceImpl implements ICarService {
 	CarRepository carRepo;
 
 	@Override
-	public List<Cars> getAvailableCars() {
+	public List<CarDTO> getAvailableCars() {
     	logger.info("List of cars that are available at the moment");
-		return carRepo.getAvailableCars();
+		List<Cars> carList=  carRepo.getAvailableCars();
+		List<CarDTO> carDTOList = new ArrayList<>();
+		for (Cars car : carList) {
+			CarDTO cardto = new CarDTO();
+			cardto.setCarId(car.getCarId());
+			cardto.setMake(car.getMake());
+			cardto.setModel(car.getModel());
+			cardto.setCarStatus(car.getCarStatus());
+			cardto.setSpecifications(car.getSpecification());
+			cardto.setLocation(car.getLocation());
+			cardto.setPassengerCapacity(car.getPassengerCapacity());
+			cardto.setDailyRate(car.getDailyRate());
+
+			carDTOList.add(cardto);
+	}
+		return carDTOList;
 	}
 
 	@Override
@@ -108,9 +123,8 @@ public class CarServiceImpl implements ICarService {
 	}
 
 	@Override
-	public Cars updateCar(CarDTO cardto) throws CarNotFoundException {
+	public Cars updateCar(CarDTO cardto)  {
 		Cars car = new Cars();
-		if(cardto !=null) {
 		car.setCarId(cardto.getCarId());
 		car.setMake(cardto.getMake());
 		car.setModel(cardto.getModel());
@@ -120,12 +134,12 @@ public class CarServiceImpl implements ICarService {
 		car.setPassengerCapacity(cardto.getPassengerCapacity());
 		car.setDailyRate(cardto.getDailyRate());
 		return carRepo.save(car);
-		}
-		throw new CarNotFoundException("car not present");
+		
+		
 	}
 
 	@Override
-	public List<Cars> discountOnCarPriceByMake(String make, double discountPrice) throws CarNotFoundException {
+	public List<CarDTO> discountOnCarPriceByMake(String make, double discountPrice) throws CarNotFoundException {
 
 		carRepo.discountOnCarPriceByMake(make, discountPrice);
 
@@ -134,9 +148,24 @@ public class CarServiceImpl implements ICarService {
 		if (updatedCars.isEmpty()) {
 			throw new CarNotFoundException("No cars found with make: " + make);
 		}
+        List<CarDTO> carDTOList = new ArrayList<>();
+        for (Cars car : updatedCars) {
+			CarDTO cardto = new CarDTO();
+			cardto.setCarId(car.getCarId());
+			cardto.setMake(car.getMake());
+			cardto.setModel(car.getModel());
+			cardto.setCarStatus(car.getCarStatus());
+			cardto.setSpecifications(car.getSpecification());
+			cardto.setLocation(car.getLocation());
+			cardto.setPassengerCapacity(car.getPassengerCapacity());
+			cardto.setDailyRate(car.getDailyRate());
 
-		return updatedCars;
+			carDTOList.add(cardto);
+        
+		
 
+	}
+        return carDTOList;
 	}
 
 	@Override
