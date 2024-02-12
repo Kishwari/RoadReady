@@ -11,11 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-	/*@ExceptionHandler({Exception.class})
-	public ResponseEntity<String> CustomerNotFoundException(Exception e) {
-		return new ResponseEntity<String>(e.toString(),HttpStatus.NOT_FOUND);
-	}*/
-	
+
 	
     @ExceptionHandler(CustomerNotFoundException.class)   
     @ResponseStatus(value=HttpStatus.NOT_FOUND , reason="Customer doesn't exist")
@@ -35,7 +31,6 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(value=HttpStatus.NOT_FOUND , reason="payment details you are searching for doesnt exist")
     @ExceptionHandler(PaymentNotFoundException.class)      
 	public void handlePaymentNotFoundExp() {
-    	  
       }
 	
 	@ResponseStatus(value=HttpStatus.NOT_FOUND , reason="Agent doesn't exist")

@@ -39,7 +39,6 @@ public class PaymentRestController {
 		try {
 			payments = paymentService.getPaymentDetailsForCustomer(customerId);
 		} catch (PaymentNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	logger.info("Payment details of customer with Id : "+customerId);
@@ -60,7 +59,6 @@ public class PaymentRestController {
 		try {
 			payments = paymentService.viewPaymentHistory(customerId);
 		} catch (PaymentNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		   return payments;

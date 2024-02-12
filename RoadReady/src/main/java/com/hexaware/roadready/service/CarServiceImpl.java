@@ -13,7 +13,6 @@ import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.repository.CarRepository;
-import com.hexaware.roadready.restcontroller.AdminRestController;
 
 import jakarta.transaction.Transactional;
 
@@ -111,7 +110,7 @@ public class CarServiceImpl implements ICarService {
 	@Override
 	public Cars updateCar(CarDTO cardto) throws CarNotFoundException {
 		Cars car = new Cars();
-		if(car!=null) {
+		if(cardto !=null) {
 		car.setCarId(cardto.getCarId());
 		car.setMake(cardto.getMake());
 		car.setModel(cardto.getModel());
@@ -147,7 +146,7 @@ public class CarServiceImpl implements ICarService {
     	logger.warn("Might throw exception CarNotFoundException ");
 		if (existingCar != null) {
 			existingCar.setDailyRate(newPrice);
-			car = carRepo.save(existingCar);
+			 car = carRepo.save(existingCar);
 		} else {
 			throw new CarNotFoundException("no cars found with id" + carId);
 		}

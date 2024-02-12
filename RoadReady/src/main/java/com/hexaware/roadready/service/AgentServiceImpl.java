@@ -21,7 +21,6 @@ import com.hexaware.roadready.repository.AgentRepository;
 import com.hexaware.roadready.repository.CarRepository;
 import com.hexaware.roadready.repository.CustomerRepository;
 import com.hexaware.roadready.repository.ReservationRepository;
-import com.hexaware.roadready.restcontroller.AdminRestController;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -97,9 +96,6 @@ public class AgentServiceImpl implements IAgentService{
 		logger.info(carId+" for this car Id , status has been Updated ");
 		return carRepo.findById(carId).orElse(null);
 		
-		//	 throw new CarNotFoundException("car with id " + carId + "not present");
-
-		
 	}
 
 	@Override
@@ -114,7 +110,7 @@ public class AgentServiceImpl implements IAgentService{
 		customerdto.setPassword(customer.getPassword());
 		customerdto.setPhoneNumber(customer.getPhoneNumber());
 		return customerdto;
-		//return customer;
+		
 	}
      
 	
@@ -138,11 +134,8 @@ public class AgentServiceImpl implements IAgentService{
 		agent.setAgentId(agentdto.getAgentId());
 		agent.setUsername(agentdto.getUsername());
 
-		//agent.setPassword(agentdto.getPassword());
-		 //agent.setPassword(passwordEncoder.encode(agentdto.getPassword()));
 		logger.info("New Agent added");
 
-		//agent.setPassword(agentdto.getPassword());
 		agent.setPassword(passwordEncoder.encode(agentdto.getPassword()));
 		agent.setRole("ROLE_AGENT");
 

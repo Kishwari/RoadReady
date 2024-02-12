@@ -39,7 +39,7 @@ public class SecurityConfig {
     	
     		
 			return http.csrf().disable()
-    			.authorizeHttpRequests().requestMatchers("/roadready/user/*").permitAll()
+    			.authorizeHttpRequests().requestMatchers("/roadready/user/*","/roadready/admin/registerAdmin").permitAll()
     			.and()
     			.authorizeHttpRequests().requestMatchers("/roadready/admin/**","/roadready/agents/**","/roadready/customers/**","/roadready/cars/**","/roadready/payments/**","/roadready/reservations/**")
     			.authenticated().and() //.formLogin().and().build();
@@ -53,9 +53,7 @@ public class SecurityConfig {
     }
     	
     	
-    //  "/registration/welcome","/registration/customer/new","/registration/agent/new","/registration/admin/new"
-    //"/registration/customer/new","/registration/agent/new","/registration/admin/new"
-    
+   
 
     @Bean    
     public PasswordEncoder passwordEncoder() {          
@@ -77,12 +75,3 @@ public class SecurityConfig {
 
 }
 
-
-
-/*
- * UserDetails admin = User.withUsername("Basant")
- * .password(encoder.encode("Pwd1")) .roles("ADMIN") .build(); UserDetails user
- * = User.withUsername("John") .password(encoder.encode("Pwd2"))
- * .roles("USER","ADMIN","HR") .build(); return new
- * InMemoryUserDetailsManager(admin, user);
- */

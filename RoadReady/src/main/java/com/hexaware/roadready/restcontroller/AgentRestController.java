@@ -19,7 +19,6 @@ import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
-import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.exceptions.AgentNotFoundException;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.exceptions.CustomerNotFoundException;
@@ -56,7 +55,7 @@ public class AgentRestController {
 		try {
 			car = agentService.updateCarAvailability(carStatus, carId);
 		} catch (CarNotFoundException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		 return car;
@@ -77,7 +76,6 @@ public class AgentRestController {
 	    	try {
 				agentdto= agentService.getAgentById(agentId);
 			} catch (AgentNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    	return agentdto;
@@ -100,18 +98,7 @@ public class AgentRestController {
 	    public Agent updateAgent(@PathVariable int agentId , @RequestBody AgentDTO agent) {
 	    	return agentService.updateAgent(agentId, agent);
 	    }
-    /*@PostMapping("/generateAgentReport")			// I think we need agentId here to get that particular agent's report
-    public String agentReport() {                   //J : i think we need seperate report entity
-		 return service.agentReport();
-
-    }
-    
-    @GetMapping("/getCarMaintenanceAlerts/{carId}")
-    public String provideCarMaintenanceAlerts(@PathVariable int carId) {
-		 return service.provideCarMaintenanceAlerts(carId);         //J :i think we need carId from report entity so that we can get under maintenance
-
-    } */
-	 
+  
 	 @GetMapping("/verifyCustomerIdentity/{customerId}")
 	 @PreAuthorize("hasAuthority('ROLE_AGENT')")
 	   public CustomerDTO  verifyIdentity(@PathVariable int customerId) throws CustomerNotFoundException {
