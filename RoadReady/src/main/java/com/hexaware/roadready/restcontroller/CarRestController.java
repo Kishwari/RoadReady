@@ -38,7 +38,7 @@ public class CarRestController {
 		try {
 			car = carService.getCarById(carId);
 		} catch (CarNotFoundException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		return car;
@@ -63,7 +63,7 @@ public class CarRestController {
 		try {
 			checkCar = carService.updateCar(car);
 		} catch (CarNotFoundException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		return checkCar;
@@ -73,15 +73,15 @@ public class CarRestController {
     @PutMapping("/discountOnCarByMake/{make}/{discountPrice}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<Cars> discountOnCarPrice(@PathVariable String make ,@PathVariable double discountPrice) throws CarNotFoundException {
-    	List<Cars>  cars = carService.discountOnCarPriceByMake(make, discountPrice);
-    	return cars;
+    	return   carService.discountOnCarPriceByMake(make, discountPrice);
+    
     }
     
     @PutMapping("/updateCarPrice/{carId}/{newPrice}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Cars updateCarPrice(@PathVariable int carId , @PathVariable double newPrice) throws CarNotFoundException {
-    	Cars car = carService.updateCarPrice(carId, newPrice);
-    	return car;
+    	return carService.updateCarPrice(carId, newPrice);
+    	
     }
     
     
@@ -98,7 +98,7 @@ public class CarRestController {
 	try {
 		cars = carService.searchCars(location , make , model);
 	} catch (CarNotFoundException e) {
-		// TODO Auto-generated catch block
+
 		e.printStackTrace();
 	}
         return cars;

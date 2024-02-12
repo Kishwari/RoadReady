@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.hexaware.roadready.dto.ReservationDTO;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
-import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.exceptions.ReservationNotFoundException;
 import com.hexaware.roadready.repository.PaymentRepository;
 import com.hexaware.roadready.repository.ReservationRepository;

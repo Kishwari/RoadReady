@@ -75,12 +75,7 @@ public class Cars {
 	public void setModel(String model) {
 		this.model = model;
 	}
-	//public int getNumberOfCarsAvailable() {
-	//	return numberOfCarsAvailable;
-	//}
-	//public void setNumberOfCarsAvailable(int numberOfCarsAvailable) {
-	//	this.numberOfCarsAvailable = numberOfCarsAvailable;
-//	}
+	
 	public String getLocation() {
 		return location;
 	}

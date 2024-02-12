@@ -1,7 +1,6 @@
 package com.hexaware.roadready.entities;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -64,18 +63,7 @@ public class Reservations {
 	public void setResevationId(int resevationId) {
 		this.resevationId = resevationId;
 	}
-	//public int getCarId() {
-		//return carId;
-	//}
-	//public void setCarId(int carId) {
-	//	this.carId = carId;
-	//}
-	//public int getCustomerId() {
-		//return customerId;
-	//}
-	//public void setCustomerId(int customerId) {
-		//this.customerId = customerId;
-	//}
+	
 	public String getReservationstatus() {
 		return reservationStatus;
 	}

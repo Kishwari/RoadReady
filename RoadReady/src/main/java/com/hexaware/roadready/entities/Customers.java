@@ -3,8 +3,6 @@ package com.hexaware.roadready.entities;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -25,9 +23,9 @@ public class Customers{
 	        @NotBlank
 			private String lastName;
 	        @NotBlank
-	        @Pattern(regexp="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+=])[A-Za-z0-9!@#$%^&*()-+=]{10,20}$")
+	        //@Pattern(regexp="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+=])[A-Za-z0-9!@#$%^&*()-+=]{10,20}$")
 			private String username;
-	        @Pattern(regexp= "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")
+	        //@Pattern(regexp= "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")
 			private String emailAddress;
 	        @NotBlank
 			private String password;
@@ -49,8 +47,7 @@ public class Customers{
 			
 			@ManyToOne
 			@JoinColumn(name = "agentId")
-			//@JsonIgnore
-			//@JsonBackReference
+			
 			private Agent agent;
 			
 			public Customers() {
