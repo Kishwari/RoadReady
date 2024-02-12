@@ -7,17 +7,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Payments {
 	
 	@Id
 	private int paymentId;                                                             
-	@NotBlank
+	//@NotNull
 	private double amountPaid;              
-	@NotBlank
+	//@NotNull
 	private LocalDate dateOfPayment ;
-	@NotBlank
+	//@NotBlank
 	private String modeOfPayment ;
 	
 	@ManyToOne

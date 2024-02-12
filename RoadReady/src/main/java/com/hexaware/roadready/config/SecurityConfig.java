@@ -39,7 +39,7 @@ public class SecurityConfig {
     	
     		
 			return http.csrf().disable()
-    			.authorizeHttpRequests().requestMatchers("/roadready/user/*","/roadready/admin/registerAdmin").permitAll()
+    			.authorizeHttpRequests().requestMatchers("/roadready/user/*").permitAll()
     			.and()
     			.authorizeHttpRequests().requestMatchers("/roadready/admin/**","/roadready/agents/**","/roadready/customers/**","/roadready/cars/**","/roadready/payments/**","/roadready/reservations/**")
     			.authenticated().and() //.formLogin().and().build();

@@ -62,6 +62,8 @@ public class AgentServiceImpl implements IAgentService{
 	            Customers checkCustomer = customerRepo.findById(customer.getCustomerId()).orElse(null);
 	            if (checkCustomer != null && checkCustomer.equals(customer)) {
 	                // Step 4: Check-in completed successfully 
+	            	reservation.setReservationStatus("check-in completed");
+	            	reservationRepo.save(reservation);
 	                return "Check-in completed successfully";
 	            }
 	        }
@@ -77,6 +79,8 @@ public class AgentServiceImpl implements IAgentService{
 		 Cars car  = reservation.getCar();
 		 int carId = car.getCarId();
 	     carRepo.updateCarStatusAfterCheckout(carStatus,carId);
+	     reservation.setReservationStatus("check-out completed");
+	     reservationRepo.save(reservation);
 	     
 	       // Clear entity manager cache
 	      entityManager.clear();
