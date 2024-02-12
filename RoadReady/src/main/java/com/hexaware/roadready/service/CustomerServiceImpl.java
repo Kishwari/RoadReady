@@ -13,7 +13,6 @@ import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.repository.CustomerRepository;
-import com.hexaware.roadready.restcontroller.AdminRestController;
 
 import jakarta.transaction.Transactional;
 

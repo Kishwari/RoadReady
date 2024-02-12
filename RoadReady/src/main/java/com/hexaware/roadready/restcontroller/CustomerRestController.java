@@ -1,6 +1,5 @@
 package com.hexaware.roadready.restcontroller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -17,26 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.roadready.dto.CustomerDTO;
-import com.hexaware.roadready.dto.CustomerFeedbackDTO;
-import com.hexaware.roadready.dto.PaymentDTO;
-import com.hexaware.roadready.dto.ReservationDTO;
-import com.hexaware.roadready.entities.Cars;
+
 import com.hexaware.roadready.entities.Customers;
-import com.hexaware.roadready.entities.Feedback;
-import com.hexaware.roadready.entities.Payments;
-import com.hexaware.roadready.entities.Reservations;
-import com.hexaware.roadready.exceptions.CarNotFoundException;
+
 import com.hexaware.roadready.exceptions.CustomerNotFoundException;
-import com.hexaware.roadready.exceptions.InvalidPaymentException;
-import com.hexaware.roadready.exceptions.PaymentNotFoundException;
-import com.hexaware.roadready.exceptions.ReservationNotFoundException;
-import com.hexaware.roadready.service.IAdminService;
-import com.hexaware.roadready.service.IAgentService;
-import com.hexaware.roadready.service.ICarService;
 import com.hexaware.roadready.service.ICustomerService;
-import com.hexaware.roadready.service.IFeedBackService;
-import com.hexaware.roadready.service.IPaymentService;
-import com.hexaware.roadready.service.IReservationService;
 
 @RestController
 @RequestMapping("/roadready/customers")
@@ -62,7 +46,7 @@ public class CustomerRestController {
 		try {
 			customer = customerService.getCustomerById(customerId);
 		} catch (CustomerNotFoundException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
     	logger.warn("Might throw exception CustomerNotFoundException ");
@@ -88,7 +72,7 @@ public class CustomerRestController {
 		try {
 			checkCustomer = customerService.updateCustomer(customer);
 		} catch (CustomerNotFoundException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		return checkCustomer;

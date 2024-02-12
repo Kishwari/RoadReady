@@ -3,10 +3,8 @@ package com.hexaware.roadready.service;
 import java.util.List;
 
 import com.hexaware.roadready.dto.CarDTO;
-import com.hexaware.roadready.dto.PaymentDTO;
 import com.hexaware.roadready.entities.Cars;
-import com.hexaware.roadready.entities.Payments;
-import com.hexaware.roadready.entities.Reservations;
+
 import com.hexaware.roadready.exceptions.CarNotFoundException;
 
 public interface ICarService {

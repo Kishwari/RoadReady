@@ -104,10 +104,8 @@ public class PaymentServiceImpl implements IPaymentService {
 		Payments payment = new Payments();
 		Payments validPayment = new Payments();
 		PaymentDTO validPaymentdto = new PaymentDTO();
-		Cars car = new Cars();
-		car = carRepo.findById(carId).orElse(null);
-		Customers customer = new Customers();
-		customer = customerRepo.findById(customerId).orElse(null);
+		Cars car = carRepo.findById(carId).orElse(null);
+		 Customers customer = customerRepo.findById(customerId).orElse(null);
 		double dailyRate = car.getDailyRate();
 		
 		payment.setPaymentId(paymentdto.getPaymentId());

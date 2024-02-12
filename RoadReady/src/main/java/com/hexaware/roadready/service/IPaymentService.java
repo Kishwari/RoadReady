@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.hexaware.roadready.dto.PaymentDTO;
-import com.hexaware.roadready.dto.ReservationDTO;
-import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.exceptions.InvalidPaymentException;
 import com.hexaware.roadready.exceptions.PaymentNotFoundException;
 
