@@ -13,6 +13,7 @@ import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
+import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.exceptions.InvalidPaymentException;
 import com.hexaware.roadready.exceptions.PaymentNotFoundException;
 import com.hexaware.roadready.repository.CarRepository;
@@ -101,11 +102,14 @@ public class PaymentServiceImpl implements IPaymentService {
 
 	@Override
 	public PaymentDTO makePayment(int customerId ,int carId , int reservationId ,PaymentDTO paymentdto ,LocalDate dateOfPickup , LocalDate dateOfdropoff) throws InvalidPaymentException {
+		
+	
 		Payments payment = new Payments();
 		Payments validPayment = new Payments();
 		PaymentDTO validPaymentdto = new PaymentDTO();
 		Cars car = carRepo.findById(carId).orElse(null);
 		 Customers customer = customerRepo.findById(customerId).orElse(null);
+		 
 		double dailyRate = car.getDailyRate();
 		
 		payment.setPaymentId(paymentdto.getPaymentId());
@@ -138,4 +142,6 @@ public class PaymentServiceImpl implements IPaymentService {
 		return validPaymentdto;
 		
 	}
+		
+	
 }

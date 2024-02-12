@@ -18,6 +18,8 @@ import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.service.ICarService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/roadready/cars")
 public class CarRestController {

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.roadready.dto.PaymentDTO;
+import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.exceptions.InvalidPaymentException;
 import com.hexaware.roadready.exceptions.PaymentNotFoundException;
 import com.hexaware.roadready.service.IPaymentService;
@@ -73,6 +74,9 @@ public class PaymentRestController {
 		try {
 			payment = paymentService.makePayment(customerId , carId , reservationId ,paymentdto, dateOfPickup , dateOfDropoff);
 		} catch (InvalidPaymentException e) {
+			
+			e.printStackTrace();
+		} catch (CarNotFoundException e) {
 			
 			e.printStackTrace();
 		}

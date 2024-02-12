@@ -36,20 +36,20 @@ public class AgentRestController {
 	
      
 	 @GetMapping("/checkin/{reservationId}")
-	 @PreAuthorize("hasAuthority('ROLE_AGENT' , 'ROLE_ADMIN')")
+	 @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
 	 public String completeCheckIn(@PathVariable int reservationId) {		// no idea about mapping
 		 return agentService.completeCheckIn(reservationId);
 
 	 }
 	 @GetMapping("/checkout/{reservationId}/{carStatus}")
-	 @PreAuthorize("hasAuthority('ROLE_AGENT', 'ROLE_ADMIN')")
+	 @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
 	 public String completeCheckOut(@PathVariable int reservationId , @PathVariable String carStatus) { 		// no idea about mapping
 		 return agentService.completeCheckOut(reservationId, carStatus);
 
 	 }
 	
 	 @PutMapping("/updateCarAvailability/{carStatus}/{carId}")
-	 @PreAuthorize("hasAuthority('ROLE_AGENT')")
+	 @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
     public Cars updateCarAvailability(@PathVariable String carStatus , @PathVariable int carId) {
 		 Cars car=new Cars();
 		try {
@@ -100,7 +100,7 @@ public class AgentRestController {
 	    }
   
 	 @GetMapping("/verifyCustomerIdentity/{customerId}")
-	 @PreAuthorize("hasAuthority('ROLE_AGENT')")
+	 @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
 	   public CustomerDTO  verifyIdentity(@PathVariable int customerId) throws CustomerNotFoundException {
 			 CustomerDTO customer = agentService.verifyIdentity(customerId);
 			 if(customer== null) {
@@ -109,7 +109,7 @@ public class AgentRestController {
 	        return customer;
 		 }
      @GetMapping("/carMaintenanceReport")
-     @PreAuthorize("hasAuthority('ROLE_AGENT')")
+     @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
 	 public String carMaintenanceReport()   {
 		 return agentService.carMaintenanceReport();
 	 }

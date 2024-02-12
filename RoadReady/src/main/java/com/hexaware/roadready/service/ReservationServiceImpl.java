@@ -109,6 +109,7 @@ public class ReservationServiceImpl implements IReservationService{
 
 	    reservation.setDateOfPickup(dateOfPickup);
 	    reservation.setDateOfDropoff(dateOfDropoff);
+	    reservation.setReservationStatus("reserved");
         reservation.setDateOfReservation(LocalDate.now());
 	    Reservations modifiedReservation = reservationRepo.save(reservation);
 	    if(modifiedReservation !=null) {

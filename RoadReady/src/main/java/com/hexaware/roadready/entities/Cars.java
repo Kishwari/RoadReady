@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Cars {
@@ -21,13 +22,13 @@ public class Cars {
 	private String model;
 	@NotBlank
 	private String location;
-	@NotBlank
+	@NotNull
 	private double dailyRate;
 	@NotBlank
 	private String carStatus;
 	@NotBlank
 	private String specification;
-	@NotBlank
+	@NotNull
 	private int passengerCapacity;
 	
 	

@@ -9,9 +9,6 @@ public class ReservationDTO {
 	private LocalDate dateOfReservation;
 	private LocalDate dateOfPickup;
 	private  LocalDate dateOfDropoff;
-	//private String checkIn;   //completed , not completed
-	//private String checkOut;  //completed , not completed
-	
 
 	
 	public ReservationDTO() {

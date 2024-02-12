@@ -9,22 +9,21 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Reservations {
 	
 	@Id
 	private int resevationId;    
-	@NotBlank
+	//@NotBlank
 	private String reservationStatus ; 
-	@NotBlank
+	//@NotNull
 	private LocalDate dateOfReservation;
-	@NotBlank
+	//@NotNull
 	private LocalDate dateOfPickup;
-	@NotBlank
+	//@NotNull
 	private LocalDate dateOfDropoff;
-	//private String checkIn;   //completed , not completed
-	//private String checkOut;  //completed , not completed
 	
 	@ManyToOne
 	@JoinColumn(name = "customerId")
