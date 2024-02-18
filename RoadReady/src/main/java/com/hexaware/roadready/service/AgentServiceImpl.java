@@ -2,10 +2,13 @@ package com.hexaware.roadready.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +16,16 @@ import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
+import com.hexaware.roadready.entities.CustomerIdentity;
 import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.exceptions.AgentNotFoundException;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
+import com.hexaware.roadready.exceptions.CustomerIdentityNotFoundException;
+import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.repository.AgentRepository;
 import com.hexaware.roadready.repository.CarRepository;
+import com.hexaware.roadready.repository.CustomerIdentityRepository;
 import com.hexaware.roadready.repository.CustomerRepository;
 import com.hexaware.roadready.repository.ReservationRepository;
 
@@ -45,6 +52,9 @@ public class AgentServiceImpl implements IAgentService{
 	
 	@Autowired
    PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	CustomerIdentityRepository customerIdentityRepo;
 	
 	@PersistenceContext
     private EntityManager entityManager;
@@ -82,11 +92,13 @@ public class AgentServiceImpl implements IAgentService{
 	     reservation.setReservationStatus("check-out completed");
 	     reservationRepo.save(reservation);
 	     
-	       // Clear entity manager cache
+	      // Clear entity manager cache
 	      entityManager.clear();
-	     Cars updatedCar = carRepo.findById(carId).orElse(null);
+	      Cars updatedCar = carRepo.findById(carId).orElse(null);
 		
 		String updatedCarStatus = updatedCar.getCarStatus();
+		reservation.setReservationStatus("check-out completed");
+    	reservationRepo.save(reservation);
 		return  "checkout completed successfully and car status updated to " + updatedCarStatus;
         }
 
@@ -103,19 +115,42 @@ public class AgentServiceImpl implements IAgentService{
 	}
 
 	@Override
-	public CustomerDTO verifyIdentity(int customerId) {
-		Customers customer =customerRepo.findById(customerId).orElse(null);
-		CustomerDTO customerdto=new CustomerDTO();
+	public ResponseEntity<byte[]> verifyIdentity(int customerId) throws CustomerIdentityNotFoundException {
+		
+		 Optional<CustomerIdentity> optionalPdf = customerIdentityRepo.findByCustomerId(customerId);
+         if (optionalPdf.isPresent()) {
+         	CustomerIdentity pdf = optionalPdf.get();
+             byte[] content = pdf.getContent();         //  'getContent' returns the raw PDF data
+             return ResponseEntity.ok()
+                     .contentType(MediaType.APPLICATION_PDF)
+                     .body(content);
+         } else {
+             return ResponseEntity.notFound().build();
+         }
+	}
+		
+		/*CustomerIdentity customerIdentity= new CustomerIdentity();
+		customerIdentity=customerIdentityRepo.findByCustomerId(customerId);
+		if(customerIdentity.getContent()==null) {
+			throw new CustomerIdentityNotFoundException("customer identity for customer"+customerId+"doesnt exist");
+		}
+		else {
+			return "customer identity verified";
+		}
+		}*/
+		
+		/*CustomerDTO customerdto=new CustomerDTO();
 		customerdto.setCustomerId(customer.getCustomerId());
 		customerdto.setFirstName(customer.getFirstName());
 		customerdto.setLastName(customer.getLastName());
 		customerdto.setEmailAddress(customer.getEmailAddress());
 		customerdto.setUsername(customer.getUsername());
 		customerdto.setPassword(customer.getPassword());
-		customerdto.setPhoneNumber(customer.getPhoneNumber());
-		return customerdto;
+		customerdto.setPhoneNumber(customer.getPhoneNumber());*/
 		
-	}
+		
+		
+	
      
 	
 

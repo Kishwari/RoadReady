@@ -5,10 +5,13 @@ import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -18,6 +21,8 @@ import jakarta.validation.constraints.Size;
 public class Customers{
  
 	        @Id
+	        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_seq")
+	        @SequenceGenerator(name = "customer_seq", sequenceName = "customer_seq", initialValue = 1)
 			private int customerId;
 	        @NotBlank(message="cannot be blank")
 			private String firstName;

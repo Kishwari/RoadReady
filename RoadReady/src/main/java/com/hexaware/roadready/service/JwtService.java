@@ -24,13 +24,13 @@ public class JwtService {
     	return createToken(claims, username);
     }
     
-    public String createToken(Map<String , Object> claims , String username) { //claims is of map type has claim type and claim value 
+    public String createToken(Map<String , Object> claims , String username) { 
 		//add jwt dependencies (3)
 		return Jwts.builder().setClaims(claims)
 				             .setSubject(username)
 				             .setIssuedAt(new Date(System.currentTimeMillis()))
 				             .setExpiration(new Date(System.currentTimeMillis()+1000*60*60))  //60 mins
-	                         .signWith(getSignKey(), SignatureAlgorithm.HS256)           //many algos we can take one this one most used
+	                         .signWith(getSignKey(), SignatureAlgorithm.HS256)           
 	                         .compact();
 	}
 	

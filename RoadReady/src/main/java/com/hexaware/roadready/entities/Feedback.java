@@ -1,7 +1,10 @@
 package com.hexaware.roadready.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -11,6 +14,8 @@ import jakarta.validation.constraints.NotNull;
 public class Feedback {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "feedback_seq")
+    @SequenceGenerator(name = "feedback_seq", sequenceName = "feedback_seq", initialValue = 4001)
 	private int feedbackId;
 	@NotNull
 	private int customerId;

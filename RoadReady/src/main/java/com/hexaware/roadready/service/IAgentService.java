@@ -2,12 +2,16 @@ package com.hexaware.roadready.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.exceptions.AgentNotFoundException;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
+import com.hexaware.roadready.exceptions.CustomerIdentityNotFoundException;
+import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 
 public interface IAgentService {
 	
@@ -34,7 +38,7 @@ public interface IAgentService {
 	        
      public Cars updateCarAvailability(String carStatus ,int carId) throws CarNotFoundException;
 	 
-     public CustomerDTO verifyIdentity(int customerId);
+     public ResponseEntity<byte[]> verifyIdentity(int customerId) throws CustomerIdentityNotFoundException;
      
      public String carMaintenanceReport();
      

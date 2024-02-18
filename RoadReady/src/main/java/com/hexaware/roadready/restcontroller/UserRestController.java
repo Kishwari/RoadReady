@@ -30,9 +30,6 @@ import jakarta.validation.Valid;
 public class UserRestController {
 
 	
-
-		//@Autowired
-		//UserService userService;
 	
 	     @Autowired
 	     CustomerServiceImpl customerService;
@@ -56,12 +53,6 @@ public class UserRestController {
 			return customerService.addCustomer(customer);
 		}
 		
-
-		 @PostMapping("/createNewAgentAccount")
-		   public Agent addAgent(@Valid @RequestBody AgentDTO agentdto) {
-		    	return agentService.addAgent(agentdto);
-		    }
-		 
 		 
 		
 

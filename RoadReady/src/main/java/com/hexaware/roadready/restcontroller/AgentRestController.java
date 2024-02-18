@@ -1,10 +1,13 @@
 package com.hexaware.roadready.restcontroller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +22,10 @@ import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
+import com.hexaware.roadready.entities.CustomerIdentity;
 import com.hexaware.roadready.exceptions.AgentNotFoundException;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
+import com.hexaware.roadready.exceptions.CustomerIdentityNotFoundException;
 import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.service.IAgentService;
 
@@ -36,16 +41,17 @@ public class AgentRestController {
 	@Autowired
 	IAgentService agentService;
 	
+	
      
 	 @GetMapping("/checkin/{reservationId}")
 	 @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
-	 public String completeCheckIn(@PathVariable int reservationId) {		// no idea about mapping
+	 public String completeCheckIn(@PathVariable int reservationId) {		
 		 return agentService.completeCheckIn(reservationId);
 
 	 }
 	 @GetMapping("/checkout/{reservationId}/{carStatus}")
 	 @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
-	 public String completeCheckOut(@PathVariable int reservationId , @PathVariable String carStatus) { 		// no idea about mapping
+	 public String completeCheckOut(@PathVariable int reservationId , @PathVariable String carStatus) { 		
 		 return agentService.completeCheckOut(reservationId, carStatus);
 
 	 }
@@ -63,10 +69,12 @@ public class AgentRestController {
 		 return car;
 	 }
 	
-	 @PostMapping("/addAgent")
+	
+	 
+	 @PostMapping("/createNewAgentAccount")
 	 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	    public Agent addAgent(@Valid @RequestBody AgentDTO agentdto) {
-	    	logger.info("Now adding agent using addAgent method");
+	   public Agent addAgent(@Valid @RequestBody AgentDTO agentdto) {
+		 logger.info("Now adding agent using addAgent method");
 	    	return agentService.addAgent(agentdto);
 	    }
 		
@@ -100,15 +108,13 @@ public class AgentRestController {
 	    	return agentService.updateAgent(agentId, agent);
 	    }
   
-	 @GetMapping("/verifyCustomerIdentity/{customerId}")
-	 @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
-	   public CustomerDTO  verifyIdentity(@PathVariable int customerId) throws CustomerNotFoundException {
-			 CustomerDTO customer = agentService.verifyIdentity(customerId);
-			 if(customer== null) {
-				 throw new CustomerNotFoundException("customer with Id" + customerId + "not found");
-			 }
-	        return customer;
-		 }
+	    @GetMapping(value = "/verifyCustomerIdentity/{customerId}", produces = MediaType.APPLICATION_PDF_VALUE)
+	    @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
+	    public ResponseEntity<byte[]> getIdentity(@PathVariable int customerId)  throws CustomerIdentityNotFoundException {
+		    return agentService.verifyIdentity(customerId);
+		   
+		        
+		     }
 	 
 	 
      @GetMapping("/carMaintenanceReport")
@@ -119,3 +125,11 @@ public class AgentRestController {
      
      
 }
+
+
+/* @PostMapping("/addAgent")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+   public Agent addAgent(@Valid @RequestBody AgentDTO agentdto) {
+   	logger.info("Now adding agent using addAgent method");
+   	return agentService.addAgent(agentdto);
+   }*/

@@ -3,9 +3,12 @@ package com.hexaware.roadready.entities;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -14,6 +17,8 @@ import jakarta.validation.constraints.Pattern;
 public class Payments {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_seq")
+    @SequenceGenerator(name = "payment_seq", sequenceName = "payment_seq", initialValue = 2001)
 	private int paymentId;                                                             
 	@NotNull(message="cannot be null")
 	private double amountPaid;              

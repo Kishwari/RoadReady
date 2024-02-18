@@ -68,7 +68,7 @@ public class CustomerRestController {
 	}
 	
 	@PutMapping("/updateCustomerDetails")
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_CUSTOMER')")
 	public Customers	updateCustomer(@Valid @RequestBody CustomerDTO customer) {
 		Customers checkCustomer=new Customers();
 		try {

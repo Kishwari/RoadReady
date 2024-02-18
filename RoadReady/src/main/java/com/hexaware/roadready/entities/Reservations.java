@@ -4,19 +4,22 @@ import java.time.LocalDate;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Reservations {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "resevation_seq")
+    @SequenceGenerator(name = "resevation_seq", sequenceName = "resevation_seq", initialValue = 3001)
 	private int resevationId;    
-	
 	private String reservationStatus ; 
 	@NotNull(message="cannot be blank")
 	private LocalDate dateOfReservation;
@@ -45,7 +48,7 @@ public class Reservations {
 		super();
 	
 	}
-	public Reservations(int resevationId, int carId, int customerId, String reservationStatus, LocalDate dateOfReservation,
+	public Reservations(int resevationId, String reservationStatus, LocalDate dateOfReservation,
 			LocalDate dateOfPickup, LocalDate dateOfDropoff) {
 		super();
 		this.resevationId = resevationId;

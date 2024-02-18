@@ -12,6 +12,7 @@ import com.hexaware.roadready.dto.ReservationDTO;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.exceptions.ReservationNotFoundException;
+import com.hexaware.roadready.repository.CarRepository;
 import com.hexaware.roadready.repository.PaymentRepository;
 import com.hexaware.roadready.repository.ReservationRepository;
 
@@ -27,6 +28,9 @@ public class ReservationServiceImpl implements IReservationService{
 	
 	@Autowired
 	PaymentRepository paymentRepo;
+	
+	@Autowired
+	CarRepository carRepo;
 	
 	@Override
 	public List<ReservationDTO> viewAllReservations() {
@@ -46,32 +50,21 @@ public class ReservationServiceImpl implements IReservationService{
 		
 	}
 
-	/*@Override
-	public Reservations makeReservation(int reservationId,LocalDate dateOfPickup ,LocalDate dateOfDropoff) {
-		Reservations reservation = new Reservations();
-        reservation.setResevationId(reservationId);
-        reservation.setDateOfReservation(LocalDate.now());
-        reservation.setDateOfPickup(dateOfPickup);
-        reservation.setDateOfDropoff(dateOfDropoff);
-        if 
-        reservation.setReservationstatus(reservationdto.getReservationStatus());
-        
-		
-		return null;
-	}*/
+	
 
 	@Override
 	public String cancelReservation(int reservationId) {
 		
 		Reservations reservation = reservationRepo.findById(reservationId).orElse(null);
 		
-		
+		int carId=reservation.getCar().getCarId();
 		
 		reservationRepo.deleteById(reservationId);
 		Reservations deletedReservation = reservationRepo.findById(reservationId).orElse(null);
 		if(deletedReservation == null) {
 			
 			
+			carRepo.updateCarAvailability("available",carId);
 			
 			return "your reservation " + reservationId +" cancelled successfully";
 			
@@ -167,3 +160,18 @@ public class ReservationServiceImpl implements IReservationService{
 	
 	
 }
+
+
+/*@Override
+public Reservations makeReservation(int reservationId,LocalDate dateOfPickup ,LocalDate dateOfDropoff) {
+	Reservations reservation = new Reservations();
+    reservation.setResevationId(reservationId);
+    reservation.setDateOfReservation(LocalDate.now());
+    reservation.setDateOfPickup(dateOfPickup);
+    reservation.setDateOfDropoff(dateOfDropoff);
+    if 
+    reservation.setReservationstatus(reservationdto.getReservationStatus());
+    
+	
+	return null;
+}*/
