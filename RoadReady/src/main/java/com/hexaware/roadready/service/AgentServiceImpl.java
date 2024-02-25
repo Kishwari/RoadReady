@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.AgentDTO;
-import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.CustomerIdentity;
@@ -22,7 +22,6 @@ import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.exceptions.AgentNotFoundException;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.exceptions.CustomerIdentityNotFoundException;
-import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.repository.AgentRepository;
 import com.hexaware.roadready.repository.CarRepository;
 import com.hexaware.roadready.repository.CustomerIdentityRepository;
@@ -106,11 +105,25 @@ public class AgentServiceImpl implements IAgentService{
 	
 
 	@Override
-	public Cars updateCarAvailability(String carStatus ,int carId)  throws CarNotFoundException
- {
+	public CarDTO updateCarAvailability(String carStatus ,int carId)  throws CarNotFoundException
+	{      
+
 		carRepo.updateCarAvailability(carStatus, carId);
+	     
 		logger.info(carId+" for this car Id , status has been Updated ");
-		return carRepo.findById(carId).orElse(null);
+		
+		Cars car= carRepo.findById(carId).orElse(null);
+		CarDTO cardto=new CarDTO();
+		cardto.setCarId(car.getCarId());
+		cardto.setMake(car.getMake());
+		cardto.setModel(car.getModel());
+		cardto.setCarStatus(car.getCarStatus());
+		cardto.setSpecifications(car.getSpecification());
+		cardto.setLocation(car.getLocation());
+		cardto.setPassengerCapacity(car.getPassengerCapacity());
+		cardto.setDailyRate(car.getDailyRate());
+		return cardto;
+		 
 		
 	}
 

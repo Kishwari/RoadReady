@@ -1,7 +1,6 @@
 package com.hexaware.roadready.restcontroller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,18 +19,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.roadready.dto.AgentDTO;
-import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
-import com.hexaware.roadready.entities.CustomerIdentity;
 import com.hexaware.roadready.exceptions.AgentNotFoundException;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.exceptions.CustomerIdentityNotFoundException;
-import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.service.IAgentService;
 
 import jakarta.validation.Valid;
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/roadready/agents")
 public class AgentRestController {
@@ -57,9 +56,9 @@ public class AgentRestController {
 	 }
 	
 	 @PutMapping("/updateCarAvailability/{carStatus}/{carId}")
-	 @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
-    public Cars updateCarAvailability(@PathVariable String carStatus , @PathVariable int carId) {
-		 Cars car=new Cars();
+	 //@PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
+    public CarDTO updateCarAvailability(@PathVariable String carStatus , @PathVariable int carId) {
+		 CarDTO car=new CarDTO();
 		try {
 			car = agentService.updateCarAvailability(carStatus, carId);
 		} catch (CarNotFoundException e) {

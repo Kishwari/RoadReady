@@ -1,21 +1,29 @@
 package com.hexaware.roadready.restcontroller;
 
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.AuthRequest;
 import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.entities.Admin;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Customers;
+import com.hexaware.roadready.repository.AdminRepository;
+import com.hexaware.roadready.repository.AgentRepository;
+import com.hexaware.roadready.repository.CustomerRepository;
 import com.hexaware.roadready.service.AgentServiceImpl;
 import com.hexaware.roadready.service.CustomerServiceImpl;
 import com.hexaware.roadready.service.JwtService;
@@ -24,18 +32,25 @@ import com.hexaware.roadready.service.JwtService;
 import jakarta.validation.Valid;
 
 
-
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/roadready/user")
 public class UserRestController {
 
-	
+	Logger logger=LoggerFactory.getLogger(AgentRestController.class);
 	
 	     @Autowired
 	     CustomerServiceImpl customerService;
 	     
 	     @Autowired
 	     AgentServiceImpl agentService;
+	     
+	     @Autowired
+	     CustomerRepository customerRepo;
+	     @Autowired
+	     AdminRepository adminRepo;
+	     @Autowired
+	     AgentRepository agentRepo;
 		
 		@Autowired
 		AuthenticationManager authenticationManager;
@@ -64,15 +79,38 @@ public class UserRestController {
      String token = null;
   
      if(authentication.isAuthenticated()) {
-        token =   jwtService.generateToken(authRequest.getUsername());
-     }
-     else {
-	  throw  new UsernameNotFoundException(" invalid  request ");
-     }
+    	 Optional<Customers> customer = customerRepo.findByUsername(authRequest.getUsername());
+    	 Optional<Admin> admin = adminRepo.findByUsername(authRequest.getUsername());
+    	 Optional<Agent> agent = agentRepo.findByUsername(authRequest.getUsername());
+    	 
+    	 if (customer.isPresent()) {
+    		    String role = customer.get().getRole();
+    		    token = jwtService.generateToken(authRequest.getUsername(), role);
+    		    logger.info("Token: " + token);
+    		} else if (admin.isPresent()) {
+    		    String role = admin.get().getRole();
+    		    token = jwtService.generateToken(authRequest.getUsername(), role);
+    		    logger.info("Token: " + token);
+    		} else if (agent.isPresent()) {
+    		    String role = agent.get().getRole();
+    		    token = jwtService.generateToken(authRequest.getUsername(), role);
+    		    logger.info("Token: " + token);
+    		} else {
+    		    logger.error("User not found in the database");
+    		}
 	  
-	return token; 
+	
+     
+     }else {
+			
+			logger.info("invalid");
+			
+			 throw new UsernameNotFoundException("UserName or Password in Invalid / Invalid Request");
+     
      
      }
+     return token; 
+}
      
      
 }

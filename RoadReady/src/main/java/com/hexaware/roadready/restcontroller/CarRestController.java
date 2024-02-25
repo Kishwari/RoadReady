@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import com.hexaware.roadready.service.ICarService;
 
 import jakarta.validation.Valid;
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/roadready/cars")
 public class CarRestController {
@@ -87,13 +89,13 @@ public class CarRestController {
     
     
     @GetMapping("/getAvailableCars")
-    @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_CUSTOMER','ROLE_Admin')")
  	public List<CarDTO> getAvailableCars(){
  		return carService.getAvailableCars();
  	}
     
     @GetMapping("/searchCars/{location}/{make}/{model}")
-    @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_CUSTOMER','ROLE_ADMIN')")
     public List<Cars> searchCars(@PathVariable String location , @PathVariable String make,@PathVariable String model){
  	   List<Cars> cars=null;
 	try {
@@ -103,6 +105,29 @@ public class CarRestController {
 		e.printStackTrace();
 	}
         return cars;
+    }
+    
+    @GetMapping("/getCarByLocation/{location}")
+    @PreAuthorize("hasAnyAuthority('ROLE_CUSTOMER','ROLE_ADMIN')")
+    public List<CarDTO> getCarByLocation(@PathVariable String location){
+    	return carService.getCarByLocation(location);
+    }
+    @GetMapping("/getCarByPassengerCapacity/{passengers}")
+    @PreAuthorize("hasAnyAuthority('ROLE_CUSTOMER','ROLE_ADMIN')")
+    public List<CarDTO> getCarByPassengerCapacity(@PathVariable int passengers){
+    	return carService.getCarByPassengerCapacity(passengers);
+    }
+    
+    @GetMapping("/getCarByMake/{make}")
+    @PreAuthorize("hasAnyAuthority('ROLE_CUSTOMER','ROLE_ADMIN')")
+    public List<CarDTO> getCarByMake(@PathVariable String make){
+    	return carService.getCarByMake(make);
+    }
+    
+    @GetMapping("/getCarBySpecification/{specification}")
+    @PreAuthorize("hasAnyAuthority('ROLE_CUSTOMER','ROLE_ADMIN')")
+    public List<CarDTO> getCarBySpecification(@PathVariable String specification){
+    	return carService.getCarByMake(specification);
     }
     
     

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +26,7 @@ import jakarta.transaction.Transactional;
 
 
 
-
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/roadready/customerIdentity")
 public class CustomerIdentityRestController {
@@ -62,7 +63,7 @@ public class CustomerIdentityRestController {
     
     
     @GetMapping(value = "/getCustomerIdentity/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN','ROLE_AGENT')")
     public ResponseEntity<byte[]> getPdf(@PathVariable Long id) {
         Optional<CustomerIdentity> optionalPdf = customerIdentityRepo.findById(id);
         if (optionalPdf.isPresent()) {

@@ -3,11 +3,12 @@ package com.hexaware.roadready.dto;
 public class AuthRequest {
     private String username;
     private String password;
+    private String authorities;
 	public AuthRequest() {
 		super();
 
 	}
-	public AuthRequest(String username, String password) {
+	public AuthRequest(String username, String password ) {
 		super();
 		this.username = username;
 		this.password = password;

@@ -19,15 +19,17 @@ import io.jsonwebtoken.security.Keys;
 public class JwtService {
     public static final String SECRET ="5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
 	
-    public String generateToken(String username) {
-    	Map<String , Object> claims = new HashMap<>();
-    	return createToken(claims, username);
+   
+    public String generateToken(String username, String role) {
+        Map<String, Object> claims = new HashMap<>();
+        
+        return createToken(claims, username , role);
     }
-    
-    public String createToken(Map<String , Object> claims , String username) { 
+
+    public String createToken(Map<String , Object> claims , String username ,  String role) { 
 		//add jwt dependencies (3)
 		return Jwts.builder().setClaims(claims)
-				             .setSubject(username)
+				             .setSubject(username).claim("role", role)
 				             .setIssuedAt(new Date(System.currentTimeMillis()))
 				             .setExpiration(new Date(System.currentTimeMillis()+1000*60*60))  //60 mins
 	                         .signWith(getSignKey(), SignatureAlgorithm.HS256)           

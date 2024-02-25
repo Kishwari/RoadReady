@@ -182,4 +182,86 @@ public class CarServiceImpl implements ICarService {
 		return car;
 
 	}
+
+	@Override
+	public List<CarDTO> getCarByLocation(String location) {
+		List<Cars> carList=  carRepo.findByLocation(location);
+		List<CarDTO> carDTOList = new ArrayList<>();
+		for (Cars car : carList) {
+			CarDTO cardto = new CarDTO();
+			cardto.setCarId(car.getCarId());
+			cardto.setMake(car.getMake());
+			cardto.setModel(car.getModel());
+			cardto.setCarStatus(car.getCarStatus());
+			cardto.setSpecifications(car.getSpecification());
+			cardto.setLocation(car.getLocation());
+			cardto.setPassengerCapacity(car.getPassengerCapacity());
+			cardto.setDailyRate(car.getDailyRate());
+
+			carDTOList.add(cardto);
+	}
+		return carDTOList;
+		
+	}
+
+	@Override
+	public List<CarDTO> getCarByPassengerCapacity(int passengers) {
+		
+		List<Cars> carList=  carRepo.findByPassengerCapacity(passengers);
+		List<CarDTO> carDTOList = new ArrayList<>();
+		for (Cars car : carList) {
+			CarDTO cardto = new CarDTO();
+			cardto.setCarId(car.getCarId());
+			cardto.setMake(car.getMake());
+			cardto.setModel(car.getModel());
+			cardto.setCarStatus(car.getCarStatus());
+			cardto.setSpecifications(car.getSpecification());
+			cardto.setLocation(car.getLocation());
+			cardto.setPassengerCapacity(car.getPassengerCapacity());
+			cardto.setDailyRate(car.getDailyRate());
+
+			carDTOList.add(cardto);
+	}
+		return carDTOList;
+	}
+
+	@Override
+	public List<CarDTO> getCarByMake(String make) {
+		List<Cars> carList=  carRepo.findByMake(make);
+		List<CarDTO> carDTOList = new ArrayList<>();
+		for (Cars car : carList) {
+			CarDTO cardto = new CarDTO();
+			cardto.setCarId(car.getCarId());
+			cardto.setMake(car.getMake());
+			cardto.setModel(car.getModel());
+			cardto.setCarStatus(car.getCarStatus());
+			cardto.setSpecifications(car.getSpecification());
+			cardto.setLocation(car.getLocation());
+			cardto.setPassengerCapacity(car.getPassengerCapacity());
+			cardto.setDailyRate(car.getDailyRate());
+
+			carDTOList.add(cardto);
+	}
+		return carDTOList;
+	}
+
+	@Override
+	public List<CarDTO> getCarBySpecification(String specification) {
+		List<Cars> carList=  carRepo.findBySpecification(specification);
+		List<CarDTO> carDTOList = new ArrayList<>();
+		for (Cars car : carList) {
+			CarDTO cardto = new CarDTO();
+			cardto.setCarId(car.getCarId());
+			cardto.setMake(car.getMake());
+			cardto.setModel(car.getModel());
+			cardto.setCarStatus(car.getCarStatus());
+			cardto.setSpecifications(car.getSpecification());
+			cardto.setLocation(car.getLocation());
+			cardto.setPassengerCapacity(car.getPassengerCapacity());
+			cardto.setDailyRate(car.getDailyRate());
+
+			carDTOList.add(cardto);
+	}
+		return carDTOList;
+	}
 }

@@ -27,5 +27,13 @@ public interface ICarService {
 	    
 	    public Cars updateCarPrice(int carId , double newPrice) throws CarNotFoundException;
 	    
+	    public List<CarDTO> getCarByLocation(String location);
+	    
+	    public List<CarDTO> getCarByPassengerCapacity(int passengers);
+	    
+	    public List<CarDTO> getCarByMake(String make);
+	    
+	    public List<CarDTO> getCarBySpecification(String specification);
+	    
 	   
 }

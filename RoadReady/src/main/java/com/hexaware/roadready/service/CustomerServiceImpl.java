@@ -106,7 +106,7 @@ public class CustomerServiceImpl implements ICustomerService {
 		customer.setLastName(customerdto.getLastName());
 		customer.setEmailAddress(customerdto.getEmailAddress());
 		customer.setUsername(customerdto.getUsername());
-		customer.setPassword(customerdto.getPassword());
+		customer.setPassword(passwordEncoder.encode(customerdto.getPassword()));
 		customer.setPhoneNumber(customerdto.getPhoneNumber());
 
     	logger.info("Updated an existing customer");

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.hexaware.roadready.dto.AgentDTO;
+import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.dto.CustomerDTO;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
@@ -36,7 +37,7 @@ public interface IAgentService {
 	 
 	 public String completeCheckOut(int reservationId , String carStatus);
 	        
-     public Cars updateCarAvailability(String carStatus ,int carId) throws CarNotFoundException;
+     public CarDTO updateCarAvailability(String carStatus ,int carId) throws CarNotFoundException;
 	 
      public ResponseEntity<byte[]> verifyIdentity(int customerId) throws CustomerIdentityNotFoundException;
      
