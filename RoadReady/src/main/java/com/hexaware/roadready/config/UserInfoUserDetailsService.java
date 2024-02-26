@@ -32,23 +32,42 @@ public class UserInfoUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
        
     	
-    	Optional<Customers> customer = customerRepository.findByUsername(username);
+    	/*Optional<Customers> customer = customerRepository.findByUsername(username);
     	if (customer.isPresent()) {
         return customer.map(UserInfoUserDetails::new).orElse(null);
             
-    	}
+    	}*/
+    	
+    	  Optional<Customers> customer = customerRepository.findByUsername(username);
+          if (customer.isPresent()) {
+          	 String role = customer.get().getRole();
+              return new UserInfoUserDetails(customer.get(), role);
+          }
 
-    	Optional<Admin> admin = adminRepository.findByUsername(username);
+
+    	/*Optional<Admin> admin = adminRepository.findByUsername(username);
     	if (admin.isPresent()) {
         return admin.map(UserInfoUserDetails::new).orElse(null);
                
-    	}
+    	}*/
     	
-    	Optional<Agent> agent = agentRepository.findByUsername(username);
+    	 Optional<Admin> admin = adminRepository.findByUsername(username);
+         if (admin.isPresent()) {
+         	 String role = admin.get().getRole();
+             return new UserInfoUserDetails(admin.get(), role);
+         }
+         
+    	/*Optional<Agent> agent = agentRepository.findByUsername(username);
     	if (agent.isPresent()) {
         return agent.map(UserInfoUserDetails::new).orElse(null);
                
-    	}
+    	}*/
+         
+         Optional<Agent> agent = agentRepository.findByUsername(username);
+         if (agent.isPresent()) {
+         	 String role = agent.get().getRole();
+             return new UserInfoUserDetails(agent.get(), role);
+         }
     	
     	throw new UsernameNotFoundException("user not found " + username );
     	

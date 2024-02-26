@@ -22,14 +22,14 @@ public class JwtService {
    
     public String generateToken(String username, String role) {
         Map<String, Object> claims = new HashMap<>();
-        
         return createToken(claims, username , role);
     }
 
     public String createToken(Map<String , Object> claims , String username ,  String role) { 
 		//add jwt dependencies (3)
 		return Jwts.builder().setClaims(claims)
-				             .setSubject(username).claim("role", role)
+				             .setSubject(username)
+				             .claim("role", role) 
 				             .setIssuedAt(new Date(System.currentTimeMillis()))
 				             .setExpiration(new Date(System.currentTimeMillis()+1000*60*60))  //60 mins
 	                         .signWith(getSignKey(), SignatureAlgorithm.HS256)           

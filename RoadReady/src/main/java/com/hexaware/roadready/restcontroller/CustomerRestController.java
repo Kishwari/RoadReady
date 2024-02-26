@@ -45,7 +45,7 @@ public class CustomerRestController {
 	}
 	
 	@GetMapping("/getCustomerById/{customerId}")
-	//@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public CustomerDTO	getCustomerById(@PathVariable int customerId){
 		CustomerDTO customer=new CustomerDTO();
 		try {

@@ -21,6 +21,7 @@ public class UserInfoUserDetails implements UserDetails {
 
     private String name;
     private String password;
+    private String role;
     private List<GrantedAuthority> authorities;
 
    /* public UserInfoUserDetails(UserInfo userInfo) {
@@ -32,28 +33,31 @@ public class UserInfoUserDetails implements UserDetails {
     }*/
     
     
-    public UserInfoUserDetails(Customers customer) {
+    public UserInfoUserDetails(Customers customer , String role) {
         this.name = customer.getUsername();
         this.password = customer.getPassword();
         this.authorities = Arrays.stream(customer.getRole().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+        this.role=role;
     }
 
-    public UserInfoUserDetails(Agent agent) {
+    public UserInfoUserDetails(Agent agent , String role) {
         this.name = agent.getUsername();
         this.password = agent.getPassword();
         this.authorities = Arrays.stream(agent.getRole().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+        this.role=role;
     }
 
-    public UserInfoUserDetails(Admin admin) {
+    public UserInfoUserDetails(Admin admin , String role) {
         this.name = admin.getUsername();
         this.password = admin.getPassword();
         this.authorities = Arrays.stream(admin.getRole().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+        this.role=role;
     }
     
     
@@ -92,6 +96,11 @@ public class UserInfoUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+    
+    public String getRole() {
+        return role;
+    }
+
 
 	
 }
