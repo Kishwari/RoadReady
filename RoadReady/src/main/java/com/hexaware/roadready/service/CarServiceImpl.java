@@ -264,4 +264,10 @@ public class CarServiceImpl implements ICarService {
 	}
 		return carDTOList;
 	}
+
+	@Override
+	public Long countCars() {
+		
+		return carRepo.count();
+	}
 }

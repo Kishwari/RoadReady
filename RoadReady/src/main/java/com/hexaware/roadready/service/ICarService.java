@@ -35,5 +35,7 @@ public interface ICarService {
 	    
 	    public List<CarDTO> getCarBySpecification(String specification);
 	    
+	    public Long countCars();
+	    
 	   
 }

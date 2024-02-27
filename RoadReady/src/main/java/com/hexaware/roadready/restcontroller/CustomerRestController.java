@@ -83,7 +83,11 @@ public class CustomerRestController {
 		return checkCustomer;
 	}
 	
-	
+	@GetMapping("/countCustomers")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	public Long countCustomers() {
+		return customerService.countCustomers();
+	}
   
   
    

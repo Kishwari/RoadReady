@@ -118,6 +118,11 @@ public class CustomerServiceImpl implements ICustomerService {
 		throw new CustomerNotFoundException("customer not found");
 
 	}
+	
+	@Override
+	 public Long countCustomers() {
+	        return customerRepo.count();
+	    }
 
 	
 	

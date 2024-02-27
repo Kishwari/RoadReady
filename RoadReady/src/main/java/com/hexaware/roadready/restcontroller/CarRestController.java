@@ -131,4 +131,11 @@ public class CarRestController {
     }
     
     
+    @GetMapping("/countCars")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	public Long countCars() {
+		return carService.countCars();
+	}
+  
+    
 }

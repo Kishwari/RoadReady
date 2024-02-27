@@ -23,7 +23,7 @@ public interface ICustomerService {
 	public Customers updateCustomer(CustomerDTO customerdto) throws  CustomerNotFoundException ;
 	
 	
-	
+	public Long countCustomers();
  
     
 }
