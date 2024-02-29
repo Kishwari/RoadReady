@@ -51,6 +51,14 @@ public class AdminRestController {
     	return adminService.totalRevenueReport();
     }
     
+    @GetMapping("/totalRevenue")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public Double totalRevenue() {
+    	logger.info("Now generating total revenue");
+    	return adminService.totalRevenue();
+    }
+    
+    
     @PostMapping("/registerAdmin")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Admin addAdmin(@Valid @RequestBody AdminDTO admindto) {

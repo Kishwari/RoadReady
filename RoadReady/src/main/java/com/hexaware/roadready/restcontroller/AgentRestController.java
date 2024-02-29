@@ -101,11 +101,19 @@ public class AgentRestController {
 	    	return agentService.deleteAgent(agentId);
 	    }
 	    
-	    @PutMapping("/updateAgentById/{agentId}")
+	   /* @PutMapping("/updateAgentById/{agentId}")
 	    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	    public Agent updateAgent(@PathVariable int agentId ,@Valid @RequestBody AgentDTO agent) {
 	    	return agentService.updateAgent(agentId, agent);
+	    }*/
+	    
+	    @PutMapping("/updateAgentById")
+	    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	    public Agent updateAgent(@Valid @RequestBody AgentDTO agent) {
+	    	return agentService.updateAgent( agent);
 	    }
+	    
+	    
   
 	    @GetMapping(value = "/verifyCustomerIdentity/{customerId}", produces = MediaType.APPLICATION_PDF_VALUE)
 	    @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")

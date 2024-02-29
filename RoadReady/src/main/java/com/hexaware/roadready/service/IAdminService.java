@@ -21,6 +21,7 @@ public interface IAdminService {
     
     public String totalRevenueReport();
     
+    public double totalRevenue();
     
   
     

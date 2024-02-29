@@ -230,12 +230,13 @@ public class AgentServiceImpl implements IAgentService{
 	}
 
 	@Override
-	public Agent updateAgent(int agentId , AgentDTO agentdto) {
+	public Agent updateAgent( AgentDTO agentdto) {
+		int agentId=agentdto.getAgentId();
 		Agent agent = agentRepo.findById(agentId).orElse(null);
 		if(agent!=null) {
-		agent.setAgentId(agentdto.getAgentId());
+		//agent.setAgentId(agentdto.getAgentId());
 		agent.setUsername(agentdto.getUsername());
-		agent.setPassword(agentdto.getPassword());
+		agent.setPassword(passwordEncoder.encode(agentdto.getPassword()));
 		agent.setRole("ROLE_AGENT");
 		agentRepo.save(agent);
 		}

@@ -62,6 +62,11 @@ public class AdminServiceImpl implements IAdminService {
 		return adminRepo.save(admin);
 		
 	}
+
+	@Override
+	public double totalRevenue() {
+		return paymentRepo.findTotalRevenue();
+	}
 	
 	
 	

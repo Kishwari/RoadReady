@@ -28,7 +28,7 @@ public interface IAgentService {
     	
     public String deleteAgent(int agentId);
     
-    public Agent updateAgent(int agentId , AgentDTO agent);
+    public Agent updateAgent(AgentDTO agent);
     
      
      

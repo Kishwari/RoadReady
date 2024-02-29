@@ -196,10 +196,10 @@ public class PaymentServiceImpl implements IPaymentService {
 		else{
 			throw new InvalidPaymentException("Please enter " + amountToBePaid + " rupees");
 		}
-		validPaymentdto.setPaymentId(validPayment.getPaymentId());
+		//validPaymentdto.setPaymentId(validPayment.getPaymentId());
 		validPaymentdto.setAmountPaid(validPayment.getAmountPaid());
 		validPaymentdto.setModeOfPayment(validPayment.getModeOfPayment());
-		validPaymentdto.setResevationId(validReservation.getResevationId());
+		//validPaymentdto.setResevationId(validReservation.getResevationId());
 		validPaymentdto.setDateOfPickup(validReservation.getDateOfPickup());
 		validPaymentdto.setDateOfDropOff(validReservation.getDateOfDropoff());
 		validPaymentdto.setCustomerId(paymentAndReservationDTO.getCustomerId());
