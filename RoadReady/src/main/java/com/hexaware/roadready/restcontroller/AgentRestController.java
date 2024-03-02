@@ -56,7 +56,7 @@ public class AgentRestController {
 	 }
 	
 	 @PutMapping("/updateCarAvailability/{carStatus}/{carId}")
-	 //@PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
+	 @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
     public CarDTO updateCarAvailability(@PathVariable String carStatus , @PathVariable int carId) {
 		 CarDTO car=new CarDTO();
 		try {

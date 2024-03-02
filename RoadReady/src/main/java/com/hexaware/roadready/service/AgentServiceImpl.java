@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.CarDTO;
+import com.hexaware.roadready.entities.Admin;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.CustomerIdentity;
@@ -242,4 +243,22 @@ public class AgentServiceImpl implements IAgentService{
 		}
 		return agent;
 	}
+	
+	
+	
+	
+	
+	@Override
+    public boolean checkIfAgentExists(String username) {
+        return agentRepo.existsByUsername(username);
+    }
+
+    @Override
+    public String updateAgentPassword(String username, String newPassword) {
+        Agent agent = agentRepo.findByUsername(username).orElse(null);
+        agent.setPassword(newPassword);
+        agentRepo.save(agent);
+        return "Agent password updated successfully";
+    }
+    
 }

@@ -2,6 +2,7 @@ package com.hexaware.roadready.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -125,7 +126,18 @@ public class CustomerServiceImpl implements ICustomerService {
 	    }
 
 	
-	
+	@Override
+    public boolean checkIfCustomerExists(String username) {
+        return customerRepo.existsByUsername(username);
+    }
+
+    @Override
+    public String updateCustomerPassword(String username, String newPassword) {
+        Customers customer = customerRepo.findByUsername(username).orElse(null);
+        customer.setPassword(newPassword);
+        customerRepo.save(customer);
+        return "Customer password updated successfully";
+    }
 	
 	
 }

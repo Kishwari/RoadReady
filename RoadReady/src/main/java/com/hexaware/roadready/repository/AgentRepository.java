@@ -12,4 +12,7 @@ import com.hexaware.roadready.entities.Agent;
 public interface AgentRepository extends JpaRepository<Agent,Integer>{
 
 	Optional<Agent> findByUsername(String username);
+	
+
+	boolean existsByUsername(String username);
 }
