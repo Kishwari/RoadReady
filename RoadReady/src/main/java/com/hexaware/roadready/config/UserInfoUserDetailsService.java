@@ -41,7 +41,8 @@ public class UserInfoUserDetailsService implements UserDetailsService {
     	  Optional<Customers> customer = customerRepository.findByUsername(username);
           if (customer.isPresent()) {
           	 String role = customer.get().getRole();
-              return new UserInfoUserDetails(customer.get(), role);
+          	 int Id=customer.get().getCustomerId(); 
+              return new UserInfoUserDetails(customer.get(), role , Id);
           }
 
 
@@ -54,7 +55,8 @@ public class UserInfoUserDetailsService implements UserDetailsService {
     	 Optional<Admin> admin = adminRepository.findByUsername(username);
          if (admin.isPresent()) {
          	 String role = admin.get().getRole();
-             return new UserInfoUserDetails(admin.get(), role);
+         	int Id=admin.get().getAdminId(); 
+             return new UserInfoUserDetails(admin.get(), role , Id);
          }
          
     	/*Optional<Agent> agent = agentRepository.findByUsername(username);
@@ -66,7 +68,8 @@ public class UserInfoUserDetailsService implements UserDetailsService {
          Optional<Agent> agent = agentRepository.findByUsername(username);
          if (agent.isPresent()) {
          	 String role = agent.get().getRole();
-             return new UserInfoUserDetails(agent.get(), role);
+         	 int Id=agent.get().getAgentId(); 
+             return new UserInfoUserDetails(agent.get(), role , Id);
          }
     	
     	throw new UsernameNotFoundException("user not found " + username );

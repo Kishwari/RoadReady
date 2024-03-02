@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.roadready.dto.ReservationDTO;
+import com.hexaware.roadready.dto.ReservationListDTO;
 import com.hexaware.roadready.exceptions.ReservationNotFoundException;
 import com.hexaware.roadready.service.IReservationService;
 
@@ -58,8 +59,8 @@ public class ReservationRestController {
 	 
 	 @GetMapping("/viewReservationHistory/{customerId}")
 	 @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
-	   public List<ReservationDTO> viewReservations(@PathVariable int customerId) throws ReservationNotFoundException{
-		   List<ReservationDTO> reservations =reservationService.viewReservations(customerId);
+	   public List<ReservationListDTO> viewReservations(@PathVariable int customerId) throws ReservationNotFoundException{
+		   List<ReservationListDTO> reservations =reservationService.viewReservations(customerId);
 		   if(reservations==null) {
 			   throw new ReservationNotFoundException("reservation for customer " + customerId + " doesnt exist");
 		   }
@@ -68,7 +69,7 @@ public class ReservationRestController {
 	 
 	    @GetMapping("/getAllReservations")
 	    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	    public List <ReservationDTO> viewAllReservations(){
+	    public List <ReservationListDTO> viewAllReservations(){
 	    	logger.info("Listing all the reservations");
 	    	return reservationService.viewAllReservations();
 	    }

@@ -51,10 +51,11 @@ public class JwtAuthFilter extends OncePerRequestFilter{
 				
 				
                 String userRole = jwtService.extractClaim(token, claims -> claims.get("role", String.class));
-                
+                int Id = jwtService.extractClaim(token, claims -> claims.get("Id", Integer.class));
+
                 
                 response.setHeader("user-role", userRole);
-               
+                response.setHeader("user-id", String.valueOf(Id));
 				}
 		     }
 				 filterChain.doFilter(request, response);

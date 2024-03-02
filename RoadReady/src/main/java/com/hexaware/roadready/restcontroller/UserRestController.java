@@ -1,5 +1,6 @@
 package com.hexaware.roadready.restcontroller;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -79,21 +80,31 @@ public class UserRestController {
      String token = null;
   
      if(authentication.isAuthenticated()) {
+    	 /*Optional<Customers> customer = customerRepo.findByUsername(authRequest.getUsername());
+    	 Optional<Admin> admin = adminRepo.findByUsername(authRequest.getUsername());
+    	 Optional<Agent> agent = agentRepo.findByUsername(authRequest.getUsername());*/
+    	 
     	 Optional<Customers> customer = customerRepo.findByUsername(authRequest.getUsername());
     	 Optional<Admin> admin = adminRepo.findByUsername(authRequest.getUsername());
     	 Optional<Agent> agent = agentRepo.findByUsername(authRequest.getUsername());
     	 
+    	 
+    	 
+    	 
     	 if (customer.isPresent()) {
     		    String role = customer.get().getRole();
-    		    token = jwtService.generateToken(authRequest.getUsername(), role);
+    		    int customerId=customer.get().getCustomerId();
+    		    token = jwtService.generateToken(authRequest.getUsername(), role , customerId);
     		    logger.info("Token: " + token);
     		} else if (admin.isPresent()) {
     		    String role = admin.get().getRole();
-    		    token = jwtService.generateToken(authRequest.getUsername(), role);
+    		    int adminId=admin.get().getAdminId();
+    		    token = jwtService.generateToken(authRequest.getUsername(), role , adminId);
     		    logger.info("Token: " + token);
     		} else if (agent.isPresent()) {
     		    String role = agent.get().getRole();
-    		    token = jwtService.generateToken(authRequest.getUsername(), role);
+    		    int agentId=agent.get().getAgentId();
+    		    token = jwtService.generateToken(authRequest.getUsername(), role , agentId);
     		    logger.info("Token: " + token);
     		} else {
     		    logger.error("User not found in the database");
@@ -112,5 +123,6 @@ public class UserRestController {
      return token; 
 }
      
+ 
      
 }

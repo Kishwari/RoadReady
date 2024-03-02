@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.hexaware.roadready.dto.ReservationDTO;
-import com.hexaware.roadready.entities.Reservations;
+import com.hexaware.roadready.dto.ReservationListDTO;
 import com.hexaware.roadready.exceptions.ReservationNotFoundException;
 
 public interface IReservationService {
@@ -15,9 +15,11 @@ public interface IReservationService {
     
     ReservationDTO modifyReservation(int reservationId ,LocalDate dateOfPickup , LocalDate dateOfDropoff) throws ReservationNotFoundException;
     
-    List<ReservationDTO> viewReservations(int customerId);
+    List<ReservationListDTO> viewReservations(int customerId);
     
-    public List <ReservationDTO> viewAllReservations();
+    public List <ReservationListDTO> viewAllReservations();
     
+    
+    //by admin 
     public List<ReservationDTO> getReservationDetailsForCustomer(int customerId);
 }

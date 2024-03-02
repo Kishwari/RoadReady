@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.ReservationDTO;
+import com.hexaware.roadready.dto.ReservationListDTO;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.exceptions.ReservationNotFoundException;
@@ -33,16 +34,19 @@ public class ReservationServiceImpl implements IReservationService{
 	CarRepository carRepo;
 	
 	@Override
-	public List<ReservationDTO> viewAllReservations() {
+	public List<ReservationListDTO> viewAllReservations() {
 		 List<Reservations> reservationList = reservationRepo.findAll();
-		    List<ReservationDTO> reservationDTOList = new ArrayList<>();
+		    List<ReservationListDTO> reservationDTOList = new ArrayList<>();
 		    for (Reservations reservation : reservationList) {
-		        ReservationDTO reservationDTO = new ReservationDTO();
+		    	ReservationListDTO reservationDTO = new ReservationListDTO();
 		        reservationDTO.setReservationId(reservation.getResevationId());
 		        reservationDTO.setReservationStatus(reservation.getReservationstatus());
 		        reservationDTO.setDateOfReservation(reservation.getDateOfReservation());
 		        reservationDTO.setDateOfPickup(reservation.getDateOfPickup());
 		        reservationDTO.setDateOfDropoff(reservation.getDateOfDropoff());
+		        reservationDTO.setCustomerId(reservation.getCustomer().getCustomerId());
+		        reservationDTO.setCarId(reservation.getCar().getCarId());
+		        reservationDTO.setPaymentId(reservation.getPayment().getPaymentId());
 
 		        reservationDTOList.add(reservationDTO);
 		    }
@@ -124,16 +128,20 @@ public class ReservationServiceImpl implements IReservationService{
 	
 
 	@Override
-	public List<ReservationDTO> viewReservations(int customerId) {
+	public List<ReservationListDTO> viewReservations(int customerId) {
 		List<Reservations> reservationsList = reservationRepo.viewReservationHistory(customerId);
-		List<ReservationDTO> reservationDTOList = new ArrayList<>();
+		List<ReservationListDTO> reservationDTOList = new ArrayList<>();
 		for(Reservations reservation : reservationsList) {
-			ReservationDTO reservationdto = new ReservationDTO();
+			ReservationListDTO reservationdto = new ReservationListDTO();
 			reservationdto.setReservationId(reservation.getResevationId());
 			reservationdto.setReservationStatus(reservation.getReservationstatus());
 			reservationdto.setDateOfReservation(reservation.getDateOfReservation());
 			reservationdto.setDateOfPickup(reservation.getDateOfPickup());
 			reservationdto.setDateOfDropoff(reservation.getDateOfDropoff());
+			reservationdto.setCustomerId(reservation.getCustomer().getCustomerId());
+			reservationdto.setCarId(reservation.getCar().getCarId());
+			reservationdto.setPaymentId(reservation.getPayment().getPaymentId());
+
 			
 			reservationDTOList.add(reservationdto);
 		}

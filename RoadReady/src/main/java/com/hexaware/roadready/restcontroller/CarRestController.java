@@ -73,10 +73,10 @@ public class CarRestController {
 	}
      	
     
-    @PutMapping("/discountOnCarByMake/{make}/{discountPrice}")
+    @PutMapping("/discountOnCarByMake/{make}/{discountPercentage}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public List<CarDTO> discountOnCarPrice(@PathVariable String make ,@PathVariable double discountPrice) throws CarNotFoundException {
-    	return   carService.discountOnCarPriceByMake(make, discountPrice);
+    public List<CarDTO> discountOnCarPrice(@PathVariable String make ,@PathVariable double discountPercentage) throws CarNotFoundException {
+    	return   carService.discountOnCarPriceByMake(make, discountPercentage);
     
     }
     

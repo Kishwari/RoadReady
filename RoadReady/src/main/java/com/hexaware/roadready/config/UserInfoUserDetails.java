@@ -22,6 +22,7 @@ public class UserInfoUserDetails implements UserDetails {
     private String name;
     private String password;
     private String role;
+    private int Id;
     private List<GrantedAuthority> authorities;
 
    /* public UserInfoUserDetails(UserInfo userInfo) {
@@ -33,31 +34,34 @@ public class UserInfoUserDetails implements UserDetails {
     }*/
     
     
-    public UserInfoUserDetails(Customers customer , String role) {
+    public UserInfoUserDetails(Customers customer , String role , int Id) {
         this.name = customer.getUsername();
         this.password = customer.getPassword();
         this.authorities = Arrays.stream(customer.getRole().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         this.role=role;
+        this.Id=Id;
     }
 
-    public UserInfoUserDetails(Agent agent , String role) {
+    public UserInfoUserDetails(Agent agent , String role , int Id) {
         this.name = agent.getUsername();
         this.password = agent.getPassword();
         this.authorities = Arrays.stream(agent.getRole().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         this.role=role;
+        this.Id=Id;
     }
 
-    public UserInfoUserDetails(Admin admin , String role) {
+    public UserInfoUserDetails(Admin admin , String role,int Id) {
         this.name = admin.getUsername();
         this.password = admin.getPassword();
         this.authorities = Arrays.stream(admin.getRole().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         this.role=role;
+        this.Id=Id;
     }
     
     
@@ -101,6 +105,9 @@ public class UserInfoUserDetails implements UserDetails {
         return role;
     }
 
+    public int getId() {
+    	return Id;
+    }
 
 	
 }

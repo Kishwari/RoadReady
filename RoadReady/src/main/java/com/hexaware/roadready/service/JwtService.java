@@ -20,18 +20,19 @@ public class JwtService {
     public static final String SECRET ="5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
 	
    
-    public String generateToken(String username, String role) {
+    public String generateToken(String username, String role , int Id) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, username , role);
+        return createToken(claims, username , role , Id);
     }
 
-    public String createToken(Map<String , Object> claims , String username ,  String role) { 
+    public String createToken(Map<String , Object> claims , String username ,  String role ,int Id) { 
 		//add jwt dependencies (3)
 		return Jwts.builder().setClaims(claims)
 				             .setSubject(username)
-				             .claim("role", role) 
+				             .claim("role", role)
+				             .claim("Id", Id) // Add  ID claim
 				             .setIssuedAt(new Date(System.currentTimeMillis()))
-				             .setExpiration(new Date(System.currentTimeMillis()+1000*60*120))  //60 mins
+				             .setExpiration(new Date(System.currentTimeMillis()+1000*60*60*2))  //60 mins
 	                         .signWith(getSignKey(), SignatureAlgorithm.HS256)           
 	                         .compact();
 	}

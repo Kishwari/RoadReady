@@ -20,10 +20,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.hexaware.roadready.filter.JwtAuthFilter;
+
 
 @Configuration
 @EnableWebSecurity
@@ -55,6 +54,24 @@ public class SecurityConfig {
     	        .build();
 	
     }
+    
+    
+    /*@Bean
+    public  SecurityFilterChain   getSecurityFilterChain(HttpSecurity http) throws Exception {
+    	
+    		
+			return http.cors().and().csrf().disable()
+					.authorizeHttpRequests().requestMatchers("/roadready/user/*").permitAll().and()
+    			.authorizeHttpRequests().requestMatchers("/roadready/admin/**","/roadready/customers/**","/roadready/agents/**", "/roadready/cars/**" ,"/roadready/payments/**","/roadready/reservations/**","roadready/feedbacks/**","/roadready/customerIdentity/**")
+    			.authenticated().and() //.formLogin().and().build();
+    	        .sessionManagement()
+    	        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    	        .and()
+    	        .authenticationProvider(authenticationProvider())
+    	        .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+    	        .build();
+	
+    }*/
     
     @Bean
 	 public CorsFilter corsFilter() {

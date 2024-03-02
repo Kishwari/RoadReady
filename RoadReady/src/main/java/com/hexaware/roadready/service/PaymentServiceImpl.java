@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.PaymentAndReservationDTO;
 import com.hexaware.roadready.dto.PaymentDTO;
+import com.hexaware.roadready.dto.PaymentListDTO;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.CustomerIdentity;
 import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.entities.Payments;
 import com.hexaware.roadready.entities.Reservations;
-import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.exceptions.InvalidPaymentException;
 import com.hexaware.roadready.exceptions.PaymentNotFoundException;
 import com.hexaware.roadready.repository.CarRepository;
@@ -47,17 +47,17 @@ public class PaymentServiceImpl implements IPaymentService {
 	CustomerIdentityRepository customerIdentityRepo;
 	
 	
-	
 	@Override
-	public List<PaymentDTO> viewAllPayments() {
+	public List<PaymentListDTO> viewAllPayments() {
 		 List<Payments> paymentList = paymentRepo.findAll();
-		    List<PaymentDTO> paymentDTOList = new ArrayList<>();
+		    List<PaymentListDTO> paymentDTOList = new ArrayList<>();
 		    for (Payments payment : paymentList) {
-		        PaymentDTO paymentDTO = new PaymentDTO();
+		        PaymentListDTO paymentDTO = new PaymentListDTO();
 		        paymentDTO.setPaymentId(payment.getPaymentId());
 		        paymentDTO.setAmountPaid(payment.getAmountPaid());
 		        paymentDTO.setDateOfPayment(payment.getDateOfPayment());
 		        paymentDTO.setModeOfPayment(payment.getModeOfPayment());
+		        paymentDTO.setCustomerId(payment.getCustomer().getCustomerId());
 
 		        paymentDTOList.add(paymentDTO);
 		    }
@@ -65,20 +65,21 @@ public class PaymentServiceImpl implements IPaymentService {
 	}
 
 	@Override
-	public List<PaymentDTO> viewPaymentHistory(int customerId) throws  PaymentNotFoundException
+	public List<PaymentListDTO> viewPaymentHistory(int customerId) throws  PaymentNotFoundException
  {
 		List<Payments> paymentList = paymentRepo.viewPaymentHistory(customerId);
 		if(paymentList.isEmpty()) {
 			   throw new PaymentNotFoundException("Payment doesn't exist");
 
 		}
-	    List<PaymentDTO> paymentDTOList = new ArrayList<>();
+	    List<PaymentListDTO> paymentDTOList = new ArrayList<>();
 	    for (Payments payment : paymentList) {
-	        PaymentDTO paymentDTO = new PaymentDTO();
+	    	PaymentListDTO paymentDTO = new PaymentListDTO();
 	        paymentDTO.setPaymentId(payment.getPaymentId());
 	        paymentDTO.setAmountPaid(payment.getAmountPaid());
 	        paymentDTO.setDateOfPayment(payment.getDateOfPayment());
 	        paymentDTO.setModeOfPayment(payment.getModeOfPayment());
+	        paymentDTO.setCustomerId(payment.getCustomer().getCustomerId());
 
 	        paymentDTOList.add(paymentDTO);
 	    }

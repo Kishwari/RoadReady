@@ -1,6 +1,5 @@
 package com.hexaware.roadready.restcontroller;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.roadready.dto.PaymentAndReservationDTO;
 import com.hexaware.roadready.dto.PaymentDTO;
-import com.hexaware.roadready.exceptions.CarNotFoundException;
+import com.hexaware.roadready.dto.PaymentListDTO;
 import com.hexaware.roadready.exceptions.InvalidPaymentException;
 import com.hexaware.roadready.exceptions.PaymentNotFoundException;
 import com.hexaware.roadready.service.IPaymentService;
-
-import jakarta.validation.Valid;
 
 
 @CrossOrigin("http://localhost:4200")
@@ -54,15 +51,15 @@ public class PaymentRestController {
 	
 	 @GetMapping("/getAllPayments")
 	 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	    public List<PaymentDTO> viewAllPayments(){
+	    public List<PaymentListDTO> viewAllPayments(){
 	    	logger.info("Generating all payment details");
 	    	return paymentService.viewAllPayments();
 	    }
 	    
 	 @GetMapping("/viewPaymentHistory/{customerId}")
 	 @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
-	   public List<PaymentDTO> viewPaymentHistory(@PathVariable int customerId){
-		   List<PaymentDTO> payments=new ArrayList<PaymentDTO>();
+	   public List<PaymentListDTO> viewPaymentHistory(@PathVariable int customerId){
+		   List<PaymentListDTO> payments=new ArrayList<PaymentListDTO>();
 		try {
 			payments = paymentService.viewPaymentHistory(customerId);
 		} catch (PaymentNotFoundException e) {
