@@ -134,7 +134,7 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     public String updateCustomerPassword(String username, String newPassword) {
         Customers customer = customerRepo.findByUsername(username).orElse(null);
-        customer.setPassword(newPassword);
+        customer.setPassword(passwordEncoder.encode(newPassword));
         customerRepo.save(customer);
         return "Customer password updated successfully";
     }

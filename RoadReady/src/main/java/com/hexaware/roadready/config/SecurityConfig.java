@@ -43,7 +43,7 @@ public class SecurityConfig {
     	
     		
 			return http.cors().and().csrf().disable()
-					.authorizeHttpRequests().requestMatchers("/roadready/user/*").permitAll().and()
+					.authorizeHttpRequests().requestMatchers("/roadready/user/*" , "/roadready/password/update").permitAll().and()
     			.authorizeHttpRequests().requestMatchers("/roadready/admin/**","/roadready/customers/**","/roadready/agents/**", "/roadready/cars/**" ,"/roadready/payments/**","/roadready/reservations/**","roadready/feedbacks/**","/roadready/customerIdentity/**")
     			.authenticated().and() //.formLogin().and().build();
     	        .sessionManagement()

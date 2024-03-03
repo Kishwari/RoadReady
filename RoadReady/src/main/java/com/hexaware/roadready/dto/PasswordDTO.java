@@ -2,7 +2,7 @@ package com.hexaware.roadready.dto;
 
 public class PasswordDTO {
 
-	private int id;
+	
 	private String username;
 	private String newPassword;
 	
@@ -11,22 +11,15 @@ public class PasswordDTO {
 	}
 
 
-	public PasswordDTO(int id, String username,String newPassword) {
+	public PasswordDTO( String username,String newPassword) {
 		super();
-		this.id = id;
+		
 		this.username = username;
 		this.newPassword= newPassword;
 	}
 
 
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 
 
 	public String getUsername() {
