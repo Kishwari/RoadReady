@@ -26,4 +26,6 @@ public interface ICustomerService {
 	public Long countCustomers();
  
     
+	boolean checkIfCustomerExists(String username);
+    String updateCustomerPassword(String username, String newPassword);
 }

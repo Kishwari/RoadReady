@@ -44,4 +44,6 @@ public interface IAgentService {
      public String carMaintenanceReport();
      
      
+     boolean checkIfAgentExists(String username);
+     String updateAgentPassword(String username, String newPassword);
 }
