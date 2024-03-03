@@ -63,7 +63,7 @@ public class CustomerIdentityRestController {
     
     
     @GetMapping(value = "/getCustomerIdentity/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
-    @PreAuthorize("hasAuthority('ROLE_ADMIN','ROLE_AGENT')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_AGENT')")
     public ResponseEntity<byte[]> getPdf(@PathVariable Long id) {
         Optional<CustomerIdentity> optionalPdf = customerIdentityRepo.findById(id);
         if (optionalPdf.isPresent()) {

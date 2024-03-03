@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.entities.Agent;
-import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.exceptions.AgentNotFoundException;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
 import com.hexaware.roadready.exceptions.CustomerIdentityNotFoundException;
@@ -56,7 +56,7 @@ public class AgentRestController {
 	 }
 	
 	 @PutMapping("/updateCarAvailability/{carStatus}/{carId}")
-	 //@PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
+	 @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
     public CarDTO updateCarAvailability(@PathVariable String carStatus , @PathVariable int carId) {
 		 CarDTO car=new CarDTO();
 		try {
