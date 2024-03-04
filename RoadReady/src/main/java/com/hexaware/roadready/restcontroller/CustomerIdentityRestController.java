@@ -62,10 +62,10 @@ public class CustomerIdentityRestController {
     
     
     
-    @GetMapping(value = "/getCustomerIdentity/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+  @GetMapping(value = "/getCustomerIdentity/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_AGENT')")
     public ResponseEntity<byte[]> getPdf(@PathVariable Long id) {
-        Optional<CustomerIdentity> optionalPdf = customerIdentityRepo.findById(id);
+        Optional<CustomerIdentity> optionalPdf = customerIdentityRepo.findByCustomerId(id);
         if (optionalPdf.isPresent()) {
         	CustomerIdentity pdf = optionalPdf.get();
             byte[] content = pdf.getContent();         //  'getContent' returns the raw PDF data
@@ -76,6 +76,26 @@ public class CustomerIdentityRestController {
             return ResponseEntity.notFound().build();
         }
     }
+    
+    
+   /* @GetMapping("/getCustomerIdentity/{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_AGENT')")
+    public String getPdf(@PathVariable Long id) {
+    	 Optional<CustomerIdentity> optionalPdf = customerIdentityRepo.findByCustomerId(id);
+    	 String response=null;
+    	 if (optionalPdf.isPresent()) {
+    		 response="Customer Identity Verified";
+    	 }
+    	 else {
+    		 response="Customer Identitiy Not verified";
+    	 }
+    	 return response;
+    }*/
+    
+    
+    
+    
+    
     
     @Transactional
     @DeleteMapping("/deleteCustomerIdentity/{customerId}")

@@ -177,7 +177,7 @@ public class PaymentServiceImpl implements IPaymentService {
 		long totalDays = ChronoUnit.DAYS.between(paymentAndReservationDTO.getDateOfPickup(), paymentAndReservationDTO.getDateOfDropOff());
 		double amountToBePaid = dailyRate * totalDays;
 		
-		boolean isValid=verifyCustomer(paymentAndReservationDTO.getCustomerId());
+		boolean isValid=verifyCustomer((long) paymentAndReservationDTO.getCustomerId());
 		
 		if(paymentAndReservationDTO.getAmountPaid() ==  amountToBePaid && isValid ) {
                validPayment = paymentRepo.save(payment);
@@ -210,7 +210,7 @@ public class PaymentServiceImpl implements IPaymentService {
 		
 	}
 
-	public boolean verifyCustomer(int customerId) {
+	public boolean verifyCustomer(Long customerId) {
 		Optional<CustomerIdentity> customerIdentity =customerIdentityRepo.findByCustomerId(customerId);
 		if(customerIdentity!=null) {
 			return true;

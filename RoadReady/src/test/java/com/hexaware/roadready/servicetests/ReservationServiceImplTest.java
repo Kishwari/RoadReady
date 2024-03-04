@@ -37,18 +37,18 @@ class ReservationServiceImplTest {
 
 	@Test
 	void testCancelReservation() {
-		int reservationId=3003;
+		int reservationId=3502;
 		String result = service.cancelReservation(reservationId);
         assertEquals("your reservation " + reservationId +" cancelled successfully", result);
 	}
 
 	@Test
 	void testModifyReservation() throws ReservationNotFoundException {
-		int reservationId = 3000;
+		int reservationId = 3152;
 	        LocalDate dateOfPickup = LocalDate.of(2024, 2, 12);
 	       LocalDate dateOfDropoff = LocalDate.of(2024, 3, 12);
-		   ReservationDTO originalData = new ReservationDTO(3000,"reserved",LocalDate.of(2024,2,12),LocalDate.of(2024, 3, 3),LocalDate.of(2024, 4, 4));
-		   ReservationDTO expectedData = new ReservationDTO(3000,"reserved",LocalDate.of(2024, 2, 12),dateOfPickup,dateOfDropoff);
+		   ReservationDTO originalData = new ReservationDTO(3152,"reserved",LocalDate.of(2024,2,12),LocalDate.of(2024, 3, 3),LocalDate.of(2024, 4, 4));
+		   ReservationDTO expectedData = new ReservationDTO(3152,"reserved",LocalDate.of(2024, 2, 12),dateOfPickup,dateOfDropoff);
 		   ReservationDTO result = service.modifyReservation(reservationId, dateOfPickup, dateOfDropoff);
 	        assertEquals(expectedData.getDateOfPickup(), result.getDateOfPickup());
 	        assertEquals(expectedData.getDateOfDropoff(),result.getDateOfDropoff());
@@ -60,14 +60,14 @@ class ReservationServiceImplTest {
 
 	@Test
 	void testViewReservations() {
-		List list=service.viewReservations(2);
+		List list=service.viewReservations(455);
 		boolean flag=list.isEmpty();
 		assertFalse(flag);
 	}
 
 	@Test
 	void testGetReservationDetailsForCustomer() {
-		List list=service.getReservationDetailsForCustomer(2);
+		List list=service.getReservationDetailsForCustomer(455);
 		boolean flag=list.isEmpty();
 		assertFalse(flag);
 	}

@@ -14,14 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hexaware.roadready.dto.AgentDTO;
-import com.hexaware.roadready.dto.CustomerDTO;
+import com.hexaware.roadready.dto.CarDTO;
 import com.hexaware.roadready.entities.Agent;
-import com.hexaware.roadready.entities.Cars;
-import com.hexaware.roadready.entities.Customers;
-import com.hexaware.roadready.entities.Reservations;
 import com.hexaware.roadready.exceptions.AgentNotFoundException;
 import com.hexaware.roadready.exceptions.CarNotFoundException;
-import com.hexaware.roadready.exceptions.CustomerNotFoundException;
 import com.hexaware.roadready.service.IAgentService;
 
 @SpringBootTest
@@ -52,21 +48,12 @@ class AgentServiceImplTest {
 
 	@Test
 	void testUpdateCarAvailability() throws CarNotFoundException {
-		int carId=1000;
+		int carId=1164;
 		String carStatus="available";
 		
-        Cars updatedCar = service.updateCarAvailability(carStatus,carId);
+        CarDTO updatedCar = service.updateCarAvailability(carStatus,carId);
         assertEquals(carStatus,updatedCar.getCarStatus());
 	}
-
-	@Test
-	void testVerifyIdentity() {
-		
-			CustomerDTO customerdto=service.verifyIdentity(1);
-			assertEquals("johndoe",customerdto.getUsername());
-			assertNotEquals("johnDoe",customerdto.getUsername());
-		}
-
 
 	
 
@@ -113,7 +100,7 @@ class AgentServiceImplTest {
 		AgentDTO originalData = new AgentDTO(203,"agent203" ,"agent203password");
 		AgentDTO updatedData = new AgentDTO(203, "agent_203","agent203password");
 		
-        Agent result = service.updateAgent(agentId,updatedData);
+        Agent result = service.updateAgent(updatedData);
         assertEquals(updatedData.getUsername(), result.getUsername());
         assertNotEquals(originalData.getUsername(),result.getUsername());
 	}

@@ -10,5 +10,5 @@ public interface CustomerIdentityRepository extends JpaRepository<CustomerIdenti
   
 	 void deleteByCustomerId(int customerId);
 	 
-	  Optional<CustomerIdentity> findByCustomerId(int customerId);
+	  Optional<CustomerIdentity> findByCustomerId(Long customerId);
 }

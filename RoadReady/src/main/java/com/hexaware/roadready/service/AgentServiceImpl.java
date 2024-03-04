@@ -129,7 +129,7 @@ public class AgentServiceImpl implements IAgentService{
 	}
 
 	@Override
-	public ResponseEntity<byte[]> verifyIdentity(int customerId) throws CustomerIdentityNotFoundException {
+	public ResponseEntity<byte[]> verifyIdentity(Long customerId) throws CustomerIdentityNotFoundException {
 		
 		 Optional<CustomerIdentity> optionalPdf = customerIdentityRepo.findByCustomerId(customerId);
          if (optionalPdf.isPresent()) {

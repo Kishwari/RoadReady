@@ -67,6 +67,7 @@ public class AgentRestController {
 		}
 		 return car;
 	 }
+	 
 	
 	
 	 
@@ -118,7 +119,7 @@ public class AgentRestController {
 	    @GetMapping(value = "/verifyCustomerIdentity/{customerId}", produces = MediaType.APPLICATION_PDF_VALUE)
 	    @PreAuthorize("hasAnyAuthority('ROLE_AGENT','ROLE_ADMIN')")
 	    public ResponseEntity<byte[]> getIdentity(@PathVariable int customerId)  throws CustomerIdentityNotFoundException {
-		    return agentService.verifyIdentity(customerId);
+		    return agentService.verifyIdentity((long) customerId);
 		   
 		        
 		     }

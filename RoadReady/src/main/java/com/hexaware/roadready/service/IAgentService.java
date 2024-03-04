@@ -39,7 +39,7 @@ public interface IAgentService {
 	        
      public CarDTO updateCarAvailability(String carStatus ,int carId) throws CarNotFoundException;
 	 
-     public ResponseEntity<byte[]> verifyIdentity(int customerId) throws CustomerIdentityNotFoundException;
+     public ResponseEntity<byte[]> verifyIdentity(Long customerId) throws CustomerIdentityNotFoundException;
      
      public String carMaintenanceReport();
      
