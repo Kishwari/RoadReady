@@ -58,17 +58,6 @@ public class AdminServiceImpl implements IAdminService {
 	}
 
 	@Override
-	public Admin addAdmin(AdminDTO admindto) {
-		Admin admin = new Admin();
-		admin.setAdminId(admindto.getAdminId());
-		admin.setUsername(admindto.getUsername());
-		 admin.setPassword(passwordEncoder.encode(admindto.getPassword()));
-		 admin.setRole("ROLE_ADMIN");
-		return adminRepo.save(admin);
-		
-	}
-
-	@Override
 	public double totalRevenue() {
 		return paymentRepo.findTotalRevenue();
 	}

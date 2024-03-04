@@ -58,14 +58,6 @@ public class AdminRestController {
     	return adminService.totalRevenue();
     }
     
-    
-    @PostMapping("/registerAdmin")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public Admin addAdmin(@Valid @RequestBody AdminDTO admindto) {
-    	logger.info("Now Registering");
-		return adminService.addAdmin(admindto);
-		
-	}
-    
+  
     
 }

@@ -10,10 +10,6 @@ import com.hexaware.roadready.entities.Admin;
 
 public interface IAdminService {
 	
-	
-	
-	public Admin addAdmin(AdminDTO admindto);
-	
   
     
     public String revenueReportBetweenDates(LocalDate startDate, LocalDate endDate);
