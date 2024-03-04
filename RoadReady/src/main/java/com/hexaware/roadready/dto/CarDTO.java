@@ -10,7 +10,7 @@ public class CarDTO {
 	private double dailyRate;
 	private String specifications;
 	private int passengerCapacity;
-	//private String maintenance;
+	
 	
 	
 	public CarDTO() {

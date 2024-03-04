@@ -14,11 +14,9 @@ public interface IPaymentService {
 	
 	public List<PaymentDTO> getPaymentDetailsForCustomer(int customerId)throws PaymentNotFoundException;
 	
-	//public List<PaymentDTO> viewAllPayments() ;
 	
 	public List<PaymentListDTO> viewAllPayments() ;
 	
-	//public PaymentDTO makePayment(int customerId , int carId , int reservationId ,PaymentDTO paymentdto ,LocalDate dateOfPickup , LocalDate dateOfdropoff ) throws InvalidPaymentException, CarNotFoundException;
     
 	public PaymentAndReservationDTO makePaymentAndReservation(PaymentAndReservationDTO paymentAndReservationDTO) throws InvalidPaymentException;
 }

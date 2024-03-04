@@ -12,7 +12,7 @@ public class CustomerIdentityDTO {
 
 	public CustomerIdentityDTO() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public CustomerIdentityDTO(Long id, int customerId, byte[] content) {

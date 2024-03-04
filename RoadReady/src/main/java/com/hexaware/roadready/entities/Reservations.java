@@ -52,8 +52,6 @@ public class Reservations {
 			LocalDate dateOfPickup, LocalDate dateOfDropoff) {
 		super();
 		this.resevationId = resevationId;
-		//this.carId = carId;
-		//this.customerId = customerId;
 		this.reservationStatus = reservationStatus;
 		this.dateOfReservation = dateOfReservation;
 		this.dateOfPickup = dateOfPickup;

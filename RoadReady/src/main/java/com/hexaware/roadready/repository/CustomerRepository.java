@@ -12,7 +12,7 @@ import com.hexaware.roadready.entities.Customers;
 public interface CustomerRepository extends JpaRepository<Customers,Integer>{
 	
 	Optional<Customers> findByUsername(String username);
-//Customers findByUsername(String username);
+
 
 boolean existsByUsername(String username);
 }

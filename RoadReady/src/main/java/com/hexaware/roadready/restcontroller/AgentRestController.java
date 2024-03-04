@@ -5,7 +5,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -102,12 +101,7 @@ public class AgentRestController {
 	    	return agentService.deleteAgent(agentId);
 	    }
 	    
-	   /* @PutMapping("/updateAgentById/{agentId}")
-	    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	    public Agent updateAgent(@PathVariable int agentId ,@Valid @RequestBody AgentDTO agent) {
-	    	return agentService.updateAgent(agentId, agent);
-	    }*/
-	    
+	
 	    @PutMapping("/updateAgentById")
 	    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	    public Agent updateAgent(@Valid @RequestBody AgentDTO agent) {
@@ -134,10 +128,3 @@ public class AgentRestController {
      
 }
 
-
-/* @PostMapping("/addAgent")
-@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-   public Agent addAgent(@Valid @RequestBody AgentDTO agentdto) {
-   	logger.info("Now adding agent using addAgent method");
-   	return agentService.addAgent(agentdto);
-   }*/

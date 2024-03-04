@@ -108,52 +108,7 @@ public class PaymentServiceImpl implements IPaymentService {
 		
 	}
 
-	/*@Override
-	public PaymentDTO makePayment(int customerId ,int carId , int reservationId ,PaymentDTO paymentdto ,LocalDate dateOfPickup , LocalDate dateOfdropoff) throws InvalidPaymentException {
-		
-	
-		Payments payment = new Payments();
-		Payments validPayment = new Payments();
-		PaymentDTO validPaymentdto = new PaymentDTO();
-		Cars car = carRepo.findById(carId).orElse(null);
-		 Customers customer = customerRepo.findById(customerId).orElse(null);
-		 
-		double dailyRate = car.getDailyRate();
-		
-		payment.setPaymentId(paymentdto.getPaymentId());
-		payment.setModeOfPayment(paymentdto.getModeOfPayment());
-		payment.setDateOfPayment(paymentdto.getDateOfPayment());
-		payment.setAmountPaid(paymentdto.getAmountPaid());
-		payment.setCustomer(customer);
-		
-		long totalDays = ChronoUnit.DAYS.between(dateOfPickup, dateOfdropoff);
-		double amountToBePaid = dailyRate * totalDays;
-		
-		if(paymentdto.getAmountPaid() ==  amountToBePaid ) {
-               validPayment = paymentRepo.save(payment);
-               Reservations reservation = new Reservations();
-               reservation.setResevationId(reservationId);
-               reservation.setReservationStatus("reserved");
-               reservation.setDateOfPickup(dateOfPickup);
-               reservation.setDateOfDropoff(dateOfdropoff);
-               reservation.setDateOfReservation(LocalDate.now());
-               reservation.setPayment(validPayment);
-               reservation.setCustomer(customer);
-               reservation.setCar(car);
-               reservationRepo.save(reservation);
-               carRepo.updateCarAvailability("unavailable", carId);
-               carRepo.save(car);
-		}
-		else {
-			throw new InvalidPaymentException("Please enter " + amountToBePaid + " rupees");
-		}
-		validPaymentdto.setPaymentId(validPayment.getPaymentId());
-		validPaymentdto.setAmountPaid(validPayment.getAmountPaid());
-		validPaymentdto.setModeOfPayment(validPayment.getModeOfPayment());
-		validPaymentdto.setDateOfPayment(validPayment.getDateOfPayment());
-		return validPaymentdto;
-		
-	}*/
+
 	
 	public PaymentAndReservationDTO makePaymentAndReservation(PaymentAndReservationDTO paymentAndReservationDTO) throws InvalidPaymentException {
 		
@@ -168,7 +123,6 @@ public class PaymentServiceImpl implements IPaymentService {
 		 
 		double dailyRate = car.getDailyRate();
 		
-		//payment.setPaymentId(paymentAndReservationDTO.getPaymentId());
 		payment.setModeOfPayment(paymentAndReservationDTO.getModeOfPayment());
 		payment.setDateOfPayment(LocalDate.now());
 		payment.setAmountPaid(paymentAndReservationDTO.getAmountPaid());
@@ -182,7 +136,7 @@ public class PaymentServiceImpl implements IPaymentService {
 		if(paymentAndReservationDTO.getAmountPaid() ==  amountToBePaid && isValid ) {
                validPayment = paymentRepo.save(payment);
                Reservations reservation = new Reservations();
-              // reservation.setResevationId(paymentAndReservationDTO.getResevationId());
+
                reservation.setReservationStatus("reserved");
                reservation.setDateOfPickup(paymentAndReservationDTO.getDateOfPickup());
                reservation.setDateOfDropoff(paymentAndReservationDTO.getDateOfDropOff());
@@ -197,10 +151,9 @@ public class PaymentServiceImpl implements IPaymentService {
 		else{
 			throw new InvalidPaymentException("Please enter " + amountToBePaid + " rupees");
 		}
-		//validPaymentdto.setPaymentId(validPayment.getPaymentId());
 		validPaymentdto.setAmountPaid(validPayment.getAmountPaid());
 		validPaymentdto.setModeOfPayment(validPayment.getModeOfPayment());
-		//validPaymentdto.setResevationId(validReservation.getResevationId());
+		
 		validPaymentdto.setDateOfPickup(validReservation.getDateOfPickup());
 		validPaymentdto.setDateOfDropOff(validReservation.getDateOfDropoff());
 		validPaymentdto.setCustomerId(paymentAndReservationDTO.getCustomerId());
@@ -215,9 +168,9 @@ public class PaymentServiceImpl implements IPaymentService {
 		if(customerIdentity!=null) {
 			return true;
 		}
-		else {
-			return false;
-		}
+		
+		return false;
+		
 	}
 		
 	

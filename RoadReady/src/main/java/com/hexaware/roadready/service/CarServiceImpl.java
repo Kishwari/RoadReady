@@ -62,7 +62,7 @@ public class CarServiceImpl implements ICarService {
 	public Cars addCar(CarDTO cardto) {
 
 		Cars car = new Cars();
-		//car.setCarId(cardto.getCarId());
+		
 		car.setMake(cardto.getMake());
 		car.setModel(cardto.getModel());
 		car.setLocation(cardto.getLocation());

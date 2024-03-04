@@ -1,7 +1,6 @@
 package com.hexaware.roadready.service;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.AdminDTO;
-import com.hexaware.roadready.dto.PasswordDTO;
 import com.hexaware.roadready.entities.Admin;
-import com.hexaware.roadready.entities.Agent;
-import com.hexaware.roadready.entities.Customers;
 import com.hexaware.roadready.repository.AdminRepository;
 import com.hexaware.roadready.repository.AgentRepository;
 import com.hexaware.roadready.repository.CustomerRepository;

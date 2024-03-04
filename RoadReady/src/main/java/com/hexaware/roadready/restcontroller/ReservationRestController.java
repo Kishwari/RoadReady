@@ -35,8 +35,8 @@ public class ReservationRestController {
 	 @PutMapping("/modifyReservation/{reservationId}/{dateOfPickup}/{dateOfDropoff}")
 	 @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
 	   ReservationDTO modifyReservation(@PathVariable int reservationId ,@PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff) throws ReservationNotFoundException {
-		   ReservationDTO reservation = reservationService.modifyReservation(reservationId , dateOfPickup , dateOfDropoff);
-		   return reservation;
+		   return reservationService.modifyReservation(reservationId , dateOfPickup , dateOfDropoff);
+		   
 	   }
 	 
 	 @DeleteMapping("/cancelReservation/{reservationId}")

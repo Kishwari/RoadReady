@@ -3,8 +3,7 @@ package com.hexaware.roadready.service;
 import java.time.LocalDate;
 
 import com.hexaware.roadready.dto.AdminDTO;
-import com.hexaware.roadready.dto.CustomerDTO;
-import com.hexaware.roadready.dto.PasswordDTO;
+
 import com.hexaware.roadready.entities.Admin;
 
 

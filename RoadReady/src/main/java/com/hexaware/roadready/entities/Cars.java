@@ -55,7 +55,7 @@ public class Cars {
 		this.carId = carId;
 		this.make = make;
 		this.model = model;
-		//this.numberOfCarsAvailable = numberOfCarsAvailable;
+		
 		this.location = location;
 		this.dailyRate = dailyRate;
 		this.carStatus = carStatus;

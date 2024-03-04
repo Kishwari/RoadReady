@@ -14,7 +14,7 @@ public class ReservationListDTO {
 	private int paymentId;
 	public ReservationListDTO() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 	public ReservationListDTO(int reservationId, String reservationStatus, LocalDate dateOfReservation,
 			LocalDate dateOfPickup, LocalDate dateOfDropoff, int customerId, int carId, int paymentId) {

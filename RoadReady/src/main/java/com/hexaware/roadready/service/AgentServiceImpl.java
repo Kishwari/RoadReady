@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.roadready.dto.AgentDTO;
 import com.hexaware.roadready.dto.CarDTO;
-import com.hexaware.roadready.entities.Admin;
 import com.hexaware.roadready.entities.Agent;
 import com.hexaware.roadready.entities.Cars;
 import com.hexaware.roadready.entities.CustomerIdentity;
@@ -143,29 +142,6 @@ public class AgentServiceImpl implements IAgentService{
          }
 	}
 		
-		/*CustomerIdentity customerIdentity= new CustomerIdentity();
-		customerIdentity=customerIdentityRepo.findByCustomerId(customerId);
-		if(customerIdentity.getContent()==null) {
-			throw new CustomerIdentityNotFoundException("customer identity for customer"+customerId+"doesnt exist");
-		}
-		else {
-			return "customer identity verified";
-		}
-		}*/
-		
-		/*CustomerDTO customerdto=new CustomerDTO();
-		customerdto.setCustomerId(customer.getCustomerId());
-		customerdto.setFirstName(customer.getFirstName());
-		customerdto.setLastName(customer.getLastName());
-		customerdto.setEmailAddress(customer.getEmailAddress());
-		customerdto.setUsername(customer.getUsername());
-		customerdto.setPassword(customer.getPassword());
-		customerdto.setPhoneNumber(customer.getPhoneNumber());*/
-		
-		
-		
-	
-     
 	
 
 	@Override
@@ -235,7 +211,7 @@ public class AgentServiceImpl implements IAgentService{
 		int agentId=agentdto.getAgentId();
 		Agent agent = agentRepo.findById(agentId).orElse(null);
 		if(agent!=null) {
-		//agent.setAgentId(agentdto.getAgentId());
+		
 		agent.setUsername(agentdto.getUsername());
 		agent.setPassword(passwordEncoder.encode(agentdto.getPassword()));
 		agent.setRole("ROLE_AGENT");
@@ -243,9 +219,7 @@ public class AgentServiceImpl implements IAgentService{
 		}
 		return agent;
 	}
-	
-	
-	
+
 	
 	
 	@Override

@@ -77,23 +77,7 @@ public class CustomerIdentityRestController {
         }
     }
     
-    
-   /* @GetMapping("/getCustomerIdentity/{id}")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_AGENT')")
-    public String getPdf(@PathVariable Long id) {
-    	 Optional<CustomerIdentity> optionalPdf = customerIdentityRepo.findByCustomerId(id);
-    	 String response=null;
-    	 if (optionalPdf.isPresent()) {
-    		 response="Customer Identity Verified";
-    	 }
-    	 else {
-    		 response="Customer Identitiy Not verified";
-    	 }
-    	 return response;
-    }*/
-    
-    
-    
+
     
     
     

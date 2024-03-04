@@ -69,24 +69,6 @@ public class PaymentRestController {
 	}
 	 
 
-	 /*@PostMapping("/makePaymentAndReservation/{customerId}/{carId}/{reservationId}/{dateOfPickup}/{dateOfDropoff}")
-	 @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
-	   public PaymentDTO makePayment(@PathVariable int customerId , @PathVariable int carId ,@PathVariable int reservationId ,  @PathVariable LocalDate dateOfPickup , @PathVariable LocalDate dateOfDropoff ,@Valid @RequestBody PaymentDTO paymentdto  ) {
-
-		   PaymentDTO payment = new PaymentDTO();
-		try {
-			payment = paymentService.makePayment(customerId , carId , reservationId ,paymentdto, dateOfPickup , dateOfDropoff);
-		} catch (InvalidPaymentException e) {
-			
-			e.printStackTrace();
-		} catch (CarNotFoundException e) {
-			
-			e.printStackTrace();
-		}
-		   
-		   return payment;
-	   }*/
-	 
 	 @PostMapping("/makePaymentAndReservation")
 	 @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
 	 public PaymentAndReservationDTO makePaymentAndReservation(@RequestBody PaymentAndReservationDTO paymentAndReservationDTO) {

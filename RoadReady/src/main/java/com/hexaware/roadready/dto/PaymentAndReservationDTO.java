@@ -15,7 +15,7 @@ public class PaymentAndReservationDTO {
 	public PaymentAndReservationDTO() {
 		
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 	public PaymentAndReservationDTO(double amountPaid, String modeOfPayment,
 			int customerId, int carId,  LocalDate dateOfPickup, LocalDate dateOfDropOff) {

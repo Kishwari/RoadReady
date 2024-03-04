@@ -9,7 +9,7 @@ import com.hexaware.roadready.exceptions.ReservationNotFoundException;
 
 public interface IReservationService {
     
-  //  Reservations makeReservation(ReservationDTO reservationdto);
+  
     
     String cancelReservation(int reservationId);
     

@@ -45,7 +45,7 @@ public class SecurityConfig {
 			return http.cors().and().csrf().disable()
 					.authorizeHttpRequests().requestMatchers("/roadready/user/*" , "/roadready/password/update").permitAll().and()
     			.authorizeHttpRequests().requestMatchers("/roadready/admin/**","/roadready/customers/**","/roadready/agents/**", "/roadready/cars/**" ,"/roadready/payments/**","/roadready/reservations/**","roadready/feedbacks/**","/roadready/customerIdentity/**")
-    			.authenticated().and() //.formLogin().and().build();
+    			.authenticated().and() 
     	        .sessionManagement()
     	        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     	        .and()
@@ -55,23 +55,6 @@ public class SecurityConfig {
 	
     }
     
-    
-    /*@Bean
-    public  SecurityFilterChain   getSecurityFilterChain(HttpSecurity http) throws Exception {
-    	
-    		
-			return http.cors().and().csrf().disable()
-					.authorizeHttpRequests().requestMatchers("/roadready/user/*").permitAll().and()
-    			.authorizeHttpRequests().requestMatchers("/roadready/admin/**","/roadready/customers/**","/roadready/agents/**", "/roadready/cars/**" ,"/roadready/payments/**","/roadready/reservations/**","roadready/feedbacks/**","/roadready/customerIdentity/**")
-    			.authenticated().and() //.formLogin().and().build();
-    	        .sessionManagement()
-    	        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-    	        .and()
-    	        .authenticationProvider(authenticationProvider())
-    	        .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
-    	        .build();
-	
-    }*/
     
     @Bean
 	 public CorsFilter corsFilter() {

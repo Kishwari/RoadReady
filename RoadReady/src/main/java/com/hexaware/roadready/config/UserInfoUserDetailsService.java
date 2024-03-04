@@ -31,12 +31,7 @@ public class UserInfoUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
        
-    	
-    	/*Optional<Customers> customer = customerRepository.findByUsername(username);
-    	if (customer.isPresent()) {
-        return customer.map(UserInfoUserDetails::new).orElse(null);
-            
-    	}*/
+   
     	
     	  Optional<Customers> customer = customerRepository.findByUsername(username);
           if (customer.isPresent()) {
@@ -45,13 +40,6 @@ public class UserInfoUserDetailsService implements UserDetailsService {
               return new UserInfoUserDetails(customer.get(), role , Id);
           }
 
-
-    	/*Optional<Admin> admin = adminRepository.findByUsername(username);
-    	if (admin.isPresent()) {
-        return admin.map(UserInfoUserDetails::new).orElse(null);
-               
-    	}*/
-    	
     	 Optional<Admin> admin = adminRepository.findByUsername(username);
          if (admin.isPresent()) {
          	 String role = admin.get().getRole();
@@ -59,11 +47,7 @@ public class UserInfoUserDetailsService implements UserDetailsService {
              return new UserInfoUserDetails(admin.get(), role , Id);
          }
          
-    	/*Optional<Agent> agent = agentRepository.findByUsername(username);
-    	if (agent.isPresent()) {
-        return agent.map(UserInfoUserDetails::new).orElse(null);
-               
-    	}*/
+    	
          
          Optional<Agent> agent = agentRepository.findByUsername(username);
          if (agent.isPresent()) {
@@ -80,21 +64,3 @@ public class UserInfoUserDetailsService implements UserDetailsService {
     	
     	
     	
-    	/* Optional<Customers> customer = customerRepository.findByUsername(username);
-        if (customer.isPresent()) {
-            return new UserInfoUserDetails(customer.get());
-        }
-        
-        Optional<Agent> agent = agentRepository.findByUsername(username);
-        if (agent.isPresent()) {
-            return new UserInfoUserDetails(agent.get());
-        }
-
-        Optional<Admin> admin = adminRepository.findByUsername(username);
-        if (admin.isPresent()) {
-            return new UserInfoUserDetails(admin.get());
-        }
-
-        throw new UsernameNotFoundException("User not found with username: " + username);
-    }*/
-

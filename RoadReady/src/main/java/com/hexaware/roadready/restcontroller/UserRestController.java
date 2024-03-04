@@ -1,6 +1,5 @@
 package com.hexaware.roadready.restcontroller;
 
-import java.security.Principal;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -28,7 +27,6 @@ import com.hexaware.roadready.repository.CustomerRepository;
 import com.hexaware.roadready.service.AgentServiceImpl;
 import com.hexaware.roadready.service.CustomerServiceImpl;
 import com.hexaware.roadready.service.JwtService;
-//import com.hexaware.roadready.service.UserService;
 
 import jakarta.validation.Valid;
 
@@ -80,9 +78,7 @@ public class UserRestController {
      String token = null;
   
      if(authentication.isAuthenticated()) {
-    	 /*Optional<Customers> customer = customerRepo.findByUsername(authRequest.getUsername());
-    	 Optional<Admin> admin = adminRepo.findByUsername(authRequest.getUsername());
-    	 Optional<Agent> agent = agentRepo.findByUsername(authRequest.getUsername());*/
+
     	 
     	 Optional<Customers> customer = customerRepo.findByUsername(authRequest.getUsername());
     	 Optional<Admin> admin = adminRepo.findByUsername(authRequest.getUsername());

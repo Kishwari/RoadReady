@@ -169,17 +169,3 @@ public class ReservationServiceImpl implements IReservationService{
 	
 }
 
-
-/*@Override
-public Reservations makeReservation(int reservationId,LocalDate dateOfPickup ,LocalDate dateOfDropoff) {
-	Reservations reservation = new Reservations();
-    reservation.setResevationId(reservationId);
-    reservation.setDateOfReservation(LocalDate.now());
-    reservation.setDateOfPickup(dateOfPickup);
-    reservation.setDateOfDropoff(dateOfDropoff);
-    if 
-    reservation.setReservationstatus(reservationdto.getReservationStatus());
-    
-	
-	return null;
-}*/
